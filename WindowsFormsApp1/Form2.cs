@@ -184,10 +184,12 @@ namespace WindowsFormsApp1
                         form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
                         //odswiezenie datagridview
                         form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
+                        form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;  
+                       
                         form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
                         form1.Sortowanie();
                         dodano = true;
-                        form1.Display_first_task_details(nowe_zadanie);
+                        form1.Display_first_task_details();
                     }
                     catch (MySqlException ee)
                     {

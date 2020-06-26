@@ -21,6 +21,7 @@ using System.Drawing.Configuration;
 using System.Deployment.Internal;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Bcpg.OpenPgp;
+using Renci.SshNet.Security;
 
 namespace WindowsFormsApp1
 {
@@ -47,16 +48,17 @@ namespace WindowsFormsApp1
                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
                     //wczytanie listy userów
                     ShowUsers();
-                    if(Wszystkie_Zadania_Z_Bazy.Count >= 1)
-                    {
-                        DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
-                        DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
-                    }
-                    else
-                    {
-                        DateTimeZakresDatOd.Text = "20-06-2020";   
-                        DateTimeZakresDatDo.Text = "30-12-2020";
-                    }
+                     if(Wszystkie_Zadania_Z_Bazy.Count >= 1)
+                     {
+                         DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
+                         DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
+                     }
+                     else
+                     {
+                         DateTimeZakresDatOd.Text = "20-06-2020";   
+                         DateTimeZakresDatDo.Text = "30-12-2020";
+                     }
+                    
                     
 
                     
@@ -81,12 +83,12 @@ namespace WindowsFormsApp1
                         Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                         MessageBox.Show("Nie jesteś zalogowany.");
                     }
-                    metroGrid1.ClearSelection();
-                    if(Zadania.Count != 0)
-                    {
-                        Display_first_task_details(Zadania[Zadania.Count - 1]);   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
+                   // metroGrid1.ClearSelection();
+                   // if(Zadania.Count != 0)
+                  //  {
+                       Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
 
-                    }
+                   // }
 
                 }
                 else 
@@ -251,12 +253,6 @@ namespace WindowsFormsApp1
             DataBase();
         }
 
-       
-             
-
-
-
-    
 
 
 
@@ -329,7 +325,8 @@ namespace WindowsFormsApp1
             Zadania[Znajdz_index_na_liscie_ograniczonej(TextBoxDetailsID.Text)].Priorytet = nowyPriorytet;
             //odswiezenie datagrid ShowRow()
             metroGrid1.Rows.Clear();
-            ShowRow(Zadania);
+            ShowRow(Zadania); //może zamienić n zmiana_zakresu_dat(Zadania)
+            
         }
 
 
@@ -397,33 +394,27 @@ namespace WindowsFormsApp1
         // ustawienia zaznaczania
         private void metroGrid1_SelectionChanged(object sender, EventArgs e)
         {
-            this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
+            this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.metroGrid1.MultiSelect = false;
+            metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
+            string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
+            Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
+
         }
+
+        
 
         //wyświetlanie szczegółów po kliknięciu na zadanie w tabeli
         private void metroGrid1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+           
             if (e.RowIndex != -1)
             {
-                metroTabTaskDetails.Show();
-                Load_Task_Details(Znajdz_index_na_liscie(metroGrid1.Rows[e.RowIndex].Cells[0].Value.ToString()));
-                ComboBoxDetailsWykonawcy.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1.Rows[e.RowIndex].Cells[0].Value.ToString())].Wykonawca;
-                ComboBoxDetailsZmienPriorytet.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1.Rows[e.RowIndex].Cells[0].Value.ToString())].Priorytet.ToString();
+                metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
+                metroGrid1.Rows[e.RowIndex].Selected = true; //zaznaczenie kliknietego wiersza
             }
-            zmiana_zakresu_dat(Zadania);  //uwzględnienie zakresu dat
-            
 
-            //ZAZNACZANIE
-            metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
-
-            if (kolor(Znajdz_index_na_liscie(metroGrid1.Rows[e.RowIndex].Cells[0].Value.ToString()))[0] == Color.Black)
-            {
-                metroGrid1.Rows[e.RowIndex].Cells[6].Style.SelectionForeColor = Color.White;
-            }
-            metroGrid1.Rows[e.RowIndex].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[e.RowIndex].Cells[0].Value.ToString()))[0];
-            metroGrid1.Rows[e.RowIndex].Selected = true; //zaznaczenie kliknietego wiersza
         }
 
 
@@ -434,11 +425,23 @@ namespace WindowsFormsApp1
         private void ComboBoxWykonawcy_SelectedIndexChanged(object sender, EventArgs e)
         {
             Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+            TextBoxSzukanaFraza.Text = "";
+            if (Zadania.Count != 0)
+            {
+                DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+            }
         }
         //zmiana filtru "status"
         private void ComboBoxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+            TextBoxSzukanaFraza.Text = "";
+            if (Zadania.Count != 0)
+            {
+                DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+            }
         }
 
         //zmiana zakresu dat "OD"
@@ -511,6 +514,7 @@ namespace WindowsFormsApp1
                         Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
                         metroGrid1.Rows.Clear();
                         ShowRow(Zadania);
+                        Display_first_task_details();
                     }
                     catch (MySqlException ee)
                     {
@@ -662,24 +666,21 @@ namespace WindowsFormsApp1
         /*---------------------------------------- PODSTAWOWE (m.in. przy uruchamianiu) ----------------------------------------*/
 
         //Po uruchomieniu wyświetlanie szczegółów pierwszego zadania z datagrid view
-        public void Display_first_task_details(Tasks firstTask)
-        {
-            if(Wszystkie_Zadania_Z_Bazy.Count >= 1 && Zadania.Count >= 1)
+        public void Display_first_task_details()
+        { 
+            //Zaznaczenie odpowiedniego wiersza (o ile jakis jest)
+            if (metroGrid1.Rows.Count != 0)
             {
-                Load_Task_Details(Znajdz_index_na_liscie(firstTask.Id_zadania.ToString()));
-                ComboBoxDetailsWykonawcy.Text = firstTask.Wykonawca;
-                ComboBoxDetailsZmienPriorytet.Text = firstTask.Priorytet.ToString();
-                zmiana_zakresu_dat(Zadania);  //uwzględnienie zakresu dat
-                metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
-                metroGrid1.Rows[0].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[0].Cells[0].Value.ToString()))[0];
+                this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                this.metroGrid1.MultiSelect = false;
+
+                metroGrid1.ClearSelection();
                 metroGrid1.Rows[0].Selected = true;
-                kolor_terminu_w_dataGrid();
+                string id = metroGrid1[0, 0].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
+                metroGrid1.Rows[0].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(id))[0];   //pozostawienie koloru terminu mimo zaznaczenia
+                Load_Task_Details(Znajdz_index_na_liscie(id));
             }
-            else
-            {
-                
-            }
-            
+
         }
 
 
@@ -745,9 +746,7 @@ namespace WindowsFormsApp1
         //wczytywanie zadań do sekcji szczegóły
         public void Load_Task_Details(int index)
         {
-            /*TextBoxIle_czasu_zostalo.ForeColor = Color.Red;
-            TextBoxIle_czasu_zostalo.BackColor = Color.Red; */  //nie działa
-
+            metroTabTaskDetails.Show();
             Wczytaj_wykonawcow(ComboBoxDetailsWykonawcy);
 
             TextBoxDetailsPriorytet.Text = Wszystkie_Zadania_Z_Bazy[index].Priorytet.ToString();
@@ -835,7 +834,7 @@ namespace WindowsFormsApp1
                     if (ilosc_dni != string.Empty)
                     {
                         dni = Convert.ToInt32(ilosc_dni);
-                        if (dni < 0) { kolor[0] = Color.Black; kolor[1] = Color.White; }
+                        if (dni < 0) { kolor[0] = Color.DarkRed; kolor[1] = Color.White; }
 
                         else if (dni == 0) { kolor[0] = Color.Red; kolor[1] = Color.White; }
                         else if (dni > 0 && dni <= 4) { kolor[0] = Color.Orange; kolor[1] = Color.White; }
@@ -871,6 +870,11 @@ namespace WindowsFormsApp1
                     if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Termin != null)  //znaleznienie odpowiedniej komorki datagrid
                     {
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
+                        metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
+                    }
+                    if(metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == true)
+                    {
+                        metroGrid1.Rows[j].DefaultCellStyle.ForeColor = Color.Gray;
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
                     }
                  }
@@ -1009,14 +1013,16 @@ namespace WindowsFormsApp1
                 metroGrid1.Rows.Clear();
 
                 // ? zmiana zakresu dat wywołuje funkcję  zmiana_zakresu_dat(), która zasępuje ShowRow ale z uwzględnieniem dat
-                if(Zadania.Count != 0)
-                {
-                    DateTimeZakresDatDo.Value = Zadania[0].Data_dodania;
-                    DateTimeZakresDatOd.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                }
-                                   
-                
+                 if(Zadania.Count != 0)
+                  {
+                      DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                      DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                  } //
+                zmiana_zakresu_dat(Zadania);  //  
+ 
                 kolor_terminu_w_dataGrid();
+                Display_first_task_details();   //zmiana zaznaczenia na pierwszy wiersz datagrid
+
             }
             catch (MySqlException e)
             {
@@ -1236,7 +1242,23 @@ namespace WindowsFormsApp1
             else return false;
         }
 
+
+        //funkcja wyszukująca numer wiersza, jeśli zawiera on dane ID
+        private int NumerWiersza(int id)
+        {
+            int numer_wiersza = 0;
+            for(int i=0; i<metroGrid1.RowCount; i++)
+            {
+                if (Convert.ToInt32(metroGrid1[0, i].Value) == id)
+                {
+                    numer_wiersza += i;
+                }
+            }
+            return numer_wiersza;
+        }
+
         
+
 
 
 
