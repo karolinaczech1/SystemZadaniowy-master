@@ -59,36 +59,31 @@ namespace WindowsFormsApp1
                          DateTimeZakresDatDo.Text = "30-12-2020";
                      }
                     
-                    
-
-                    
                     if (File.Exists("logowanie.txt"))   //jeśli plik istnieje
                     {
                         Logowanie();  //proba automatycznego zalogowania
                         if(zalogowany == true)
                         {
                             ComboBoxWykonawcy.SelectedItem = zalogowany_user;  //domyślny filtr na wyświetlanie zadań dla zalogowanego usera
-                            Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                           // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                         }
                         else
                         {
                             ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                            Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                           // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                             MessageBox.Show("Nie jesteś zalogowany.");
                         }
                     }
                     else 
                     {
                         ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                        Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                        //Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                         MessageBox.Show("Nie jesteś zalogowany.");
                     }
-                   // metroGrid1.ClearSelection();
-                   // if(Zadania.Count != 0)
-                  //  {
-                       Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
 
-                   // }
+                    Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                    Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
+                    Odczyt_Ustawien_Kolumn();
 
                 }
                 else 
@@ -253,6 +248,117 @@ namespace WindowsFormsApp1
             DataBase();
         }
 
+        //przycisk do zapisania ustawień widoczności kolumn
+        private void ButtonZapiszWidokkolumn_Click(object sender, EventArgs e)
+        {
+            string[] Zaznaczenia = new string[10];
+            string file_name = "ustawieniaKolumn.txt";
+            FileStream dane;
+            if (File.Exists(file_name))
+            {
+                File.WriteAllText(file_name, String.Empty);
+                dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
+                
+            }
+            else
+            {
+                dane = new FileStream(file_name, FileMode.CreateNew);
+            }
+            StreamWriter writer = new StreamWriter(dane);
+            if(metroCheckBox1.Checked == true ) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox2.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox3.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox4.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox5.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox6.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox7.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox8.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox9.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+            if (metroCheckBox10.Checked == true) writer.WriteLine(1);
+            else writer.WriteLine(0);
+
+            writer.Close();
+            dane.Close();
+
+           //Widocznosc_kolumn_ustawiona();
+            Odczyt_Ustawien_Kolumn();
+        }
+
+
+
+        //ustawienia zaznaczeń checkboxów do widoczności kolumn
+        private void metroCheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox1.Checked == true) metroCheckBox1.Text = "widoczne";
+            else metroCheckBox1.Text = "niewidoczne";
+
+        }
+
+        private void metroCheckBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox2.Checked == true) metroCheckBox2.Text = "widoczne";
+            else metroCheckBox2.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox3.Checked == true) metroCheckBox3.Text = "widoczne";
+            else metroCheckBox3.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox4.Checked == true) metroCheckBox4.Text = "widoczne";
+            else metroCheckBox4.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox5.Checked == true) metroCheckBox5.Text = "widoczne";
+            else metroCheckBox5.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox6.Checked == true) metroCheckBox6.Text = "widoczne";
+            else metroCheckBox6.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox7.Checked == true) metroCheckBox7.Text = "widoczne";
+            else metroCheckBox7.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox8.Checked == true) metroCheckBox8.Text = "widoczne";
+            else metroCheckBox8.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox9.Checked == true) metroCheckBox9.Text = "widoczne";
+            else metroCheckBox9.Text = "niewidoczne";
+        }
+
+        private void metroCheckBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBox10.Checked == true) metroCheckBox10.Text = "widoczne";
+            else metroCheckBox10.Text = "niewidoczne";
+        }
+
+
+
 
 
 
@@ -375,10 +481,9 @@ namespace WindowsFormsApp1
                     r.Close();
                     con.Close();
 
-                    Load_Task_Details(numerindexu);
-
                     metroGrid1.Rows.Clear();
-                    ShowRow(Zadania);
+                    zmiana_zakresu_dat(Zadania);
+                    Display_specific_task_details(id);   
 
                 }
                 catch (MySqlException ee)
@@ -514,6 +619,8 @@ namespace WindowsFormsApp1
                         Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
                         metroGrid1.Rows.Clear();
                         ShowRow(Zadania);
+                        DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                        DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
                         Display_first_task_details();
                     }
                     catch (MySqlException ee)
@@ -655,9 +762,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        
 
-        
+
+
 
 
 
@@ -665,7 +772,43 @@ namespace WindowsFormsApp1
 
         /*---------------------------------------- PODSTAWOWE (m.in. przy uruchamianiu) ----------------------------------------*/
 
-        //Po uruchomieniu wyświetlanie szczegółów pierwszego zadania z datagrid view
+        //odczytynie ustawień widoczności kolumn, odpowiednie zaznaczenie checkboków i ukrywanie odpowiednich kolumn
+        private void Odczyt_Ustawien_Kolumn()
+        {
+            if (File.Exists("ustawieniaKolumn.txt"))
+            {
+                string[] Zaznaczenia = new string[10];
+                FileStream odczyt = new FileStream("ustawieniaKolumn.txt", FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(odczyt);
+                for (int i = 0; i < 10; i++)
+                {
+                    /*  if (reader.ReadLine() == "1")
+                      {
+                          Zaznaczenia[i] = "1";
+                      }
+                      else if(reader.ReadLine() == "0")
+                      {
+                          Zaznaczenia[i] = "1";
+                      }*/
+                    Zaznaczenia[i] = reader.ReadLine();
+                }
+                reader.Close();
+                odczyt.Close();
+                metroTextBox1.Text = "";
+                for (int i = 0; i < 10; i++)
+                {
+                    metroTextBox1.Text += Zaznaczenia[i] + "   ";
+                }
+                 Widocznosc_kolumn_ustawiona(Zaznaczenia);
+            }
+            else
+            {
+                Widocznosc_Kolumn_Domyslnie();
+            }
+        }
+
+
+        //Po uruchomieniu zaznaczenie pierwszego wiersza i wyświetlanie szczegółów pierwszego zadania z datagrid view
         public void Display_first_task_details()
         { 
             //Zaznaczenie odpowiedniego wiersza (o ile jakis jest)
@@ -683,6 +826,22 @@ namespace WindowsFormsApp1
 
         }
 
+        //zaznaczenie konkretnego wiersza i wyeswietlenie szczegolow odpowiedniego zadania (głównie dopodtrzymywania zaznaczenia po jakiejś zmianie, np zmianie statusu zadania)
+        public void Display_specific_task_details(int id)
+        {
+            if(metroGrid1.Rows.Count !=0)
+            {
+                this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                this.metroGrid1.MultiSelect = false;
+
+                //znalezienie indexu wiersza na podstawie id
+                int numerWiersza = NumerWiersza(id);
+                metroGrid1.ClearSelection();
+                metroGrid1.Rows[numerWiersza].Selected = true;
+                metroGrid1.Rows[numerWiersza].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(id.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
+                Load_Task_Details(Znajdz_index_na_liscie(id.ToString()));
+            }
+        }
 
         //funkcja do wyświetlania kolejnych wierszy DataGrid/metroGrid
         public void ShowRow(List<Tasks> lista)
@@ -757,9 +916,12 @@ namespace WindowsFormsApp1
             TextBoxDetailsOpis.Text = Wszystkie_Zadania_Z_Bazy[index].Opis;
             TextBoxDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
             TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
-           
+
+           //ComboBoxDetailsWykonawcy.SelectedItem = Wszystkie_Zadania_Z_Bazy[index].Wykonawca; 
+           //ComboBoxDetailsZmienPriorytet.SelectedItem = Wszystkie_Zadania_Z_Bazy[index].Priorytet;
+
             //W zależności od tego, czy zadanie ma termin wykonania
-            if(Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
+            if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
             {
                 TextBoxDetailsTerm.Show();
                 TextBoxDetailsTerm.Text = Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
@@ -795,6 +957,74 @@ namespace WindowsFormsApp1
             kolor_terminu_w_dataGrid();
 
         }
+
+
+        // Domyślne ustawienia widoczności kolumn
+        private void Widocznosc_Kolumn_Domyslnie()
+        {
+            //ustawienie zaznaczenia checkboxów
+            metroCheckBox1.Checked = true;
+            metroCheckBox1.Text = "widoczne";
+            metroCheckBox2.Checked = true;
+            metroCheckBox2.Text = "widoczne";
+            metroCheckBox3.Checked = true;
+            metroCheckBox3.Text = "widoczne";
+            metroCheckBox4.Checked = true;
+            metroCheckBox4.Text = "widoczne";
+            metroCheckBox5.Checked = true;
+            metroCheckBox5.Text = "widoczne";
+            metroCheckBox6.Checked = true;
+            metroCheckBox6.Text = "widoczne";
+            metroCheckBox7.Checked = true;
+            metroCheckBox7.Text = "widoczne";
+            metroCheckBox8.Checked = true;
+            metroCheckBox8.Text = "widoczne";
+            metroCheckBox9.Checked = true;
+            metroCheckBox9.Text = "widoczne";
+            metroCheckBox10.Checked = true;
+            metroCheckBox10.Text = "widoczne";
+            //ustawienie widoczności kolumn
+            for (int i = 0; i < 10; i++)
+            {          
+                this.metroGrid1.Columns[i].Visible = true;
+            }
+        }
+
+        //funkcja ustawiająca stan checkboxów zgodnie z ustawieniami użytkownika
+        private void Widocznosc_kolumn_ustawiona(String[] tablica_ze_stanem_checkboxow)
+        {
+            if (tablica_ze_stanem_checkboxow[0] == "1") { metroCheckBox1.Checked = true; metroCheckBox1.Text = "widoczne"; this.metroGrid1.Columns[0].Visible = true; }
+            else if(tablica_ze_stanem_checkboxow[0] == "0") { metroCheckBox1.Checked = false; metroCheckBox1.Text = "niewidoczne"; this.metroGrid1.Columns[0].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[1] == "1") { metroCheckBox2.Checked = true; metroCheckBox2.Text = "widoczne"; this.metroGrid1.Columns[1].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[1] == "0") { metroCheckBox2.Checked = false; metroCheckBox2.Text = "niewidoczne"; this.metroGrid1.Columns[1].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[2] == "1") { metroCheckBox3.Checked = true; metroCheckBox3.Text = "widoczne"; this.metroGrid1.Columns[2].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[2] == "0") { metroCheckBox3.Checked = false; metroCheckBox3.Text = "niewidoczne"; this.metroGrid1.Columns[2].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[3] == "1") { metroCheckBox4.Checked = true; metroCheckBox4.Text = "widoczne"; this.metroGrid1.Columns[3].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[3] == "0") { metroCheckBox4.Checked = false; metroCheckBox4.Text = "niewidoczne"; this.metroGrid1.Columns[3].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[4] == "1") { metroCheckBox5.Checked = true; metroCheckBox5.Text = "widoczne"; this.metroGrid1.Columns[4].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[4] == "0") { metroCheckBox5.Checked = false; metroCheckBox5.Text = "niewidoczne"; this.metroGrid1.Columns[4].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[5] == "1") { metroCheckBox6.Checked = true; metroCheckBox6.Text = "widoczne"; this.metroGrid1.Columns[5].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[5] == "0") { metroCheckBox6.Checked = false; metroCheckBox6.Text = "niewidoczne"; this.metroGrid1.Columns[5].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[6] == "1") { metroCheckBox7.Checked = true; metroCheckBox7.Text = "widoczne"; this.metroGrid1.Columns[6].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[6] == "0") { metroCheckBox7.Checked = false; metroCheckBox7.Text = "niewidoczne"; this.metroGrid1.Columns[6].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[7] == "1") { metroCheckBox8.Checked = true; metroCheckBox8.Text = "widoczne"; this.metroGrid1.Columns[7].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[7] == "0") { metroCheckBox8.Checked = false; metroCheckBox8.Text = "niewidoczne"; this.metroGrid1.Columns[7].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[8] == "1") { metroCheckBox9.Checked = true; metroCheckBox9.Text = "widoczne"; this.metroGrid1.Columns[8].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[8] == "0") { metroCheckBox9.Checked = false; metroCheckBox9.Text = "niewidoczne"; this.metroGrid1.Columns[8].Visible = false; }
+
+            if (tablica_ze_stanem_checkboxow[9] == "1") { metroCheckBox10.Checked = true; metroCheckBox10.Text = "widoczne"; this.metroGrid1.Columns[9].Visible = true; }
+            else if (tablica_ze_stanem_checkboxow[9] == "0") { metroCheckBox10.Checked = false; metroCheckBox10.Text = "niewidoczne"; this.metroGrid1.Columns[9].Visible = false; }
+
+        }
+
 
 
 
@@ -1059,7 +1289,8 @@ namespace WindowsFormsApp1
                 {
                     metroGrid1.Rows.Add(konwersja(lista[i]));
                 }
-               
+
+               Display_first_task_details();
                kolor_terminu_w_dataGrid();
                Sortowanie();
 
@@ -1075,35 +1306,35 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Id_zadania.ToString().Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]);  }
+                    if (Zadania[i].Id_zadania.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]);  }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 1)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Priorytet.ToString().Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Priorytet.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 2)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Zadanie.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Zadanie.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 3)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Rodzaj.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Rodzaj.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 4)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Wykonawca.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Wykonawca.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 5)  //szukanie w opisie
@@ -1112,7 +1343,7 @@ namespace WindowsFormsApp1
                 {
                     if (Zadania[i].Opis.Contains(TextBoxSzukanaFraza.Text))
                     {
-                        metroGrid1.Rows.Add(konwersja(Zadania[i]));
+                        
                         Wyszukane.Add(Zadania[i]);
                         metroTabTaskDetails.Show();
                         Load_Task_Details(Znajdz_index_na_liscie(Zadania[i].Id_zadania.ToString()));
@@ -1124,28 +1355,28 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Termin.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Termin.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 7)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Status.ToString().Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Status.ToString().Contains(TextBoxSzukanaFraza.Text)) { ; Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 8)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Data_wykonania.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Data_wykonania.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 9)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Dodane_przez.Contains(TextBoxSzukanaFraza.Text)) { metroGrid1.Rows.Add(konwersja(Zadania[i])); Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Dodane_przez.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
                 }
             }
 
@@ -1257,7 +1488,10 @@ namespace WindowsFormsApp1
             return numer_wiersza;
         }
 
-        
+       
+
+
+
 
 
 
