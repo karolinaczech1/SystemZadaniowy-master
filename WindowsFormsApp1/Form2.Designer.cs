@@ -37,7 +37,7 @@
             this.ComboBoxPriorytet = new MetroFramework.Controls.MetroComboBox();
             this.TextBoxOpisZadania = new MetroFramework.Controls.MetroTextBox();
             this.TextBoxTytulZadania = new MetroFramework.Controls.MetroTextBox();
-            this.TextBoxRodzajZadania = new MetroFramework.Controls.MetroTextBox();
+            this.TextBoxEdytujRodzajZadania = new MetroFramework.Controls.MetroTextBox();
             this.ButtonDodajZadanie = new MetroFramework.Controls.MetroButton();
             this.ComboBoxRodzajZadania = new MetroFramework.Controls.MetroComboBox();
             this.CheckBoxInnyRodzaj = new MetroFramework.Controls.MetroCheckBox();
@@ -196,37 +196,37 @@
             this.TextBoxTytulZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.TextBoxTytulZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // TextBoxRodzajZadania
+            // TextBoxEdytujRodzajZadania
             // 
             // 
             // 
             // 
-            this.TextBoxRodzajZadania.CustomButton.Image = null;
-            this.TextBoxRodzajZadania.CustomButton.Location = new System.Drawing.Point(149, 2);
-            this.TextBoxRodzajZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
-            this.TextBoxRodzajZadania.CustomButton.Name = "";
-            this.TextBoxRodzajZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
-            this.TextBoxRodzajZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.TextBoxRodzajZadania.CustomButton.TabIndex = 1;
-            this.TextBoxRodzajZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.TextBoxRodzajZadania.CustomButton.UseSelectable = true;
-            this.TextBoxRodzajZadania.CustomButton.Visible = false;
-            this.TextBoxRodzajZadania.Lines = new string[0];
-            this.TextBoxRodzajZadania.Location = new System.Drawing.Point(399, 246);
-            this.TextBoxRodzajZadania.Margin = new System.Windows.Forms.Padding(4);
-            this.TextBoxRodzajZadania.MaxLength = 32767;
-            this.TextBoxRodzajZadania.Name = "TextBoxRodzajZadania";
-            this.TextBoxRodzajZadania.PasswordChar = '\0';
-            this.TextBoxRodzajZadania.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TextBoxRodzajZadania.SelectedText = "";
-            this.TextBoxRodzajZadania.SelectionLength = 0;
-            this.TextBoxRodzajZadania.SelectionStart = 0;
-            this.TextBoxRodzajZadania.ShortcutsEnabled = true;
-            this.TextBoxRodzajZadania.Size = new System.Drawing.Size(183, 36);
-            this.TextBoxRodzajZadania.TabIndex = 9;
-            this.TextBoxRodzajZadania.UseSelectable = true;
-            this.TextBoxRodzajZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.TextBoxRodzajZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Image = null;
+            this.TextBoxEdytujRodzajZadania.CustomButton.Location = new System.Drawing.Point(149, 2);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Name = "";
+            this.TextBoxEdytujRodzajZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.TextBoxEdytujRodzajZadania.CustomButton.TabIndex = 1;
+            this.TextBoxEdytujRodzajZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.TextBoxEdytujRodzajZadania.CustomButton.UseSelectable = true;
+            this.TextBoxEdytujRodzajZadania.CustomButton.Visible = false;
+            this.TextBoxEdytujRodzajZadania.Lines = new string[0];
+            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(399, 246);
+            this.TextBoxEdytujRodzajZadania.Margin = new System.Windows.Forms.Padding(4);
+            this.TextBoxEdytujRodzajZadania.MaxLength = 32767;
+            this.TextBoxEdytujRodzajZadania.Name = "TextBoxEdytujRodzajZadania";
+            this.TextBoxEdytujRodzajZadania.PasswordChar = '\0';
+            this.TextBoxEdytujRodzajZadania.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TextBoxEdytujRodzajZadania.SelectedText = "";
+            this.TextBoxEdytujRodzajZadania.SelectionLength = 0;
+            this.TextBoxEdytujRodzajZadania.SelectionStart = 0;
+            this.TextBoxEdytujRodzajZadania.ShortcutsEnabled = true;
+            this.TextBoxEdytujRodzajZadania.Size = new System.Drawing.Size(183, 36);
+            this.TextBoxEdytujRodzajZadania.TabIndex = 9;
+            this.TextBoxEdytujRodzajZadania.UseSelectable = true;
+            this.TextBoxEdytujRodzajZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.TextBoxEdytujRodzajZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // ButtonDodajZadanie
             // 
@@ -323,7 +323,7 @@
             this.Controls.Add(this.CheckBoxInnyRodzaj);
             this.Controls.Add(this.ComboBoxRodzajZadania);
             this.Controls.Add(this.ButtonDodajZadanie);
-            this.Controls.Add(this.TextBoxRodzajZadania);
+            this.Controls.Add(this.TextBoxEdytujRodzajZadania);
             this.Controls.Add(this.TextBoxTytulZadania);
             this.Controls.Add(this.TextBoxOpisZadania);
             this.Controls.Add(this.ComboBoxPriorytet);
@@ -354,7 +354,7 @@
         private MetroFramework.Controls.MetroComboBox ComboBoxPriorytet;
         private MetroFramework.Controls.MetroTextBox TextBoxOpisZadania;
         private MetroFramework.Controls.MetroTextBox TextBoxTytulZadania;
-        private MetroFramework.Controls.MetroTextBox TextBoxRodzajZadania;
+        private MetroFramework.Controls.MetroTextBox TextBoxEdytujRodzajZadania;
         private MetroFramework.Controls.MetroButton ButtonDodajZadanie;
         private MetroFramework.Controls.MetroComboBox ComboBoxRodzajZadania;
         private MetroFramework.Controls.MetroCheckBox CheckBoxInnyRodzaj;

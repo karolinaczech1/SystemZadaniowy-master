@@ -35,14 +35,12 @@
             this.TextBoxEdycjZadania = new MetroFramework.Controls.MetroTextBox();
             this.ComboBoxEdytujPriorytet = new MetroFramework.Controls.MetroComboBox();
             this.TextBoxEdytujOpis = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.ComboBoxEdytujWykonawce = new MetroFramework.Controls.MetroComboBox();
             this.LabelDodanePrzez = new MetroFramework.Controls.MetroLabel();
             this.dateTimePickerTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerData = new System.Windows.Forms.DateTimePicker();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
-            this.TextBoxEdytujRodzajZadania = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.CheckBoxEdytujStatus = new MetroFramework.Controls.MetroCheckBox();
             this.LabelDataWykonania = new MetroFramework.Controls.MetroLabel();
@@ -50,6 +48,9 @@
             this.ButtonAnuluj = new MetroFramework.Controls.MetroButton();
             this.ButtonZapiszZmiany = new MetroFramework.Controls.MetroButton();
             this.CheckBoxTermin = new MetroFramework.Controls.MetroCheckBox();
+            this.ComboBoxRodzajZadania = new MetroFramework.Controls.MetroComboBox();
+            this.CheckBoxInnyRodzaj = new MetroFramework.Controls.MetroCheckBox();
+            this.TextBoxRodzajZadania = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
             // Label_ID
@@ -65,30 +66,30 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel3.Location = new System.Drawing.Point(23, 186);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(39, 20);
+            this.metroLabel3.Size = new System.Drawing.Size(40, 20);
             this.metroLabel3.TabIndex = 2;
             this.metroLabel3.Text = "Opis";
             // 
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel4.Location = new System.Drawing.Point(23, 84);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(63, 20);
+            this.metroLabel4.Size = new System.Drawing.Size(64, 20);
             this.metroLabel4.TabIndex = 3;
             this.metroLabel4.Text = "Zadanie";
             // 
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel5.Location = new System.Drawing.Point(697, 84);
             this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(65, 20);
+            this.metroLabel5.Size = new System.Drawing.Size(72, 20);
             this.metroLabel5.TabIndex = 4;
             this.metroLabel5.Text = "Priorytet";
             // 
@@ -180,23 +181,13 @@
             this.TextBoxEdytujOpis.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.TextBoxEdytujOpis.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel1.Location = new System.Drawing.Point(697, 186);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(54, 20);
-            this.metroLabel1.TabIndex = 8;
-            this.metroLabel1.Text = "Termin";
-            // 
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel2.Location = new System.Drawing.Point(994, 84);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(88, 20);
+            this.metroLabel2.Size = new System.Drawing.Size(93, 20);
             this.metroLabel2.TabIndex = 9;
             this.metroLabel2.Text = "Wykonawca";
             // 
@@ -241,57 +232,27 @@
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel6.Location = new System.Drawing.Point(994, 186);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(111, 20);
+            this.metroLabel6.Size = new System.Drawing.Size(113, 20);
             this.metroLabel6.TabIndex = 15;
             this.metroLabel6.Text = "Rodzaj zadania";
-            // 
-            // TextBoxEdytujRodzajZadania
-            // 
-            // 
-            // 
-            // 
-            this.TextBoxEdytujRodzajZadania.CustomButton.Image = null;
-            this.TextBoxEdytujRodzajZadania.CustomButton.Location = new System.Drawing.Point(212, 2);
-            this.TextBoxEdytujRodzajZadania.CustomButton.Name = "";
-            this.TextBoxEdytujRodzajZadania.CustomButton.Size = new System.Drawing.Size(25, 25);
-            this.TextBoxEdytujRodzajZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.TextBoxEdytujRodzajZadania.CustomButton.TabIndex = 1;
-            this.TextBoxEdytujRodzajZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.TextBoxEdytujRodzajZadania.CustomButton.UseSelectable = true;
-            this.TextBoxEdytujRodzajZadania.CustomButton.Visible = false;
-            this.TextBoxEdytujRodzajZadania.Lines = new string[0];
-            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(994, 219);
-            this.TextBoxEdytujRodzajZadania.MaxLength = 32767;
-            this.TextBoxEdytujRodzajZadania.Name = "TextBoxEdytujRodzajZadania";
-            this.TextBoxEdytujRodzajZadania.PasswordChar = '\0';
-            this.TextBoxEdytujRodzajZadania.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TextBoxEdytujRodzajZadania.SelectedText = "";
-            this.TextBoxEdytujRodzajZadania.SelectionLength = 0;
-            this.TextBoxEdytujRodzajZadania.SelectionStart = 0;
-            this.TextBoxEdytujRodzajZadania.ShortcutsEnabled = true;
-            this.TextBoxEdytujRodzajZadania.Size = new System.Drawing.Size(240, 30);
-            this.TextBoxEdytujRodzajZadania.TabIndex = 16;
-            this.TextBoxEdytujRodzajZadania.UseSelectable = true;
-            this.TextBoxEdytujRodzajZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.TextBoxEdytujRodzajZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel7.Location = new System.Drawing.Point(697, 304);
+            this.metroLabel7.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel7.Location = new System.Drawing.Point(697, 338);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(49, 20);
+            this.metroLabel7.Size = new System.Drawing.Size(53, 20);
             this.metroLabel7.TabIndex = 17;
             this.metroLabel7.Text = "Status";
             // 
             // CheckBoxEdytujStatus
             // 
             this.CheckBoxEdytujStatus.AutoSize = true;
-            this.CheckBoxEdytujStatus.Location = new System.Drawing.Point(697, 342);
+            this.CheckBoxEdytujStatus.Location = new System.Drawing.Point(697, 374);
             this.CheckBoxEdytujStatus.Name = "CheckBoxEdytujStatus";
             this.CheckBoxEdytujStatus.Size = new System.Drawing.Size(121, 17);
             this.CheckBoxEdytujStatus.TabIndex = 18;
@@ -302,7 +263,7 @@
             // LabelDataWykonania
             // 
             this.LabelDataWykonania.AutoSize = true;
-            this.LabelDataWykonania.Location = new System.Drawing.Point(873, 339);
+            this.LabelDataWykonania.Location = new System.Drawing.Point(861, 371);
             this.LabelDataWykonania.Name = "LabelDataWykonania";
             this.LabelDataWykonania.Size = new System.Drawing.Size(106, 20);
             this.LabelDataWykonania.TabIndex = 19;
@@ -324,7 +285,7 @@
             this.TextBoxDataWykonania.CustomButton.UseSelectable = true;
             this.TextBoxDataWykonania.CustomButton.Visible = false;
             this.TextBoxDataWykonania.Lines = new string[0];
-            this.TextBoxDataWykonania.Location = new System.Drawing.Point(1009, 342);
+            this.TextBoxDataWykonania.Location = new System.Drawing.Point(991, 365);
             this.TextBoxDataWykonania.MaxLength = 32767;
             this.TextBoxDataWykonania.Name = "TextBoxDataWykonania";
             this.TextBoxDataWykonania.PasswordChar = '\0';
@@ -364,19 +325,75 @@
             // CheckBoxTermin
             // 
             this.CheckBoxTermin.AutoSize = true;
-            this.CheckBoxTermin.Location = new System.Drawing.Point(770, 189);
+            this.CheckBoxTermin.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold;
+            this.CheckBoxTermin.Location = new System.Drawing.Point(697, 186);
             this.CheckBoxTermin.Name = "CheckBoxTermin";
-            this.CheckBoxTermin.Size = new System.Drawing.Size(121, 17);
+            this.CheckBoxTermin.Size = new System.Drawing.Size(73, 17);
             this.CheckBoxTermin.TabIndex = 23;
-            this.CheckBoxTermin.Text = "metroCheckBox1";
+            this.CheckBoxTermin.Text = "TERMIN";
             this.CheckBoxTermin.UseSelectable = true;
             this.CheckBoxTermin.CheckedChanged += new System.EventHandler(this.CheckBoxTermin_CheckedChanged);
+            // 
+            // ComboBoxRodzajZadania
+            // 
+            this.ComboBoxRodzajZadania.FormattingEnabled = true;
+            this.ComboBoxRodzajZadania.ItemHeight = 24;
+            this.ComboBoxRodzajZadania.Location = new System.Drawing.Point(994, 223);
+            this.ComboBoxRodzajZadania.Name = "ComboBoxRodzajZadania";
+            this.ComboBoxRodzajZadania.Size = new System.Drawing.Size(160, 30);
+            this.ComboBoxRodzajZadania.TabIndex = 24;
+            this.ComboBoxRodzajZadania.UseSelectable = true;
+            // 
+            // CheckBoxInnyRodzaj
+            // 
+            this.CheckBoxInnyRodzaj.AutoSize = true;
+            this.CheckBoxInnyRodzaj.Location = new System.Drawing.Point(994, 264);
+            this.CheckBoxInnyRodzaj.Name = "CheckBoxInnyRodzaj";
+            this.CheckBoxInnyRodzaj.Size = new System.Drawing.Size(50, 17);
+            this.CheckBoxInnyRodzaj.TabIndex = 25;
+            this.CheckBoxInnyRodzaj.Text = "inny:";
+            this.CheckBoxInnyRodzaj.UseSelectable = true;
+            // 
+            // TextBoxRodzajZadania
+            // 
+            // 
+            // 
+            // 
+            this.TextBoxRodzajZadania.CustomButton.Image = null;
+            this.TextBoxRodzajZadania.CustomButton.Location = new System.Drawing.Point(149, 2);
+            this.TextBoxRodzajZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
+            this.TextBoxRodzajZadania.CustomButton.Name = "";
+            this.TextBoxRodzajZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
+            this.TextBoxRodzajZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.TextBoxRodzajZadania.CustomButton.TabIndex = 1;
+            this.TextBoxRodzajZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.TextBoxRodzajZadania.CustomButton.UseSelectable = true;
+            this.TextBoxRodzajZadania.CustomButton.Visible = false;
+            this.TextBoxRodzajZadania.Lines = new string[0];
+            this.TextBoxRodzajZadania.Location = new System.Drawing.Point(991, 288);
+            this.TextBoxRodzajZadania.Margin = new System.Windows.Forms.Padding(4);
+            this.TextBoxRodzajZadania.MaxLength = 32767;
+            this.TextBoxRodzajZadania.Name = "TextBoxRodzajZadania";
+            this.TextBoxRodzajZadania.PasswordChar = '\0';
+            this.TextBoxRodzajZadania.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TextBoxRodzajZadania.SelectedText = "";
+            this.TextBoxRodzajZadania.SelectionLength = 0;
+            this.TextBoxRodzajZadania.SelectionStart = 0;
+            this.TextBoxRodzajZadania.ShortcutsEnabled = true;
+            this.TextBoxRodzajZadania.Size = new System.Drawing.Size(183, 36);
+            this.TextBoxRodzajZadania.TabIndex = 26;
+            this.TextBoxRodzajZadania.UseSelectable = true;
+            this.TextBoxRodzajZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.TextBoxRodzajZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1349, 647);
+            this.Controls.Add(this.TextBoxRodzajZadania);
+            this.Controls.Add(this.CheckBoxInnyRodzaj);
+            this.Controls.Add(this.ComboBoxRodzajZadania);
             this.Controls.Add(this.CheckBoxTermin);
             this.Controls.Add(this.ButtonZapiszZmiany);
             this.Controls.Add(this.ButtonAnuluj);
@@ -384,14 +401,12 @@
             this.Controls.Add(this.LabelDataWykonania);
             this.Controls.Add(this.CheckBoxEdytujStatus);
             this.Controls.Add(this.metroLabel7);
-            this.Controls.Add(this.TextBoxEdytujRodzajZadania);
             this.Controls.Add(this.metroLabel6);
             this.Controls.Add(this.dateTimePickerData);
             this.Controls.Add(this.dateTimePickerTime);
             this.Controls.Add(this.LabelDodanePrzez);
             this.Controls.Add(this.ComboBoxEdytujWykonawce);
             this.Controls.Add(this.metroLabel2);
-            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.TextBoxEdytujOpis);
             this.Controls.Add(this.ComboBoxEdytujPriorytet);
             this.Controls.Add(this.TextBoxEdycjZadania);
@@ -414,14 +429,12 @@
         private MetroFramework.Controls.MetroTextBox TextBoxEdycjZadania;
         private MetroFramework.Controls.MetroComboBox ComboBoxEdytujPriorytet;
         private MetroFramework.Controls.MetroTextBox TextBoxEdytujOpis;
-        private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroComboBox ComboBoxEdytujWykonawce;
         private MetroFramework.Controls.MetroLabel LabelDodanePrzez;
         private System.Windows.Forms.DateTimePicker dateTimePickerTime;
         private System.Windows.Forms.DateTimePicker dateTimePickerData;
         private MetroFramework.Controls.MetroLabel metroLabel6;
-        private MetroFramework.Controls.MetroTextBox TextBoxEdytujRodzajZadania;
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroCheckBox CheckBoxEdytujStatus;
         private MetroFramework.Controls.MetroLabel LabelDataWykonania;
@@ -429,5 +442,8 @@
         private MetroFramework.Controls.MetroButton ButtonAnuluj;
         private MetroFramework.Controls.MetroButton ButtonZapiszZmiany;
         private MetroFramework.Controls.MetroCheckBox CheckBoxTermin;
+        private MetroFramework.Controls.MetroComboBox ComboBoxRodzajZadania;
+        private MetroFramework.Controls.MetroCheckBox CheckBoxInnyRodzaj;
+        private MetroFramework.Controls.MetroTextBox TextBoxRodzajZadania;
     }
 }

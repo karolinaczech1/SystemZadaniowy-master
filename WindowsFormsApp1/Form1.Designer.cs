@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle248 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle259 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle260 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle249 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle250 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle251 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle252 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle253 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle254 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle255 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle256 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle257 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle258 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroTabControl2 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.DateTimeZakresDatDo = new MetroFramework.Controls.MetroDateTime();
@@ -59,6 +59,7 @@
             this.ComboBoxSortowanie = new MetroFramework.Controls.MetroComboBox();
             this.metroTabTaskDetails = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage7 = new MetroFramework.Controls.MetroTabPage();
+            this.metroLabel29 = new MetroFramework.Controls.MetroLabel();
             this.textBoxIle_dni_do_konca_zadania = new System.Windows.Forms.TextBox();
             this.TextBoxDetailsTerm = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel21 = new MetroFramework.Controls.MetroLabel();
@@ -143,30 +144,30 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.metroLabel28 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
-            this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.metroTabPage9 = new MetroFramework.Controls.MetroTabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox2 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox3 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox4 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox5 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox6 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox7 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox8 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox9 = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBox10 = new MetroFramework.Controls.MetroCheckBox();
-            this.ButtonZapiszWidokkolumn = new MetroFramework.Controls.MetroButton();
+            this.ButtonZapiszWidokKolumn = new MetroFramework.Controls.MetroButton();
             this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.metroCheckBox10 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox9 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox8 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox7 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox6 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox5 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox4 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox3 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox2 = new MetroFramework.Controls.MetroCheckBox();
+            this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.metroTabControl2.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             this.metroTabTaskDetails.SuspendLayout();
@@ -386,6 +387,7 @@
             // 
             // metroTabPage7
             // 
+            this.metroTabPage7.Controls.Add(this.metroLabel29);
             this.metroTabPage7.Controls.Add(this.textBoxIle_dni_do_konca_zadania);
             this.metroTabPage7.Controls.Add(this.TextBoxDetailsTerm);
             this.metroTabPage7.Controls.Add(this.metroLabel21);
@@ -425,6 +427,15 @@
             this.metroTabPage7.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage7.VerticalScrollbarSize = 10;
             // 
+            // metroLabel29
+            // 
+            this.metroLabel29.AutoSize = true;
+            this.metroLabel29.Location = new System.Drawing.Point(13, 92);
+            this.metroLabel29.Name = "metroLabel29";
+            this.metroLabel29.Size = new System.Drawing.Size(62, 20);
+            this.metroLabel29.TabIndex = 31;
+            this.metroLabel29.Text = "Zadanie:";
+            // 
             // textBoxIle_dni_do_konca_zadania
             // 
             this.textBoxIle_dni_do_konca_zadania.Location = new System.Drawing.Point(3, 3);
@@ -449,7 +460,7 @@
             this.TextBoxDetailsTerm.CustomButton.UseSelectable = true;
             this.TextBoxDetailsTerm.CustomButton.Visible = false;
             this.TextBoxDetailsTerm.Lines = new string[0];
-            this.TextBoxDetailsTerm.Location = new System.Drawing.Point(263, 137);
+            this.TextBoxDetailsTerm.Location = new System.Drawing.Point(73, 68);
             this.TextBoxDetailsTerm.MaxLength = 32767;
             this.TextBoxDetailsTerm.Name = "TextBoxDetailsTerm";
             this.TextBoxDetailsTerm.PasswordChar = '\0';
@@ -468,7 +479,7 @@
             // metroLabel21
             // 
             this.metroLabel21.AutoSize = true;
-            this.metroLabel21.Location = new System.Drawing.Point(263, 114);
+            this.metroLabel21.Location = new System.Drawing.Point(13, 68);
             this.metroLabel21.Name = "metroLabel21";
             this.metroLabel21.Size = new System.Drawing.Size(54, 20);
             this.metroLabel21.TabIndex = 26;
@@ -489,7 +500,7 @@
             "8",
             "9",
             "10"});
-            this.ComboBoxDetailsZmienPriorytet.Location = new System.Drawing.Point(137, 81);
+            this.ComboBoxDetailsZmienPriorytet.Location = new System.Drawing.Point(292, 626);
             this.ComboBoxDetailsZmienPriorytet.Name = "ComboBoxDetailsZmienPriorytet";
             this.ComboBoxDetailsZmienPriorytet.Size = new System.Drawing.Size(121, 30);
             this.ComboBoxDetailsZmienPriorytet.TabIndex = 25;
@@ -499,7 +510,7 @@
             // metroLabel20
             // 
             this.metroLabel20.AutoSize = true;
-            this.metroLabel20.Location = new System.Drawing.Point(18, 81);
+            this.metroLabel20.Location = new System.Drawing.Point(292, 593);
             this.metroLabel20.Name = "metroLabel20";
             this.metroLabel20.Size = new System.Drawing.Size(104, 20);
             this.metroLabel20.TabIndex = 24;
@@ -520,7 +531,7 @@
             this.TextBoxDetailsID.CustomButton.UseSelectable = true;
             this.TextBoxDetailsID.CustomButton.Visible = false;
             this.TextBoxDetailsID.Lines = new string[0];
-            this.TextBoxDetailsID.Location = new System.Drawing.Point(85, 170);
+            this.TextBoxDetailsID.Location = new System.Drawing.Point(279, 31);
             this.TextBoxDetailsID.MaxLength = 32767;
             this.TextBoxDetailsID.Name = "TextBoxDetailsID";
             this.TextBoxDetailsID.PasswordChar = '\0';
@@ -551,7 +562,7 @@
             this.TextBoxDetailsPriorytet.CustomButton.UseSelectable = true;
             this.TextBoxDetailsPriorytet.CustomButton.Visible = false;
             this.TextBoxDetailsPriorytet.Lines = new string[0];
-            this.TextBoxDetailsPriorytet.Location = new System.Drawing.Point(85, 137);
+            this.TextBoxDetailsPriorytet.Location = new System.Drawing.Point(73, 31);
             this.TextBoxDetailsPriorytet.MaxLength = 32767;
             this.TextBoxDetailsPriorytet.Name = "TextBoxDetailsPriorytet";
             this.TextBoxDetailsPriorytet.PasswordChar = '\0';
@@ -570,7 +581,7 @@
             // metroLabel19
             // 
             this.metroLabel19.AutoSize = true;
-            this.metroLabel19.Location = new System.Drawing.Point(18, 137);
+            this.metroLabel19.Location = new System.Drawing.Point(4, 35);
             this.metroLabel19.Name = "metroLabel19";
             this.metroLabel19.Size = new System.Drawing.Size(63, 20);
             this.metroLabel19.TabIndex = 21;
@@ -579,7 +590,7 @@
             // metroLabel18
             // 
             this.metroLabel18.AutoSize = true;
-            this.metroLabel18.Location = new System.Drawing.Point(29, 170);
+            this.metroLabel18.Location = new System.Drawing.Point(248, 35);
             this.metroLabel18.Name = "metroLabel18";
             this.metroLabel18.Size = new System.Drawing.Size(25, 20);
             this.metroLabel18.TabIndex = 19;
@@ -600,7 +611,7 @@
             this.TextBoxDetailsRodzaj.CustomButton.UseSelectable = true;
             this.TextBoxDetailsRodzaj.CustomButton.Visible = false;
             this.TextBoxDetailsRodzaj.Lines = new string[0];
-            this.TextBoxDetailsRodzaj.Location = new System.Drawing.Point(118, 299);
+            this.TextBoxDetailsRodzaj.Location = new System.Drawing.Point(118, 214);
             this.TextBoxDetailsRodzaj.MaxLength = 32767;
             this.TextBoxDetailsRodzaj.Name = "TextBoxDetailsRodzaj";
             this.TextBoxDetailsRodzaj.PasswordChar = '\0';
@@ -619,7 +630,7 @@
             // metroLabel17
             // 
             this.metroLabel17.AutoSize = true;
-            this.metroLabel17.Location = new System.Drawing.Point(14, 310);
+            this.metroLabel17.Location = new System.Drawing.Point(4, 214);
             this.metroLabel17.Name = "metroLabel17";
             this.metroLabel17.Size = new System.Drawing.Size(104, 20);
             this.metroLabel17.TabIndex = 17;
@@ -640,7 +651,7 @@
             this.TextBoxDetailsStatus.CustomButton.UseSelectable = true;
             this.TextBoxDetailsStatus.CustomButton.Visible = false;
             this.TextBoxDetailsStatus.Lines = new string[0];
-            this.TextBoxDetailsStatus.Location = new System.Drawing.Point(14, 624);
+            this.TextBoxDetailsStatus.Location = new System.Drawing.Point(27, 549);
             this.TextBoxDetailsStatus.MaxLength = 32767;
             this.TextBoxDetailsStatus.Name = "TextBoxDetailsStatus";
             this.TextBoxDetailsStatus.PasswordChar = '\0';
@@ -671,7 +682,7 @@
             this.TextBoxDetailsDodanePrzez.CustomButton.UseSelectable = true;
             this.TextBoxDetailsDodanePrzez.CustomButton.Visible = false;
             this.TextBoxDetailsDodanePrzez.Lines = new string[0];
-            this.TextBoxDetailsDodanePrzez.Location = new System.Drawing.Point(14, 575);
+            this.TextBoxDetailsDodanePrzez.Location = new System.Drawing.Point(27, 493);
             this.TextBoxDetailsDodanePrzez.MaxLength = 32767;
             this.TextBoxDetailsDodanePrzez.Name = "TextBoxDetailsDodanePrzez";
             this.TextBoxDetailsDodanePrzez.PasswordChar = '\0';
@@ -702,7 +713,7 @@
             this.TextBoxDetailsDataZak.CustomButton.UseSelectable = true;
             this.TextBoxDetailsDataZak.CustomButton.Visible = false;
             this.TextBoxDetailsDataZak.Lines = new string[0];
-            this.TextBoxDetailsDataZak.Location = new System.Drawing.Point(263, 624);
+            this.TextBoxDetailsDataZak.Location = new System.Drawing.Point(279, 549);
             this.TextBoxDetailsDataZak.MaxLength = 32767;
             this.TextBoxDetailsDataZak.Name = "TextBoxDetailsDataZak";
             this.TextBoxDetailsDataZak.PasswordChar = '\0';
@@ -733,7 +744,7 @@
             this.TextBoxDetailsDataDod.CustomButton.UseSelectable = true;
             this.TextBoxDetailsDataDod.CustomButton.Visible = false;
             this.TextBoxDetailsDataDod.Lines = new string[0];
-            this.TextBoxDetailsDataDod.Location = new System.Drawing.Point(263, 575);
+            this.TextBoxDetailsDataDod.Location = new System.Drawing.Point(279, 493);
             this.TextBoxDetailsDataDod.MaxLength = 32767;
             this.TextBoxDetailsDataDod.Name = "TextBoxDetailsDataDod";
             this.TextBoxDetailsDataDod.PasswordChar = '\0';
@@ -752,7 +763,7 @@
             // metroLabel14
             // 
             this.metroLabel14.AutoSize = true;
-            this.metroLabel14.Location = new System.Drawing.Point(263, 602);
+            this.metroLabel14.Location = new System.Drawing.Point(279, 526);
             this.metroLabel14.Name = "metroLabel14";
             this.metroLabel14.Size = new System.Drawing.Size(121, 20);
             this.metroLabel14.TabIndex = 12;
@@ -761,7 +772,7 @@
             // metroLabel15
             // 
             this.metroLabel15.AutoSize = true;
-            this.metroLabel15.Location = new System.Drawing.Point(14, 553);
+            this.metroLabel15.Location = new System.Drawing.Point(27, 470);
             this.metroLabel15.Name = "metroLabel15";
             this.metroLabel15.Size = new System.Drawing.Size(100, 20);
             this.metroLabel15.TabIndex = 13;
@@ -770,7 +781,7 @@
             // metroLabel16
             // 
             this.metroLabel16.AutoSize = true;
-            this.metroLabel16.Location = new System.Drawing.Point(263, 553);
+            this.metroLabel16.Location = new System.Drawing.Point(279, 470);
             this.metroLabel16.Name = "metroLabel16";
             this.metroLabel16.Size = new System.Drawing.Size(93, 20);
             this.metroLabel16.TabIndex = 11;
@@ -779,7 +790,7 @@
             // metroLabel13
             // 
             this.metroLabel13.AutoSize = true;
-            this.metroLabel13.Location = new System.Drawing.Point(14, 254);
+            this.metroLabel13.Location = new System.Drawing.Point(13, 178);
             this.metroLabel13.Name = "metroLabel13";
             this.metroLabel13.Size = new System.Drawing.Size(86, 20);
             this.metroLabel13.TabIndex = 10;
@@ -788,7 +799,7 @@
             // metroLabel12
             // 
             this.metroLabel12.AutoSize = true;
-            this.metroLabel12.Location = new System.Drawing.Point(14, 328);
+            this.metroLabel12.Location = new System.Drawing.Point(27, 264);
             this.metroLabel12.Name = "metroLabel12";
             this.metroLabel12.Size = new System.Drawing.Size(40, 20);
             this.metroLabel12.TabIndex = 9;
@@ -809,7 +820,7 @@
             this.TextBoxDetailsWykonawca.CustomButton.UseSelectable = true;
             this.TextBoxDetailsWykonawca.CustomButton.Visible = false;
             this.TextBoxDetailsWykonawca.Lines = new string[0];
-            this.TextBoxDetailsWykonawca.Location = new System.Drawing.Point(118, 254);
+            this.TextBoxDetailsWykonawca.Location = new System.Drawing.Point(118, 178);
             this.TextBoxDetailsWykonawca.MaxLength = 32767;
             this.TextBoxDetailsWykonawca.Name = "TextBoxDetailsWykonawca";
             this.TextBoxDetailsWykonawca.PasswordChar = '\0';
@@ -827,7 +838,7 @@
             // 
             // ButtonUsunZadanie
             // 
-            this.ButtonUsunZadanie.Location = new System.Drawing.Point(301, 49);
+            this.ButtonUsunZadanie.Location = new System.Drawing.Point(27, 628);
             this.ButtonUsunZadanie.Name = "ButtonUsunZadanie";
             this.ButtonUsunZadanie.Size = new System.Drawing.Size(112, 28);
             this.ButtonUsunZadanie.TabIndex = 7;
@@ -837,7 +848,7 @@
             // 
             // ButtonEditTask
             // 
-            this.ButtonEditTask.Location = new System.Drawing.Point(301, 83);
+            this.ButtonEditTask.Location = new System.Drawing.Point(27, 593);
             this.ButtonEditTask.Name = "ButtonEditTask";
             this.ButtonEditTask.Size = new System.Drawing.Size(112, 28);
             this.ButtonEditTask.TabIndex = 6;
@@ -848,7 +859,7 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(14, 45);
+            this.metroLabel1.Location = new System.Drawing.Point(161, 593);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(123, 20);
             this.metroLabel1.TabIndex = 5;
@@ -858,7 +869,7 @@
             // 
             this.ComboBoxDetailsWykonawcy.FormattingEnabled = true;
             this.ComboBoxDetailsWykonawcy.ItemHeight = 24;
-            this.ComboBoxDetailsWykonawcy.Location = new System.Drawing.Point(137, 45);
+            this.ComboBoxDetailsWykonawcy.Location = new System.Drawing.Point(163, 626);
             this.ComboBoxDetailsWykonawcy.Name = "ComboBoxDetailsWykonawcy";
             this.ComboBoxDetailsWykonawcy.Size = new System.Drawing.Size(121, 30);
             this.ComboBoxDetailsWykonawcy.TabIndex = 4;
@@ -881,7 +892,7 @@
             this.TextBoxDetailsZadanie.CustomButton.UseSelectable = true;
             this.TextBoxDetailsZadanie.CustomButton.Visible = false;
             this.TextBoxDetailsZadanie.Lines = new string[0];
-            this.TextBoxDetailsZadanie.Location = new System.Drawing.Point(14, 200);
+            this.TextBoxDetailsZadanie.Location = new System.Drawing.Point(14, 113);
             this.TextBoxDetailsZadanie.MaximumSize = new System.Drawing.Size(399, 500);
             this.TextBoxDetailsZadanie.MaxLength = 32767;
             this.TextBoxDetailsZadanie.Multiline = true;
@@ -905,16 +916,16 @@
             // 
             // 
             this.TextBoxDetailsOpis.CustomButton.Image = null;
-            this.TextBoxDetailsOpis.CustomButton.Location = new System.Drawing.Point(201, 2);
+            this.TextBoxDetailsOpis.CustomButton.Location = new System.Drawing.Point(222, 2);
             this.TextBoxDetailsOpis.CustomButton.Name = "";
-            this.TextBoxDetailsOpis.CustomButton.Size = new System.Drawing.Size(195, 195);
+            this.TextBoxDetailsOpis.CustomButton.Size = new System.Drawing.Size(161, 161);
             this.TextBoxDetailsOpis.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.TextBoxDetailsOpis.CustomButton.TabIndex = 1;
             this.TextBoxDetailsOpis.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.TextBoxDetailsOpis.CustomButton.UseSelectable = true;
             this.TextBoxDetailsOpis.CustomButton.Visible = false;
             this.TextBoxDetailsOpis.Lines = new string[0];
-            this.TextBoxDetailsOpis.Location = new System.Drawing.Point(14, 350);
+            this.TextBoxDetailsOpis.Location = new System.Drawing.Point(27, 287);
             this.TextBoxDetailsOpis.MaxLength = 32767;
             this.TextBoxDetailsOpis.Multiline = true;
             this.TextBoxDetailsOpis.Name = "TextBoxDetailsOpis";
@@ -925,7 +936,7 @@
             this.TextBoxDetailsOpis.SelectionLength = 0;
             this.TextBoxDetailsOpis.SelectionStart = 0;
             this.TextBoxDetailsOpis.ShortcutsEnabled = true;
-            this.TextBoxDetailsOpis.Size = new System.Drawing.Size(399, 200);
+            this.TextBoxDetailsOpis.Size = new System.Drawing.Size(386, 166);
             this.TextBoxDetailsOpis.TabIndex = 2;
             this.TextBoxDetailsOpis.UseSelectable = true;
             this.TextBoxDetailsOpis.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -989,7 +1000,7 @@
             // 
             this.ComboBoxWykonawcy.FormattingEnabled = true;
             this.ComboBoxWykonawcy.ItemHeight = 24;
-            this.ComboBoxWykonawcy.Location = new System.Drawing.Point(3, 18);
+            this.ComboBoxWykonawcy.Location = new System.Drawing.Point(3, 17);
             this.ComboBoxWykonawcy.Name = "ComboBoxWykonawcy";
             this.ComboBoxWykonawcy.Size = new System.Drawing.Size(121, 30);
             this.ComboBoxWykonawcy.TabIndex = 3;
@@ -1005,14 +1016,14 @@
             this.metroGrid1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGrid1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.metroGrid1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle248.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle248.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle248.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle248.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle248.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle248.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle248.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle248;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGrid1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.metroGrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.metroGrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -1025,14 +1036,14 @@
             this.status,
             this.zakonczenie,
             this.dodal});
-            dataGridViewCellStyle259.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle259.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle259.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle259.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle259.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle259.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle259.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.metroGrid1.DefaultCellStyle = dataGridViewCellStyle259;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.metroGrid1.DefaultCellStyle = dataGridViewCellStyle25;
             this.metroGrid1.EnableHeadersVisualStyles = false;
             this.metroGrid1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGrid1.GridColor = System.Drawing.Color.White;
@@ -1040,14 +1051,14 @@
             this.metroGrid1.MultiSelect = false;
             this.metroGrid1.Name = "metroGrid1";
             this.metroGrid1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle260.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle260.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle260.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle260.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle260.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle260.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle260.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGrid1.RowHeadersDefaultCellStyle = dataGridViewCellStyle260;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGrid1.RowHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.metroGrid1.RowHeadersWidth = 51;
             this.metroGrid1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -1060,8 +1071,8 @@
             // 
             // id
             // 
-            dataGridViewCellStyle249.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.id.DefaultCellStyle = dataGridViewCellStyle249;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.id.DefaultCellStyle = dataGridViewCellStyle15;
             this.id.HeaderText = "ID";
             this.id.MinimumWidth = 6;
             this.id.Name = "id";
@@ -1070,8 +1081,8 @@
             // 
             // priorytet
             // 
-            dataGridViewCellStyle250.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.priorytet.DefaultCellStyle = dataGridViewCellStyle250;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.priorytet.DefaultCellStyle = dataGridViewCellStyle16;
             this.priorytet.HeaderText = "Priorytet";
             this.priorytet.MinimumWidth = 6;
             this.priorytet.Name = "priorytet";
@@ -1080,8 +1091,8 @@
             // 
             // Zad
             // 
-            dataGridViewCellStyle251.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Zad.DefaultCellStyle = dataGridViewCellStyle251;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Zad.DefaultCellStyle = dataGridViewCellStyle17;
             this.Zad.HeaderText = "Zadanie";
             this.Zad.MinimumWidth = 6;
             this.Zad.Name = "Zad";
@@ -1090,9 +1101,9 @@
             // 
             // rodzaj_zad
             // 
-            dataGridViewCellStyle252.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle252.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rodzaj_zad.DefaultCellStyle = dataGridViewCellStyle252;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rodzaj_zad.DefaultCellStyle = dataGridViewCellStyle18;
             this.rodzaj_zad.HeaderText = "Rodzaj zadania:";
             this.rodzaj_zad.MinimumWidth = 6;
             this.rodzaj_zad.Name = "rodzaj_zad";
@@ -1101,8 +1112,8 @@
             // 
             // dla_kogo
             // 
-            dataGridViewCellStyle253.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dla_kogo.DefaultCellStyle = dataGridViewCellStyle253;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dla_kogo.DefaultCellStyle = dataGridViewCellStyle19;
             this.dla_kogo.HeaderText = "Wykonawca";
             this.dla_kogo.MinimumWidth = 6;
             this.dla_kogo.Name = "dla_kogo";
@@ -1111,8 +1122,8 @@
             // 
             // dodanie
             // 
-            dataGridViewCellStyle254.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dodanie.DefaultCellStyle = dataGridViewCellStyle254;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dodanie.DefaultCellStyle = dataGridViewCellStyle20;
             this.dodanie.HeaderText = "Data dodania";
             this.dodanie.MinimumWidth = 6;
             this.dodanie.Name = "dodanie";
@@ -1121,8 +1132,8 @@
             // 
             // termin
             // 
-            dataGridViewCellStyle255.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.termin.DefaultCellStyle = dataGridViewCellStyle255;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.termin.DefaultCellStyle = dataGridViewCellStyle21;
             this.termin.HeaderText = "Termin";
             this.termin.MinimumWidth = 6;
             this.termin.Name = "termin";
@@ -1131,10 +1142,10 @@
             // 
             // status
             // 
-            dataGridViewCellStyle256.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle256.NullValue = false;
-            dataGridViewCellStyle256.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.status.DefaultCellStyle = dataGridViewCellStyle256;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.NullValue = false;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.status.DefaultCellStyle = dataGridViewCellStyle22;
             this.status.FalseValue = "0";
             this.status.HeaderText = "Status";
             this.status.MinimumWidth = 6;
@@ -1146,8 +1157,8 @@
             // 
             // zakonczenie
             // 
-            dataGridViewCellStyle257.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.zakonczenie.DefaultCellStyle = dataGridViewCellStyle257;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.zakonczenie.DefaultCellStyle = dataGridViewCellStyle23;
             this.zakonczenie.HeaderText = "Data zakończenia";
             this.zakonczenie.MinimumWidth = 6;
             this.zakonczenie.Name = "zakonczenie";
@@ -1156,8 +1167,8 @@
             // 
             // dodal
             // 
-            dataGridViewCellStyle258.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dodal.DefaultCellStyle = dataGridViewCellStyle258;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dodal.DefaultCellStyle = dataGridViewCellStyle24;
             this.dodal.HeaderText = "Dodane przez";
             this.dodal.MinimumWidth = 6;
             this.dodal.Name = "dodal";
@@ -1166,7 +1177,6 @@
             // 
             // metroTabPage4
             // 
-            this.metroTabPage4.Controls.Add(this.ButtonZapiszWidokkolumn);
             this.metroTabPage4.Controls.Add(this.metroTabControl3);
             this.metroTabPage4.HorizontalScrollbarBarColor = true;
             this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
@@ -1641,9 +1651,9 @@
             this.metroTabPage8.HorizontalScrollbarBarColor = true;
             this.metroTabPage8.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage8.HorizontalScrollbarSize = 10;
-            this.metroTabPage8.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage8.Location = new System.Drawing.Point(4, 39);
             this.metroTabPage8.Name = "metroTabPage8";
-            this.metroTabPage8.Size = new System.Drawing.Size(1267, 549);
+            this.metroTabPage8.Size = new System.Drawing.Size(1267, 548);
             this.metroTabPage8.TabIndex = 2;
             this.metroTabPage8.Text = "Kolory terminów";
             this.metroTabPage8.VerticalScrollbarBarColor = true;
@@ -1998,14 +2008,9 @@
             this.metroLabel27.TabIndex = 20;
             this.metroLabel27.Text = "ILOŚĆ DNI DO KOŃCA ZADANIA";
             // 
-            // metroContextMenu1
-            // 
-            this.metroContextMenu1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.metroContextMenu1.Name = "metroContextMenu1";
-            this.metroContextMenu1.Size = new System.Drawing.Size(61, 4);
-            // 
             // metroTabPage9
             // 
+            this.metroTabPage9.Controls.Add(this.ButtonZapiszWidokKolumn);
             this.metroTabPage9.Controls.Add(this.metroTextBox1);
             this.metroTabPage9.Controls.Add(this.metroCheckBox10);
             this.metroTabPage9.Controls.Add(this.metroCheckBox9);
@@ -2039,285 +2044,15 @@
             this.metroTabPage9.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage9.VerticalScrollbarSize = 10;
             // 
-            // label1
+            // ButtonZapiszWidokKolumn
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(201, 17);
-            this.label1.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 30);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "ID";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(101, 68);
-            this.label2.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 30);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "PRIORYTET";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(129, 115);
-            this.label3.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 30);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "ZADANIE";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(36, 164);
-            this.label4.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(200, 30);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "RODZAJ ZADANIA";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(73, 216);
-            this.label5.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(163, 30);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "WYKONAWCA";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(59, 267);
-            this.label6.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(177, 30);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "DATA DODANIA";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(141, 318);
-            this.label7.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 30);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "TERMIN";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(134, 373);
-            this.label8.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 30);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "STATUS";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(3, 424);
-            this.label9.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(233, 30);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "DATA ZAKOŃCZENIA";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(57, 477);
-            this.label10.MinimumSize = new System.Drawing.Size(30, 30);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(179, 30);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "DODANE PRZEZ";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // metroCheckBox1
-            // 
-            this.metroCheckBox1.AutoSize = true;
-            this.metroCheckBox1.Checked = true;
-            this.metroCheckBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox1.Location = new System.Drawing.Point(252, 17);
-            this.metroCheckBox1.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox1.Name = "metroCheckBox1";
-            this.metroCheckBox1.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox1.TabIndex = 13;
-            this.metroCheckBox1.UseSelectable = true;
-            this.metroCheckBox1.CheckedChanged += new System.EventHandler(this.metroCheckBox1_CheckedChanged);
-            // 
-            // metroCheckBox2
-            // 
-            this.metroCheckBox2.AutoSize = true;
-            this.metroCheckBox2.Checked = true;
-            this.metroCheckBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox2.Location = new System.Drawing.Point(252, 68);
-            this.metroCheckBox2.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox2.Name = "metroCheckBox2";
-            this.metroCheckBox2.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox2.TabIndex = 14;
-            this.metroCheckBox2.UseSelectable = true;
-            this.metroCheckBox2.CheckedChanged += new System.EventHandler(this.metroCheckBox2_CheckedChanged);
-            // 
-            // metroCheckBox3
-            // 
-            this.metroCheckBox3.AutoSize = true;
-            this.metroCheckBox3.Checked = true;
-            this.metroCheckBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox3.Location = new System.Drawing.Point(252, 115);
-            this.metroCheckBox3.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox3.Name = "metroCheckBox3";
-            this.metroCheckBox3.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox3.TabIndex = 15;
-            this.metroCheckBox3.UseSelectable = true;
-            this.metroCheckBox3.CheckedChanged += new System.EventHandler(this.metroCheckBox3_CheckedChanged);
-            // 
-            // metroCheckBox4
-            // 
-            this.metroCheckBox4.AutoSize = true;
-            this.metroCheckBox4.Checked = true;
-            this.metroCheckBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox4.Location = new System.Drawing.Point(252, 164);
-            this.metroCheckBox4.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox4.Name = "metroCheckBox4";
-            this.metroCheckBox4.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox4.TabIndex = 16;
-            this.metroCheckBox4.UseSelectable = true;
-            this.metroCheckBox4.CheckedChanged += new System.EventHandler(this.metroCheckBox4_CheckedChanged);
-            // 
-            // metroCheckBox5
-            // 
-            this.metroCheckBox5.AutoSize = true;
-            this.metroCheckBox5.Checked = true;
-            this.metroCheckBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox5.Location = new System.Drawing.Point(252, 216);
-            this.metroCheckBox5.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox5.Name = "metroCheckBox5";
-            this.metroCheckBox5.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox5.TabIndex = 17;
-            this.metroCheckBox5.UseSelectable = true;
-            this.metroCheckBox5.CheckedChanged += new System.EventHandler(this.metroCheckBox5_CheckedChanged);
-            // 
-            // metroCheckBox6
-            // 
-            this.metroCheckBox6.AutoSize = true;
-            this.metroCheckBox6.Checked = true;
-            this.metroCheckBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox6.Location = new System.Drawing.Point(252, 267);
-            this.metroCheckBox6.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox6.Name = "metroCheckBox6";
-            this.metroCheckBox6.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox6.TabIndex = 18;
-            this.metroCheckBox6.UseSelectable = true;
-            this.metroCheckBox6.CheckedChanged += new System.EventHandler(this.metroCheckBox6_CheckedChanged);
-            // 
-            // metroCheckBox7
-            // 
-            this.metroCheckBox7.AutoSize = true;
-            this.metroCheckBox7.Checked = true;
-            this.metroCheckBox7.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox7.Location = new System.Drawing.Point(252, 318);
-            this.metroCheckBox7.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox7.Name = "metroCheckBox7";
-            this.metroCheckBox7.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox7.TabIndex = 19;
-            this.metroCheckBox7.UseSelectable = true;
-            this.metroCheckBox7.CheckedChanged += new System.EventHandler(this.metroCheckBox7_CheckedChanged);
-            // 
-            // metroCheckBox8
-            // 
-            this.metroCheckBox8.AutoSize = true;
-            this.metroCheckBox8.Checked = true;
-            this.metroCheckBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox8.Location = new System.Drawing.Point(252, 373);
-            this.metroCheckBox8.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox8.Name = "metroCheckBox8";
-            this.metroCheckBox8.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox8.TabIndex = 20;
-            this.metroCheckBox8.UseSelectable = true;
-            this.metroCheckBox8.CheckedChanged += new System.EventHandler(this.metroCheckBox8_CheckedChanged);
-            // 
-            // metroCheckBox9
-            // 
-            this.metroCheckBox9.AutoSize = true;
-            this.metroCheckBox9.Checked = true;
-            this.metroCheckBox9.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox9.Location = new System.Drawing.Point(252, 424);
-            this.metroCheckBox9.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox9.Name = "metroCheckBox9";
-            this.metroCheckBox9.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox9.TabIndex = 21;
-            this.metroCheckBox9.UseSelectable = true;
-            this.metroCheckBox9.CheckedChanged += new System.EventHandler(this.metroCheckBox9_CheckedChanged);
-            // 
-            // metroCheckBox10
-            // 
-            this.metroCheckBox10.AutoSize = true;
-            this.metroCheckBox10.Checked = true;
-            this.metroCheckBox10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroCheckBox10.Location = new System.Drawing.Point(252, 477);
-            this.metroCheckBox10.MinimumSize = new System.Drawing.Size(0, 30);
-            this.metroCheckBox10.Name = "metroCheckBox10";
-            this.metroCheckBox10.Size = new System.Drawing.Size(16, 30);
-            this.metroCheckBox10.TabIndex = 22;
-            this.metroCheckBox10.UseSelectable = true;
-            this.metroCheckBox10.CheckedChanged += new System.EventHandler(this.metroCheckBox10_CheckedChanged);
-            // 
-            // ButtonZapiszWidokkolumn
-            // 
-            this.ButtonZapiszWidokkolumn.Location = new System.Drawing.Point(312, 585);
-            this.ButtonZapiszWidokkolumn.Name = "ButtonZapiszWidokkolumn";
-            this.ButtonZapiszWidokkolumn.Size = new System.Drawing.Size(78, 41);
-            this.ButtonZapiszWidokkolumn.TabIndex = 23;
-            this.ButtonZapiszWidokkolumn.Text = "Zapisz";
-            this.ButtonZapiszWidokkolumn.UseSelectable = true;
-            this.ButtonZapiszWidokkolumn.Click += new System.EventHandler(this.ButtonZapiszWidokkolumn_Click);
+            this.ButtonZapiszWidokKolumn.Location = new System.Drawing.Point(461, 274);
+            this.ButtonZapiszWidokKolumn.Name = "ButtonZapiszWidokKolumn";
+            this.ButtonZapiszWidokKolumn.Size = new System.Drawing.Size(75, 23);
+            this.ButtonZapiszWidokKolumn.TabIndex = 24;
+            this.ButtonZapiszWidokKolumn.Text = "Zapisz";
+            this.ButtonZapiszWidokKolumn.UseSelectable = true;
+            this.ButtonZapiszWidokKolumn.Click += new System.EventHandler(this.ButtonZapiszWidokKolumn_Click_1);
             // 
             // metroTextBox1
             // 
@@ -2351,6 +2086,282 @@
             this.metroTextBox1.UseSelectable = true;
             this.metroTextBox1.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBox1.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroCheckBox10
+            // 
+            this.metroCheckBox10.AutoSize = true;
+            this.metroCheckBox10.Checked = true;
+            this.metroCheckBox10.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox10.Location = new System.Drawing.Point(252, 477);
+            this.metroCheckBox10.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox10.Name = "metroCheckBox10";
+            this.metroCheckBox10.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox10.TabIndex = 22;
+            this.metroCheckBox10.UseSelectable = true;
+            this.metroCheckBox10.CheckedChanged += new System.EventHandler(this.metroCheckBox10_CheckedChanged);
+            // 
+            // metroCheckBox9
+            // 
+            this.metroCheckBox9.AutoSize = true;
+            this.metroCheckBox9.Checked = true;
+            this.metroCheckBox9.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox9.Location = new System.Drawing.Point(252, 424);
+            this.metroCheckBox9.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox9.Name = "metroCheckBox9";
+            this.metroCheckBox9.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox9.TabIndex = 21;
+            this.metroCheckBox9.UseSelectable = true;
+            this.metroCheckBox9.CheckedChanged += new System.EventHandler(this.metroCheckBox9_CheckedChanged);
+            // 
+            // metroCheckBox8
+            // 
+            this.metroCheckBox8.AutoSize = true;
+            this.metroCheckBox8.Checked = true;
+            this.metroCheckBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox8.Location = new System.Drawing.Point(252, 373);
+            this.metroCheckBox8.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox8.Name = "metroCheckBox8";
+            this.metroCheckBox8.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox8.TabIndex = 20;
+            this.metroCheckBox8.UseSelectable = true;
+            this.metroCheckBox8.CheckedChanged += new System.EventHandler(this.metroCheckBox8_CheckedChanged);
+            // 
+            // metroCheckBox7
+            // 
+            this.metroCheckBox7.AutoSize = true;
+            this.metroCheckBox7.Checked = true;
+            this.metroCheckBox7.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox7.Location = new System.Drawing.Point(252, 318);
+            this.metroCheckBox7.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox7.Name = "metroCheckBox7";
+            this.metroCheckBox7.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox7.TabIndex = 19;
+            this.metroCheckBox7.UseSelectable = true;
+            this.metroCheckBox7.CheckedChanged += new System.EventHandler(this.metroCheckBox7_CheckedChanged);
+            // 
+            // metroCheckBox6
+            // 
+            this.metroCheckBox6.AutoSize = true;
+            this.metroCheckBox6.Checked = true;
+            this.metroCheckBox6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox6.Location = new System.Drawing.Point(252, 267);
+            this.metroCheckBox6.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox6.Name = "metroCheckBox6";
+            this.metroCheckBox6.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox6.TabIndex = 18;
+            this.metroCheckBox6.UseSelectable = true;
+            this.metroCheckBox6.CheckedChanged += new System.EventHandler(this.metroCheckBox6_CheckedChanged);
+            // 
+            // metroCheckBox5
+            // 
+            this.metroCheckBox5.AutoSize = true;
+            this.metroCheckBox5.Checked = true;
+            this.metroCheckBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox5.Location = new System.Drawing.Point(252, 216);
+            this.metroCheckBox5.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox5.Name = "metroCheckBox5";
+            this.metroCheckBox5.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox5.TabIndex = 17;
+            this.metroCheckBox5.UseSelectable = true;
+            this.metroCheckBox5.CheckedChanged += new System.EventHandler(this.metroCheckBox5_CheckedChanged);
+            // 
+            // metroCheckBox4
+            // 
+            this.metroCheckBox4.AutoSize = true;
+            this.metroCheckBox4.Checked = true;
+            this.metroCheckBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox4.Location = new System.Drawing.Point(252, 164);
+            this.metroCheckBox4.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox4.Name = "metroCheckBox4";
+            this.metroCheckBox4.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox4.TabIndex = 16;
+            this.metroCheckBox4.UseSelectable = true;
+            this.metroCheckBox4.CheckedChanged += new System.EventHandler(this.metroCheckBox4_CheckedChanged);
+            // 
+            // metroCheckBox3
+            // 
+            this.metroCheckBox3.AutoSize = true;
+            this.metroCheckBox3.Checked = true;
+            this.metroCheckBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox3.Location = new System.Drawing.Point(252, 115);
+            this.metroCheckBox3.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox3.Name = "metroCheckBox3";
+            this.metroCheckBox3.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox3.TabIndex = 15;
+            this.metroCheckBox3.UseSelectable = true;
+            this.metroCheckBox3.CheckedChanged += new System.EventHandler(this.metroCheckBox3_CheckedChanged);
+            // 
+            // metroCheckBox2
+            // 
+            this.metroCheckBox2.AutoSize = true;
+            this.metroCheckBox2.Checked = true;
+            this.metroCheckBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox2.Location = new System.Drawing.Point(252, 68);
+            this.metroCheckBox2.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox2.Name = "metroCheckBox2";
+            this.metroCheckBox2.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox2.TabIndex = 14;
+            this.metroCheckBox2.UseSelectable = true;
+            this.metroCheckBox2.CheckedChanged += new System.EventHandler(this.metroCheckBox2_CheckedChanged);
+            // 
+            // metroCheckBox1
+            // 
+            this.metroCheckBox1.AutoSize = true;
+            this.metroCheckBox1.Checked = true;
+            this.metroCheckBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.metroCheckBox1.Location = new System.Drawing.Point(252, 17);
+            this.metroCheckBox1.MinimumSize = new System.Drawing.Size(0, 30);
+            this.metroCheckBox1.Name = "metroCheckBox1";
+            this.metroCheckBox1.Size = new System.Drawing.Size(16, 30);
+            this.metroCheckBox1.TabIndex = 13;
+            this.metroCheckBox1.UseSelectable = true;
+            this.metroCheckBox1.CheckedChanged += new System.EventHandler(this.metroCheckBox1_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(57, 477);
+            this.label10.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(179, 30);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "DODANE PRZEZ";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label9.Location = new System.Drawing.Point(3, 424);
+            this.label9.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(233, 30);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "DATA ZAKOŃCZENIA";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(134, 373);
+            this.label8.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 30);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "STATUS";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(141, 318);
+            this.label7.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(95, 30);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "TERMIN";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.Location = new System.Drawing.Point(59, 267);
+            this.label6.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(177, 30);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "DATA DODANIA";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(73, 216);
+            this.label5.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(163, 30);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "WYKONAWCA";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(36, 164);
+            this.label4.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(200, 30);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "RODZAJ ZADANIA";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(129, 115);
+            this.label3.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 30);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "ZADANIE";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(101, 68);
+            this.label2.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(135, 30);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "PRIORYTET";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(201, 17);
+            this.label1.MinimumSize = new System.Drawing.Size(30, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 30);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "ID";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // metroContextMenu1
+            // 
+            this.metroContextMenu1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.metroContextMenu1.Name = "metroContextMenu1";
+            this.metroContextMenu1.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -2502,7 +2513,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private MetroFramework.Controls.MetroButton ButtonZapiszWidokkolumn;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox10;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox9;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox8;
@@ -2515,6 +2525,8 @@
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
         private System.Windows.Forms.Label label10;
         private MetroFramework.Controls.MetroTextBox metroTextBox1;
+        private MetroFramework.Controls.MetroLabel metroLabel29;
+        private MetroFramework.Controls.MetroButton ButtonZapiszWidokKolumn;
     }
 }
 

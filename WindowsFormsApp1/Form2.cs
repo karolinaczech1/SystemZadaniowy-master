@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
             form1 = glowna;
 
-            Get_Types();
+            Get_Types(Rodzaje);
             Load_Types();
             Load_wykonawcy();
             ComboBoxPriorytet.SelectedItem = "5";
@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
         }
 
         List<Types> Rodzaje = new List<Types>();
-        private void Get_Types()
+        public void Get_Types(List<Types> lista)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace WindowsFormsApp1
                     int id_rodzaju = Convert.ToInt32(r["id_rodzaju"]);
                     string rodzaj = r["rodzaj"].ToString();
                     Types rodzaj_zadania = new Types(id_rodzaju, rodzaj);
-                    Rodzaje.Add(rodzaj_zadania);
+                    lista.Add(rodzaj_zadania);
                 }
                 r.Close();
                 con.Close();
@@ -62,7 +62,7 @@ namespace WindowsFormsApp1
 
             }
         }
-        private void Load_Types()
+        public void Load_Types()
         {
             ComboBoxRodzajZadania.Items.Clear();
             for (int i = 0; i < Rodzaje.Count; i++)
@@ -80,7 +80,7 @@ namespace WindowsFormsApp1
         }
        
 
-        private void Add_Type(string rodzaj) 
+        public void Add_Type(string rodzaj) 
         {
             bool czy_istnieje_rodzaj = false;
             for (int i = 0; i < Rodzaje.Count; i++)
@@ -160,8 +160,8 @@ namespace WindowsFormsApp1
                     {
                         if (CheckBoxInnyRodzaj.Checked == true)
                         {
-                            Add_Type(TextBoxRodzajZadania.Text);
-                            rodzaj = TextBoxRodzajZadania.Text;
+                            Add_Type(TextBoxEdytujRodzajZadania.Text);
+                            rodzaj = TextBoxEdytujRodzajZadania.Text;
                         }
                         else
                         {
@@ -215,7 +215,7 @@ namespace WindowsFormsApp1
             Dodaj_zadanie();
             ComboBoxPriorytet.SelectedItem = null; 
             TextBoxTytulZadania.Text = "";
-            TextBoxRodzajZadania.Text = "";
+            TextBoxEdytujRodzajZadania.Text = "";
             TextBoxOpisZadania.Text = "";
             ComboBoxPriorytet.SelectedItem = "5";
             ComboBoxWykonawca.SelectedItem = form1.zalogowany_user;
@@ -238,5 +238,16 @@ namespace WindowsFormsApp1
                 dateTimePickerTime.Hide();
             }
         }
+
+
+        Form3 form3;
+        Form2(Form3 form)
+        {
+            this.form3 = form;
+        }
+
+        
+
+
     }
 }

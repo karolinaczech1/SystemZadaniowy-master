@@ -18,15 +18,19 @@ namespace WindowsFormsApp1
     public partial class Form3 : MetroFramework.Forms.MetroForm
     {
         private Form1 form1;
+        private Form2 form2;
         int id; //id zadania (takie jak w bazie)
         public Form3(Form1 glowna)
         {
             InitializeComponent();
             form1 = glowna;
+          
             Label_ID.Text = "ID zadania: " + form1.TextBoxDetailsID.Text;
             id = Convert.ToInt32(form1.TextBoxDetailsID.Text);
             LabelDodanePrzez.Text = "Dodane przez: " + form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Dodane_przez");
 
+            Rodzaje_zadan();
+            ComboBoxRodzajZadania.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Rodzaj").ToString();
             ComboBoxEdytujPriorytet.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Priorytet").ToString();
             form1.Wczytaj_wykonawcow(ComboBoxEdytujWykonawce);
             ComboBoxEdytujWykonawce.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Wykonawca").ToString();
@@ -45,7 +49,7 @@ namespace WindowsFormsApp1
 
             TextBoxEdycjZadania.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Zadanie").ToString();
             TextBoxEdytujOpis.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Opis").ToString();
-            TextBoxEdytujRodzajZadania.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Rodzaj").ToString();
+
 
             if(Convert.ToBoolean(form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Status")) == true)
             {
@@ -63,6 +67,86 @@ namespace WindowsFormsApp1
                 TextBoxDataWykonania.Text = null;
                 CheckBoxEdytujStatus.Text = "niewykonane";
             }
+        }
+
+        List<Types> Rodzaje = new List<Types>();
+        private void Rodzaje_zadan()
+        {
+            try
+            {
+                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                MySqlConnection con = connection.polaczenie();
+                con.Open();
+                MySqlCommand komendaSQL = con.CreateCommand();
+                komendaSQL.CommandText = "SELECT * from rodzaje_zadan";
+                MySqlDataReader r = komendaSQL.ExecuteReader();
+                while (r.Read())
+                {
+                    int id_rodzaju = Convert.ToInt32(r["id_rodzaju"]);
+                    string rodzaj = r["rodzaj"].ToString();
+                    Types rodzaj_zadania = new Types(id_rodzaju, rodzaj);
+                    Rodzaje.Add(rodzaj_zadania);
+                }
+                r.Close();
+                con.Close();
+            }
+            catch (MySqlException ee)
+            {
+                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+
+            }
+            ComboBoxRodzajZadania.Items.Clear();
+            for (int i = 0; i < Rodzaje.Count; i++)
+            {
+                ComboBoxRodzajZadania.Items.Add(Rodzaje[i].rodzaj);
+            }
+
+        }
+
+        public void Add_Type(string rodzaj)
+        {
+            bool czy_istnieje_rodzaj = false;
+            for (int i = 0; i < Rodzaje.Count; i++)
+            {
+                if (Rodzaje[i].rodzaj == rodzaj)
+                {
+                    czy_istnieje_rodzaj = true;
+                    break;
+                }
+            }
+            if (czy_istnieje_rodzaj == false)
+            {
+                int nowe_id = (Rodzaje[Rodzaje.Count - 1].id_rodzaju) + 1;
+                try
+                {
+                    DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                    MySqlConnection con = connection.polaczenie();
+                    con.Open();
+                    MySqlCommand komendaSQL = con.CreateCommand();
+                    komendaSQL.CommandText = "INSERT INTO `rodzaje_zadan` (`id_rodzaju`, `rodzaj`) VALUES (" + nowe_id + ", '" + rodzaj + "');";
+                    MySqlDataReader r = komendaSQL.ExecuteReader();
+                    r.Close();
+                    con.Close();
+                    Types rodzaj_zadania = new Types(nowe_id, rodzaj);
+                    Rodzaje.Add(rodzaj_zadania);
+                    ComboBoxRodzajZadania.Items.Clear();
+                    for (int i = 0; i < Rodzaje.Count; i++)
+                    {
+                        ComboBoxRodzajZadania.Items.Add(Rodzaje[i].rodzaj);
+                    }
+                }
+                catch (MySqlException ee)
+                {
+                    MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+
+                }
+                ComboBoxRodzajZadania.Text = rodzaj;
+            }
+            else
+            {
+                ComboBoxRodzajZadania.Text = rodzaj;
+            }
+
         }
 
         private void ButtonZapiszZmiany_Click(object sender, EventArgs e)
@@ -108,7 +192,7 @@ namespace WindowsFormsApp1
         {
             int priorytet = Convert.ToInt32(ComboBoxEdytujPriorytet.Text);
             string zadanie = TextBoxEdycjZadania.Text;
-            string rodzaj = TextBoxEdytujRodzajZadania.Text;
+            string rodzaj;
             string wykonawca = ComboBoxEdytujWykonawce.SelectedItem.ToString();
             string termin;
             if (CheckBoxTermin.Checked == true) termin = dateTimePickerData.Value.ToString("dd-MM-yyyy") + " " + dateTimePickerTime.Text; // + dateTimePickerTime.Value.ToString();
@@ -116,6 +200,15 @@ namespace WindowsFormsApp1
             bool status = CheckBoxEdytujStatus.Checked;
             string data_wykonania = TextBoxDataWykonania.Text;
             string opis = TextBoxEdytujOpis.Text;
+            if (CheckBoxInnyRodzaj.Checked == true)
+            {
+                Add_Type(TextBoxRodzajZadania.Text);
+                rodzaj = TextBoxRodzajZadania.Text;
+            }
+            else
+            {
+                rodzaj = ComboBoxRodzajZadania.Text;
+            }
 
             try
             {

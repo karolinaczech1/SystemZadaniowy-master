@@ -1,5 +1,6 @@
 ﻿
 //autorem jest karolina czech
+using Microsoft.VisualBasic;
 using System;
 using System.Runtime;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ using System.Deployment.Internal;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Renci.SshNet.Security;
+using System.Security.Cryptography;
 
 namespace WindowsFormsApp1
 {
@@ -32,7 +34,10 @@ namespace WindowsFormsApp1
             InitializeComponent();
             ComboBoxSortowanie.SelectedIndex = 0;    //domyślne sortowanie wg kolumny 0, czyli ID
             ComboBoxKolumnaSzukania.SelectedIndex = 2;   //domyślne wyszukiwanie w kolumnie 2, czyli zadanie
+
+            Zaladuj_ponownie();
             
+           /* connected = false;
             //Jesli wpisno dane do łączenia z bazą:
             if (File.Exists("database.txt") && Dane[0] != string.Empty)
             {
@@ -41,7 +46,7 @@ namespace WindowsFormsApp1
                 Wczytaj_Filtry();
                 kolor_terminu_w_dataGrid();
                 ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
-               
+                
                 //Jeślu udało się połączyć z bazą:
                 if (connected == true)  
                 {
@@ -84,6 +89,7 @@ namespace WindowsFormsApp1
                     Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                     Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
                     Odczyt_Ustawien_Kolumn();
+                    
 
                 }
                 else 
@@ -96,7 +102,7 @@ namespace WindowsFormsApp1
             {
                 TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
             }
-            this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending);   //domyślne sortowanie - malejąco według ID
+            this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending);   //domyślne sortowanie - malejąco według ID */
            
         }
 
@@ -110,6 +116,7 @@ namespace WindowsFormsApp1
         public string zalogowany_user;
         public bool zalogowany = false;
         public string[] Dane = new string[4];
+        
         public string[] IleDni_KoloryTerminow = new string[6];
         bool connected = false;
         bool uzytkownik_istnieje;
@@ -215,41 +222,122 @@ namespace WindowsFormsApp1
             }
         }
 
-
+        Rijndael Szyfr = Rijndael.Create();
+        byte[] key = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
+        byte[] iv = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
         //przycisk do łączenia z bazą danych
         private void ButtonSaveDB_Click(object sender, EventArgs e)
         {
+             string server = TextBoxServerID.Text;
+             string name = TextBoxDBName.Text;
+             string user = TextBoxDBUser.Text;
+             string pass = TextBoxDBPassword.Text;
+             
+             //szyfrowanie
+             string ServerID = "";
+             string DBName = "";
+             string DBUser = "";
+             string DBPassword = "";
+             try
+             {
+                 using (Szyfr.CreateEncryptor(key, iv))
+                 {
+                    // Encrypt the string to an array of bytes.
+                    if (server != string.Empty)
+                    {
+                        byte[] encryptedServerID = EncryptStringToBytes(server, key, iv);
+                        for (int i = 0; i < encryptedServerID.Count(); i++) { ServerID += encryptedServerID[i] + " "; }
+                    }
+                    else ServerID = " ";
+                    if (name != string.Empty)
+                    {
+                        byte[] encryptedDBName = EncryptStringToBytes(name, key, iv);
+                        for (int i = 0; i < encryptedDBName.Count(); i++) { DBName += encryptedDBName[i] + " "; }
+                    }
+                    else DBName = " ";
+                    if (user != string.Empty)
+                    {
+                        byte[] encryptedDBUser = EncryptStringToBytes(user, key, iv);
+                        for (int i = 0; i < encryptedDBUser.Count(); i++) { DBUser += encryptedDBUser[i] + " "; }
+                    }
+                    else DBUser = " ";
+                    if (pass != string.Empty)
+                    {
+                        byte[] encryptedDBPassword = EncryptStringToBytes(pass, key, iv);
+                        for (int i = 0; i < encryptedDBPassword.Count(); i++) { DBPassword += encryptedDBPassword[i] + " "; }
+                    }
+                    else DBPassword = " ";
 
-            string file_name = "database.txt";
-            if (File.Exists(file_name))
-            {
-                File.WriteAllText(file_name, String.Empty);
-                FileStream dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
-                StreamWriter writer = new StreamWriter(dane);
-                writer.WriteLine(TextBoxServerID.Text);
-                writer.WriteLine(TextBoxDBName.Text);
-                writer.WriteLine(TextBoxDBUser.Text);
-                writer.WriteLine(TextBoxDBPassword.Text);
-                writer.Close();
-                dane.Close();
-            }
-            else
-            {
-                FileStream dane = new FileStream(file_name, FileMode.CreateNew);
-                StreamWriter writer = new StreamWriter(dane);
-                writer.WriteLine(TextBoxServerID.Text);
-                writer.WriteLine(TextBoxDBName.Text);
-                writer.WriteLine(TextBoxDBUser.Text);
-                writer.WriteLine(TextBoxDBPassword.Text);
-                writer.Close();
-                dane.Close();
-            }
+                     string file_name = "database.txt";
+                     if (File.Exists(file_name))
+                     {
+                         File.WriteAllText(file_name, String.Empty);
+                         FileStream dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
+                         StreamWriter writer = new StreamWriter(dane);
+                         writer.WriteLine(ServerID);
+                         writer.WriteLine(DBName);
+                         writer.WriteLine(DBUser);
+                         writer.WriteLine(DBPassword);
+                         writer.Close();
+                         dane.Close();
+                        MessageBox.Show("Zapisano");
+                     }
+                     else
+                     {
+                         FileStream dane = new FileStream(file_name, FileMode.CreateNew);
+                         StreamWriter writer = new StreamWriter(dane);
+                         writer.WriteLine(ServerID);
+                         writer.WriteLine(DBName);
+                         writer.WriteLine(DBUser);
+                         writer.WriteLine(DBPassword);
+                         writer.Close();
+                         dane.Close();
+                        MessageBox.Show("Zapisano");
+                     }
 
-            DataBase();
+                    Zaladuj_ponownie();
+                     ///załadowanie od nowa wszystkiego
+
+                }
+             }
+             catch (Exception x)
+             {
+                 MessageBox.Show("Error: {0}", x.Message);
+             }
+               
+
+
+            //DZIALAJACE BEZ SZYFROWANIA:
+            /*  string file_name = "database.txt";
+              if (File.Exists(file_name))
+              {
+                  File.WriteAllText(file_name, String.Empty);
+                  FileStream dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
+                  StreamWriter writer = new StreamWriter(dane);
+                  writer.WriteLine(TextBoxServerID.Text);
+                  writer.WriteLine(TextBoxDBName.Text);
+                  writer.WriteLine(TextBoxDBUser.Text);
+                  writer.WriteLine(TextBoxDBPassword.Text);
+                  writer.Close();
+                  dane.Close();
+              }
+              else
+              {
+                  FileStream dane = new FileStream(file_name, FileMode.CreateNew);
+                  StreamWriter writer = new StreamWriter(dane);
+                  writer.WriteLine(TextBoxServerID.Text);
+                  writer.WriteLine(TextBoxDBName.Text);
+                  writer.WriteLine(TextBoxDBUser.Text);
+                  writer.WriteLine(TextBoxDBPassword.Text);
+                  writer.Close();
+                  dane.Close();
+              }
+
+              DataBase();  */
         }
 
         //przycisk do zapisania ustawień widoczności kolumn
-        private void ButtonZapiszWidokkolumn_Click(object sender, EventArgs e)
+        private void ButtonZapiszWidokKolumn_Click_1(object sender, EventArgs e)
         {
             string[] Zaznaczenia = new string[10];
             string file_name = "ustawieniaKolumn.txt";
@@ -258,14 +346,14 @@ namespace WindowsFormsApp1
             {
                 File.WriteAllText(file_name, String.Empty);
                 dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
-                
+
             }
             else
             {
                 dane = new FileStream(file_name, FileMode.CreateNew);
             }
             StreamWriter writer = new StreamWriter(dane);
-            if(metroCheckBox1.Checked == true ) writer.WriteLine(1);
+            if (metroCheckBox1.Checked == true) writer.WriteLine(1);
             else writer.WriteLine(0);
             if (metroCheckBox2.Checked == true) writer.WriteLine(1);
             else writer.WriteLine(0);
@@ -289,9 +377,10 @@ namespace WindowsFormsApp1
             writer.Close();
             dane.Close();
 
-           //Widocznosc_kolumn_ustawiona();
+            //Widocznosc_kolumn_ustawiona();
             Odczyt_Ustawien_Kolumn();
         }
+      
 
 
 
@@ -397,6 +486,7 @@ namespace WindowsFormsApp1
             //odswiezenie datagrid ShowRow()
             metroGrid1.Rows.Clear();
             ShowRow(Zadania);
+            Display_specific_task_details(id);
 
         }
 
@@ -432,7 +522,9 @@ namespace WindowsFormsApp1
             //odswiezenie datagrid ShowRow()
             metroGrid1.Rows.Clear();
             ShowRow(Zadania); //może zamienić n zmiana_zakresu_dat(Zadania)
-            
+            Display_specific_task_details(id);
+
+
         }
 
 
@@ -505,6 +597,7 @@ namespace WindowsFormsApp1
             metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
             string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
             Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
+
 
         }
 
@@ -690,19 +783,110 @@ namespace WindowsFormsApp1
             else zalogowany = false;
         }
 
+        
+        
         //pierwsze połączenie z bazą i pobranie wszyskich zadań i użytkowników
         private void DataBase()
         {
+            Dane[0] = ""; Dane[1] = ""; Dane[2] = ""; Dane[3] = "";
+            string[] odczyt_linii = new string[4];
             FileStream odczyt = new FileStream("database.txt", FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(odczyt);
             for (int i = 0; i < 4; i++)
             {
-                Dane[i] = reader.ReadLine();
+                odczyt_linii[i] = reader.ReadLine();
             }
             reader.Close();
             odczyt.Close();
+           //rodzielenie odczyt_linii do tablicy byte
+             char spacja = ' ';
 
-            //zapisanie danych bazy w textboxach
+            if (odczyt_linii[0] != " ")
+            {
+                string[] ID = odczyt_linii[0].Split(spacja);
+                byte[] IDbyte = new byte[ID.Count() - 1];
+                for (int i = 0; i < ID.Count() - 1; i++) IDbyte[i] = Convert.ToByte(ID[i]);
+                try
+                {
+                    using (Szyfr.CreateDecryptor(key, iv))
+                    {
+                        Dane[0] += DecryptStringFromBytes(IDbyte, key, iv);
+                    }
+                }
+                catch (Exception x)
+                {
+                   // Dane[0] += "1.1";
+                    MessageBox.Show("Error: database()1 {0}", x.Message);
+                }
+            }
+            else Dane[0] += "1.2";
+            if (odczyt_linii[1] != " ")
+            {
+                string[] Name = odczyt_linii[1].Split(spacja);
+                byte[] Namebyte = new byte[Name.Count() - 1];
+                for (int i = 0; i < Name.Count() - 1; i++) Namebyte[i] = Convert.ToByte(Name[i]);
+                try
+                {
+                    using (Szyfr.CreateDecryptor(key, iv))
+                    {
+                        Dane[1] += DecryptStringFromBytes(Namebyte, key, iv);
+                    }
+                }
+                catch (Exception x)
+                {
+                    //Dane[1] += "2.1";
+                    MessageBox.Show("Error: database()2 {0}", x.Message);
+                }
+            }
+            else Dane[1] += "2.2";
+            if (odczyt_linii[2] != " ")
+            {
+                string[] User = odczyt_linii[2].Split(spacja);
+                byte[] Userbyte = new byte[User.Count() - 1];
+                for (int i = 0; i < User.Count() - 1; i++) Userbyte[i] = Convert.ToByte(User[i]);
+                try
+                {
+                    using (Szyfr.CreateDecryptor(key, iv))
+                    {
+                        Dane[2] += DecryptStringFromBytes(Userbyte, key, iv);
+                    }
+                }
+                catch (Exception x)
+                {
+                   // Dane[2] += "3.1";
+                    MessageBox.Show("Error: database()3 {0}", x.Message);
+                }
+            }
+            else Dane[2] += "3.2";
+            if (odczyt_linii[3] != " ")
+            {
+                string[] Password = odczyt_linii[3].Split(spacja);
+                byte[] Passwordbyte = new byte[Password.Count() - 1];
+                for (int i = 0; i < Password.Count() - 1; i++) Passwordbyte[i] = Convert.ToByte(Password[i]);
+                try
+                {
+                    using (Szyfr.CreateDecryptor(key, iv))
+                    {
+                        Dane[3] += DecryptStringFromBytes(Passwordbyte, key, iv);
+                    }
+                }
+                catch (Exception x)
+                {
+                   // Dane[3] += "4.1";
+                    MessageBox.Show("Error: database()4 {0}", x.Message);
+                }
+            }
+            else Dane[3] += "";
+            TextBoxDBTesting.Text = "";
+            //test w textboxie:
+            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3];             
+            DB_first_connection();
+
+
+        }
+
+        private void DB_first_connection()
+        {
             TextBoxServerID.Text = Dane[0];
             TextBoxDBName.Text = Dane[1];
             TextBoxDBUser.Text = Dane[2];
@@ -713,7 +897,7 @@ namespace WindowsFormsApp1
                 DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
-                connected = true;
+                
                 MySqlCommand komenda1 = con.CreateCommand();
 
                 komenda1.CommandText = "SELECT * FROM zadania";
@@ -740,6 +924,7 @@ namespace WindowsFormsApp1
                 }
                 r.Close();
 
+                Uzytkownicy.Clear();
                 MySqlCommand komenda2 = con.CreateCommand();
                 komenda2.CommandText = "SELECT * FROM uzytkownicy";
                 MySqlDataReader u = komenda2.ExecuteReader();
@@ -753,16 +938,16 @@ namespace WindowsFormsApp1
 
                 u.Close();
                 con.Close();
+                connected = true;
             }
 
             catch (MySqlException e)
             {
+                connected = false;
                 MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
                 TextBoxDBinfo.Text = "Brak połączenia z bazą";
             }
         }
-
-
 
 
 
@@ -822,6 +1007,7 @@ namespace WindowsFormsApp1
                 string id = metroGrid1[0, 0].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
                 metroGrid1.Rows[0].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(id))[0];   //pozostawienie koloru terminu mimo zaznaczenia
                 Load_Task_Details(Znajdz_index_na_liscie(id));
+
             }
 
         }
@@ -840,6 +1026,7 @@ namespace WindowsFormsApp1
                 metroGrid1.Rows[numerWiersza].Selected = true;
                 metroGrid1.Rows[numerWiersza].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(id.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
                 Load_Task_Details(Znajdz_index_na_liscie(id.ToString()));
+
             }
         }
 
@@ -905,6 +1092,7 @@ namespace WindowsFormsApp1
         //wczytywanie zadań do sekcji szczegóły
         public void Load_Task_Details(int index)
         {
+            
             metroTabTaskDetails.Show();
             Wczytaj_wykonawcow(ComboBoxDetailsWykonawcy);
 
@@ -916,9 +1104,8 @@ namespace WindowsFormsApp1
             TextBoxDetailsOpis.Text = Wszystkie_Zadania_Z_Bazy[index].Opis;
             TextBoxDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
             TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
+            
 
-           //ComboBoxDetailsWykonawcy.SelectedItem = Wszystkie_Zadania_Z_Bazy[index].Wykonawca; 
-           //ComboBoxDetailsZmienPriorytet.SelectedItem = Wszystkie_Zadania_Z_Bazy[index].Priorytet;
 
             //W zależności od tego, czy zadanie ma termin wykonania
             if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
@@ -954,8 +1141,9 @@ namespace WindowsFormsApp1
                 TextBoxDetailsStatus.Text = "niewykonane";
                 TextBoxDetailsDataZak.Text = "";
             }
+            
             kolor_terminu_w_dataGrid();
-
+            
         }
 
 
@@ -1256,6 +1444,7 @@ namespace WindowsFormsApp1
             }
             catch (MySqlException e)
             {
+                connected = false;
                 MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
                 TextBoxDBinfo.Text = "Brak połączenia z bazą";
             }
@@ -1346,7 +1535,9 @@ namespace WindowsFormsApp1
                         
                         Wyszukane.Add(Zadania[i]);
                         metroTabTaskDetails.Show();
+                        
                         Load_Task_Details(Znajdz_index_na_liscie(Zadania[i].Id_zadania.ToString()));
+
                     }
 
                 }
@@ -1488,16 +1679,169 @@ namespace WindowsFormsApp1
             return numer_wiersza;
         }
 
-       
 
 
 
+        //FUNKCJE DO SZYFROWANIA PLIKU
+        static byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (plainText == null || plainText.Length <= 0)
+                throw new ArgumentNullException("plainText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+            byte[] encrypted;
+            // Create an Rijndael object
+            // with the specified key and IV.
+            using (Rijndael rijAlg = Rijndael.Create())
+            {
+                rijAlg.Key = Key;
+                rijAlg.IV = IV;
+
+                // Create an encryptor to perform the stream transform.
+                ICryptoTransform encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
+
+                // Create the streams used for encryption.
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+
+                            //Write all data to the stream.
+                            swEncrypt.Write(plainText);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            // Return the encrypted bytes from the memory stream.
+            return encrypted;
+        }
+
+        static string DecryptStringFromBytes(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            // Check arguments.
+            if (cipherText == null || cipherText.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            // Declare the string used to hold
+            // the decrypted text.
+            string plaintext = null;
+
+            // Create an Rijndael object
+            // with the specified key and IV.
+            using (Rijndael rijAlg = Rijndael.Create())
+            {
+                rijAlg.Key = Key;
+                rijAlg.IV = IV;
+
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform decryptor = rijAlg.CreateDecryptor(rijAlg.Key, rijAlg.IV);
+
+                // Create the streams used for decryption.
+                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+
+                            // Read the decrypted bytes from the decrypting stream
+                            // and place them in a string.
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+            }
+
+            return plaintext;
+        }
 
 
+        private void Zaladuj_ponownie()
+        {
+            //Jesli wpisno dane do łączenia z bazą:
+            if (File.Exists("database.txt"))
+            {
+                connected = false;
+                DataBase();  //próba połączenia z bazą
+                
 
+                //UDAŁO SIE POŁĄCZYĆ Z BAZĄ
+                if (connected == true)
+                {
 
+                    TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
+                    
+                    Wczytaj_Filtry();
+                    kolor_terminu_w_dataGrid();
+                    ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
+                    ShowUsers(); //wczytanie listy userów
+                    if (Wszystkie_Zadania_Z_Bazy.Count >= 1)
+                    {
+                        DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
+                        DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
+                    }
+                    else
+                    {
+                        DateTimeZakresDatOd.Text = "20-06-2020";
+                        DateTimeZakresDatDo.Text = "30-12-2020";
+                    }
 
+                    //JEŚLI ISNIEJE PLIK LOGOWANIE.TXT
+                    if (File.Exists("logowanie.txt"))
+                    {
+                        Logowanie();  //próba logowania
 
+                        //JEŚLI ZALOGOWANO UZYTKOWNIKA
+                        if (zalogowany == true)
+                        {
+                            ComboBoxWykonawcy.SelectedItem = zalogowany_user;  //domyślny filtr na wyświetlanie zadań dla zalogowanego usera
+                                                                               // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                        }
+                        //JEŚLI NIE ZALOGOWANO
+                        else
+                        {
+                            ComboBoxWykonawcy.SelectedItem = "wszystkie";
+                            MessageBox.Show("Nie jesteś zalogowany.");
+                        }
+
+                    }
+                    //JEŚLI NIE ISTNIEJE PLIK LOGOWANIE.TXT
+                    else
+                    {
+                        ComboBoxWykonawcy.SelectedItem = "wszystkie";
+                        MessageBox.Show("Nie jesteś zalogowany.");
+                    }
+                    Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                    Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
+                    Odczyt_Ustawien_Kolumn();
+                    this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending); //domyślne sortowanie - malejąco według ID
+                }
+                
+                //NIE UDAŁO SIE POŁĄCZYĆ Z BAZA
+                else
+                {
+                    TextBoxDBinfo.Text = "Nie udało się nawiązać połączenia z bazą.";
+                }
+            }
+            else
+            {
+                TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
+            }
+
+        }
+
+        
 
 
 
