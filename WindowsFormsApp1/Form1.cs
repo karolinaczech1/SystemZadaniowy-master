@@ -24,6 +24,7 @@ using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Renci.SshNet.Security;
 using System.Security.Cryptography;
+using System.ComponentModel.DataAnnotations;
 
 namespace WindowsFormsApp1
 {
@@ -937,14 +938,15 @@ namespace WindowsFormsApp1
 
 
         }
-
+      
         private void DB_first_connection()
         {
             TextBoxServerID.Text = Dane[0];
             TextBoxDBPort.Text = Dane[1];
             TextBoxDBName.Text = Dane[2];
             TextBoxDBUser.Text = Dane[3];
-            TextBoxDBPassword.Text = Dane[4];
+            TextBoxDBPassword.Text = "";
+            for (int i = 0; i < Dane[4].Length; i++) TextBoxDBPassword.Text += "*";
 
             try
             {
@@ -1559,7 +1561,7 @@ namespace WindowsFormsApp1
                      metroGrid1.Rows.Add(konwersja(lista[i]));
                  }*/
                 //jeśli data dodania danego zadania mieści się w wybranym zakresie
-                if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value.AddDays(-1) && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1.0))
+                if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1))
                 {
                     metroGrid1.Rows.Add(konwersja(lista[i]));
                 }
@@ -1864,6 +1866,14 @@ namespace WindowsFormsApp1
                 //UDAŁO SIE POŁĄCZYĆ Z BAZĄ
                 if (connected == true)
                 {
+                    //wielkosc czcionki w datagridview
+                    this.metroGrid1.DefaultCellStyle.Font = new Font("Tahoma", 9.5F);
+                    
+                    /* foreach (DataGridViewColumn c in metroGrid1.Columns)
+                     {
+                         c.DefaultCellStyle.Font = new Font("Arial", 13.5F, GraphicsUnit.Pixel);
+                     }*/
+
 
                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
 
@@ -1951,7 +1961,9 @@ namespace WindowsFormsApp1
             }
 
         }
-    
+
+       
+
 
 
 
