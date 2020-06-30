@@ -594,10 +594,12 @@ namespace WindowsFormsApp1
 
             this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.metroGrid1.MultiSelect = false;
-            metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
-            string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
-            Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
-
+            if (Wszystkie_Zadania_Z_Bazy.Count > 0)
+            {
+                metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
+                string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
+                Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
+            }
 
         }
 
@@ -711,17 +713,20 @@ namespace WindowsFormsApp1
                         Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
                         Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
                         metroGrid1.Rows.Clear();
-                        ShowRow(Zadania);
-                        DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                        DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                        Display_first_task_details();
+                        if (Zadania.Count > 0)
+                        {
+                            ShowRow(Zadania);
+                            DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                            DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                            Display_first_task_details();
+                        }
                     }
                     catch (MySqlException ee)
                     {
                         MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
 
                     }
-                    metroTabTaskDetails.Hide();
+                    //metroTabTaskDetails.Hide();
                 }
                 else
                 {
@@ -1096,53 +1101,57 @@ namespace WindowsFormsApp1
             metroTabTaskDetails.Show();
             Wczytaj_wykonawcow(ComboBoxDetailsWykonawcy);
 
-            TextBoxDetailsPriorytet.Text = Wszystkie_Zadania_Z_Bazy[index].Priorytet.ToString();
-            TextBoxDetailsID.Text = Wszystkie_Zadania_Z_Bazy[index].Id_zadania.ToString();
-            TextBoxDetailsZadanie.Text = Wszystkie_Zadania_Z_Bazy[index].Zadanie;
-            TextBoxDetailsWykonawca.Text = Wszystkie_Zadania_Z_Bazy[index].Wykonawca;
-            TextBoxDetailsRodzaj.Text = Wszystkie_Zadania_Z_Bazy[index].Rodzaj;
-            TextBoxDetailsOpis.Text = Wszystkie_Zadania_Z_Bazy[index].Opis;
-            TextBoxDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
-            TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
-            
+            if (Wszystkie_Zadania_Z_Bazy.Count > 0)
+            {
+                TextBoxDetailsPriorytet.Text = Wszystkie_Zadania_Z_Bazy[index].Priorytet.ToString();
+                TextBoxDetailsID.Text = Wszystkie_Zadania_Z_Bazy[index].Id_zadania.ToString();
+                TextBoxDetailsZadanie.Text = Wszystkie_Zadania_Z_Bazy[index].Zadanie;
+                TextBoxDetailsWykonawca.Text = Wszystkie_Zadania_Z_Bazy[index].Wykonawca;
+                TextBoxDetailsRodzaj.Text = Wszystkie_Zadania_Z_Bazy[index].Rodzaj;
+                TextBoxDetailsOpis.Text = Wszystkie_Zadania_Z_Bazy[index].Opis;
+                TextBoxDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
+                TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
 
 
-            //W zależności od tego, czy zadanie ma termin wykonania
-            if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
-            {
-                TextBoxDetailsTerm.Show();
-                TextBoxDetailsTerm.Text = Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
-            }
-            else if( Wszystkie_Zadania_Z_Bazy[index].Termin == null || Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty)
-            {
-                TextBoxDetailsTerm.Text = string.Empty;
-                TextBoxDetailsTerm.Hide();
-            }
 
-            //W zależności od stanuzadania
-            if (Wszystkie_Zadania_Z_Bazy[index].Status == true)  //jeśli zadanie jest zakończone
-            {
-                textBoxIle_dni_do_konca_zadania.Hide();
-                TextBoxDetailsStatus.Text = "wykonane";
-                TextBoxDetailsDataZak.Text = Wszystkie_Zadania_Z_Bazy[index].Data_wykonania;
-            }
-            else
-            {
-                textBoxIle_dni_do_konca_zadania.Show();
-                string czas = ile_czasu_do_konca_zadania(index, Wszystkie_Zadania_Z_Bazy);
-                if (czas == null || czas == string.Empty) textBoxIle_dni_do_konca_zadania.Text = "zadanie bezterminowe";
-                else if (Convert.ToInt32(czas) == 0) textBoxIle_dni_do_konca_zadania.Text = "DEADLINE";
-                else if (Convert.ToInt32(czas) < 0) textBoxIle_dni_do_konca_zadania.Text = "Zadanie po terminie.";
-                else if (Convert.ToInt32(czas) == 1) textBoxIle_dni_do_konca_zadania.Text = czas + " dzień do końca zadania";
-                else textBoxIle_dni_do_konca_zadania.Text = czas + " dni do końca zadania";
+                //W zależności od tego, czy zadanie ma termin wykonania
+                if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
+                {
+                    TextBoxDetailsTerm.Show();
+                    TextBoxDetailsTerm.Text = Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
+                }
+                else if (Wszystkie_Zadania_Z_Bazy[index].Termin == null || Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty)
+                {
+                    TextBoxDetailsTerm.Text = string.Empty;
+                    TextBoxDetailsTerm.Hide();
+                }
 
-                textBoxIle_dni_do_konca_zadania.BackColor = kolor(index)[0];
-                textBoxIle_dni_do_konca_zadania.ForeColor = kolor(index)[1];
-                TextBoxDetailsStatus.Text = "niewykonane";
-                TextBoxDetailsDataZak.Text = "";
+                //W zależności od stanuzadania
+                if (Wszystkie_Zadania_Z_Bazy[index].Status == true)  //jeśli zadanie jest zakończone
+                {
+                    textBoxIle_dni_do_konca_zadania.Hide();
+                    TextBoxDetailsStatus.Text = "wykonane";
+                    TextBoxDetailsDataZak.Text = Wszystkie_Zadania_Z_Bazy[index].Data_wykonania;
+                }
+                else
+                {
+                    textBoxIle_dni_do_konca_zadania.Show();
+                    string czas = ile_czasu_do_konca_zadania(index, Wszystkie_Zadania_Z_Bazy);
+                    if (czas == null || czas == string.Empty) textBoxIle_dni_do_konca_zadania.Text = "zadanie bezterminowe";
+                    else if (Convert.ToInt32(czas) == 0) textBoxIle_dni_do_konca_zadania.Text = "DEADLINE";
+                    else if (Convert.ToInt32(czas) < 0) textBoxIle_dni_do_konca_zadania.Text = "Zadanie po terminie.";
+                    else if (Convert.ToInt32(czas) == 1) textBoxIle_dni_do_konca_zadania.Text = czas + " dzień do końca zadania";
+                    else textBoxIle_dni_do_konca_zadania.Text = czas + " dni do końca zadania";
+
+                    textBoxIle_dni_do_konca_zadania.BackColor = kolor(index)[0];
+                    textBoxIle_dni_do_konca_zadania.ForeColor = kolor(index)[1];
+                    TextBoxDetailsStatus.Text = "niewykonane";
+                    TextBoxDetailsDataZak.Text = "";
+                }
+
+                kolor_terminu_w_dataGrid();
             }
-            
-            kolor_terminu_w_dataGrid();
+            else metroTabTaskDetails.Hide();
             
         }
 
@@ -1221,13 +1230,20 @@ namespace WindowsFormsApp1
         //funkcja licząca ile czasu zostało do końca zadania
         private string ile_czasu_do_konca_zadania(int index, List<Tasks> lista)
         {
-            if (lista[index].Termin != null && lista[index].Termin != string.Empty)
+            if (lista.Count > 0)
             {
-                System.DateTime termin = Convert.ToDateTime(lista[index].Termin);
-                string term = termin.ToString("ddd, dd MMM yyyy HH':'mm ");
-                string dzis = DateTime.UtcNow.ToLocalTime().ToString("ddd, dd MMM yyyy HH':'mm ");
-                TimeSpan roznica = Convert.ToDateTime(term) - Convert.ToDateTime(dzis);
-                return roznica.Days.ToString();
+                if (lista[index].Termin != null && lista[index].Termin != string.Empty)
+                {
+                    System.DateTime termin = Convert.ToDateTime(lista[index].Termin);
+                    string term = termin.ToString("ddd, dd MMM yyyy HH':'mm ");
+                    string dzis = DateTime.UtcNow.ToLocalTime().ToString("ddd, dd MMM yyyy HH':'mm ");
+                    TimeSpan roznica = Convert.ToDateTime(term) - Convert.ToDateTime(dzis);
+                    return roznica.Days.ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
             else
             {
@@ -1235,19 +1251,20 @@ namespace WindowsFormsApp1
             }
         }
 
-        //funkcja zwracająca kolor w zależności od tego ile czasu zostało do końca zadania (zmienic na uniwersalna po dodaniu ustawien zakresów)
-        //parametry np: mocno czerwony: <1 dni,  czerwony: 1 dzien,  pomarnczowy: 2dni, zółty: 3 dni,  zielony: >4dni
+        //funkcja zwracająca kolor w zależności od tego ile czasu zostało do końca zadania
         private Color[] kolor(int index)
         {
             
             Color[] kolor = new Color[2];
             string ilosc_dni = ile_czasu_do_konca_zadania(index, Wszystkie_Zadania_Z_Bazy);
             int dni;
-           
-            //NIEZAKOŃCZONE ZADANIA
-            if (Wszystkie_Zadania_Z_Bazy[index].Status == false)
+
+            if (Wszystkie_Zadania_Z_Bazy.Count > 0)
             {
-                
+                //NIEZAKOŃCZONE ZADANIA
+                if (Wszystkie_Zadania_Z_Bazy[index].Status == false)
+                {
+                    //bezteminowe wykonane i nie wykonane nie ma koloru bez zaznaczenie   
                     //ZADANIA niezakonczone Z TERMINEM
                     if (ilosc_dni != string.Empty)
                     {
@@ -1256,24 +1273,26 @@ namespace WindowsFormsApp1
 
                         else if (dni == 0) { kolor[0] = Color.Red; kolor[1] = Color.White; }
                         else if (dni > 0 && dni <= 4) { kolor[0] = Color.Orange; kolor[1] = Color.White; }
-                        else if (dni >4 && dni <= 10) { kolor[0] = Color.Yellow; kolor[1] = Color.Black; }
+                        else if (dni > 4 && dni <= 10) { kolor[0] = Color.Yellow; kolor[1] = Color.Black; }
                         else if (dni > 10) { kolor[0] = Color.Green; kolor[1] = Color.White; }
 
                         else { kolor[1] = Color.LightGreen; kolor[1] = Color.Black; }
 
                     }
                     //ZADANIA niezakonczone BEZ TERMINU
-                    else { kolor[0] = Color.LightGreen; kolor[1] = Color.Black; }
-                
-            }
-            //ZAKOŃCZONE ZADANIA z teminem lub bez
-            else
-            {
-                    kolor[0] = Color.LightGray;
-                    kolor[1] = Color.Gray;  
-            }
+                    else if (Wszystkie_Zadania_Z_Bazy[index].Termin == null || Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty) { kolor[0] = Color.LightGreen; kolor[1] = Color.Black; }
 
-            return kolor;
+                }
+                //ZAKOŃCZONE ZADANIA z teminem lub bez
+                else
+                {
+                    kolor[0] = Color.LightGray;
+                    kolor[1] = Color.Gray;
+                }
+
+                return kolor;
+            }
+            else return null;
         }
 
 
@@ -1285,7 +1304,7 @@ namespace WindowsFormsApp1
              {
                  for(int j=0; j<metroGrid1.RowCount; j++)
                  {
-                    if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Termin != null)  //znaleznienie odpowiedniej komorki datagrid
+                    if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == false) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
                     {
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
@@ -1293,9 +1312,16 @@ namespace WindowsFormsApp1
                     if(metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == true)
                     {
                         metroGrid1.Rows[j].DefaultCellStyle.ForeColor = Color.Gray;
+                        metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
                     }
-                 }
+                   /* if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && (Wszystkie_Zadania_Z_Bazy[i].Termin == null || Wszystkie_Zadania_Z_Bazy[i].Termin == string.Empty)) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
+                    {
+                        metroGrid1[6, j].Style.BackColor = kolor(i)[0];
+                        metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
+                    }*/
+                    
+                }
              }
 
          }
@@ -1470,16 +1496,26 @@ namespace WindowsFormsApp1
         //ZMIANY ZAKRESU DAT
         private void zmiana_zakresu_dat(List<Tasks> lista)   // może zastępować ShowRow()
         {
+
+            
             metroGrid1.Rows.Clear();
             for (int i = 0; i < lista.Count; i++)
             {
-                //jeśli data dodania danego zadania mieści się w wybranym zakresie
-                if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value.AddDays(-1) && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1.0))
+               /* DateTime dodanie = Convert.ToDateTime(lista[i].Data_dodania.ToString("dd-MM-yyyy"));
+                DateTime data_od = Convert.ToDateTime((DateTimeZakresDatOd.Value.AddDays(-1)).ToString("dd-MM-yyyy"));
+                DateTime data_do = Convert.ToDateTime((DateTimeZakresDatDo.Value.AddDays(1.0)).ToString("dd-MM-yyyy"));
+               
+                if (dodanie >= data_od && dodanie <= data_do)
                 {
                     metroGrid1.Rows.Add(konwersja(lista[i]));
-                }
+                }*/
+                //jeśli data dodania danego zadania mieści się w wybranym zakresie
+                 if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value.AddDays(-1) && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1.0))
+                 {
+                    metroGrid1.Rows.Add(konwersja(lista[i]));
+                 }
 
-               Display_first_task_details();
+                Display_first_task_details();
                kolor_terminu_w_dataGrid();
                Sortowanie();
 
