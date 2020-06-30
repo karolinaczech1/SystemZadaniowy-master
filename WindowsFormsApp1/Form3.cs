@@ -74,7 +74,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 MySqlCommand komendaSQL = con.CreateCommand();
@@ -117,9 +117,10 @@ namespace WindowsFormsApp1
             if (czy_istnieje_rodzaj == false)
             {
                 int nowe_id = (Rodzaje[Rodzaje.Count - 1].id_rodzaju) + 1;
+               // string zapytanie = "INSERT INTO `rodzaje_zadan` (`id_rodzaju`, `rodzaj`) VALUES (" + nowe_id + ", '" + rodzaj + "');";
                 try
                 {
-                    DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                    DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
                     MySqlConnection con = connection.polaczenie();
                     con.Open();
                     MySqlCommand komendaSQL = con.CreateCommand();
@@ -137,9 +138,10 @@ namespace WindowsFormsApp1
                 }
                 catch (MySqlException ee)
                 {
-                    MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+                    MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.RODZAJ");
 
                 }
+                // form1.BazaDanych(zapytanie, form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
                 ComboBoxRodzajZadania.Text = rodzaj;
             }
             else
@@ -197,7 +199,9 @@ namespace WindowsFormsApp1
             string termin;
             if (CheckBoxTermin.Checked == true) termin = dateTimePickerData.Value.ToString("dd-MM-yyyy") + " " + dateTimePickerTime.Text; // + dateTimePickerTime.Value.ToString();
             else termin = null;
-            bool status = CheckBoxEdytujStatus.Checked;
+            int status;
+            if (CheckBoxEdytujStatus.Checked == true) status = 1;
+            else status = 0;
             string data_wykonania = TextBoxDataWykonania.Text;
             string opis = TextBoxEdytujOpis.Text;
             if (CheckBoxInnyRodzaj.Checked == true)
@@ -209,10 +213,10 @@ namespace WindowsFormsApp1
             {
                 rodzaj = ComboBoxRodzajZadania.Text;
             }
-
+            
             try
             {
-                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 MySqlCommand komendaSQL = con.CreateCommand();
@@ -227,11 +231,11 @@ namespace WindowsFormsApp1
                 System.DateTime data_dodania = Convert.ToDateTime(form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Data_dodania"));
                 string data_dodania_string = data_dodania.ToString("ddd, dd MMM yyyy HH':'mm ");
 
-                zmienione_zadanie = new Tasks(id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, status, data_wykonania, opis, form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Dodane_przez").ToString());
+                zmienione_zadanie = new Tasks(id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, Convert.ToBoolean(status), data_wykonania, opis, form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Dodane_przez").ToString());
             }
             catch (MySqlException ee)
             {
-                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą. Nie można edytować.");
+                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą. Nie można edytować.EDYCJA   "+ee.Message.ToString());
             }
         }
         private void ButtonAnuluj_Click(object sender, EventArgs e)

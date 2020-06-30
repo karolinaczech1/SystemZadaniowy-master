@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
+                DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 MySqlCommand komendaSQL = con.CreateCommand();
@@ -94,26 +94,27 @@ namespace WindowsFormsApp1
                 if(czy_istnieje_rodzaj == false)
                 {
                     int nowe_id = (Rodzaje[Rodzaje.Count - 1].id_rodzaju) + 1;
+                  
                     try
-                    {
-                        DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
-                        MySqlConnection con = connection.polaczenie();
-                        con.Open();
-                        MySqlCommand komendaSQL = con.CreateCommand();
-                        komendaSQL.CommandText = "INSERT INTO `rodzaje_zadan` (`id_rodzaju`, `rodzaj`) VALUES (" + nowe_id + ", '" + rodzaj + "');";
-                        MySqlDataReader r = komendaSQL.ExecuteReader();
-                        r.Close();
-                        con.Close();
-                        Types rodzaj_zadania = new Types(nowe_id, rodzaj);
-                        Rodzaje.Add(rodzaj_zadania);
-                        Load_Types();
-                    }
-                    catch (MySqlException ee)
-                    {
-                        MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+                     {
+                         DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
+                         MySqlConnection con = connection.polaczenie();
+                         con.Open();
+                         MySqlCommand komendaSQL = con.CreateCommand();
+                         komendaSQL.CommandText = "INSERT INTO `rodzaje_zadan` (`id_rodzaju`, `rodzaj`) VALUES (" + nowe_id + ", '" + rodzaj + "');";
+                         MySqlDataReader r = komendaSQL.ExecuteReader();
+                         r.Close();
+                         con.Close();
+                         Types rodzaj_zadania = new Types(nowe_id, rodzaj);
+                         Rodzaje.Add(rodzaj_zadania);
+                         Load_Types();
+                     }
+                     catch (MySqlException ee)
+                     {
+                         MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
 
-                    }
-                    ComboBoxRodzajZadania.Text = rodzaj;
+                     } 
+                ComboBoxRodzajZadania.Text = rodzaj;
                 }
                 else
                 {
@@ -147,7 +148,7 @@ namespace WindowsFormsApp1
                 {
                     dateTimePickerData.Hide();
                     dateTimePickerTime.Hide();
-                    termin = null;
+                    termin = string.Empty;
                 }
                 bool status = false;
                 string data_wykonania = null;
@@ -155,49 +156,35 @@ namespace WindowsFormsApp1
                 string dodane_przez = form1.zalogowany_user;
                 if (zadanie != string.Empty)
                 {
-                    //dodawanie do bazy
-                    try
+                    if (CheckBoxInnyRodzaj.Checked == true)
                     {
-                        if (CheckBoxInnyRodzaj.Checked == true)
-                        {
-                            Add_Type(TextBoxEdytujRodzajZadania.Text);
-                            rodzaj = TextBoxEdytujRodzajZadania.Text;
-                        }
-                        else
-                        {
-                            rodzaj = ComboBoxRodzajZadania.Text;
-                        }
-                        DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3]);
-                        MySqlConnection con = connection.polaczenie();
-                        con.Open();
-                        MySqlCommand komendaSQL = con.CreateCommand();
-                        string zapytanie = "INSERT INTO `zadania` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin_wykonania`, `status`, `data_wykonania`, `opis`, `dodane_przez`) " +
-                            "VALUES (" + nowe_id + ", " + priorytet + ", '" + zadanie + "', '" + rodzaj + "', '" + wykonawca + "', '" + data_dodania.ToString("yyyy-MM-dd H:mm:ss") + "', '" + termin + "', " + 0 + ", '" + data_wykonania + "', '" + opis + "', '" + dodane_przez + "');";
-                        komendaSQL.CommandText = zapytanie;
-                        MySqlDataReader r = komendaSQL.ExecuteReader();
-                        r.Close();
-                        con.Close();
-                        //utworzenie obiektu
-                        Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string,termin, status, data_wykonania, opis, dodane_przez);
-                        //dodanie do listy
-                        form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
-                        form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
-                        //odswiezenie datagridview
-                        form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
-                        form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;  
-                       
-                        form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
-                        form1.Sortowanie();
-                        dodano = true;
-                        form1.Display_first_task_details();
+                        Add_Type(TextBoxEdytujRodzajZadania.Text);
+                        rodzaj = TextBoxEdytujRodzajZadania.Text;
                     }
-                    catch (MySqlException ee)
+                    else
                     {
-                        // MessageBox.Show("Wystąpił błąd podczas łączenia z bazą. przycisk dodaj zadanie");
-                        MessageBox.Show(ee.ToString());
+                        rodzaj = ComboBoxRodzajZadania.Text;
+                    }
+                    //dodanie do bazy danych
+                    string zapytanie = "INSERT INTO `zadania` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin_wykonania`, `status`, `data_wykonania`, `opis`, `dodane_przez`) " +
+                             "VALUES (" + nowe_id + ", " + priorytet + ", '" + zadanie + "', '" + rodzaj + "', '" + wykonawca + "', '" + data_dodania.ToString("yyyy-MM-dd H:mm:ss") + "', '" + termin + "', " + 0 + ", '" + data_wykonania + "', '" + opis + "', '" + dodane_przez + "');";
+                    form1.BazaDanych(zapytanie, form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]); 
+                    //utworzenie obiektu
+                    Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, status, data_wykonania, opis, dodane_przez);
+                    //dodanie do listy
+                    form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
+                    form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
+                    //odswiezenie datagridview
+                    form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
+                    form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;
 
-                    }
-                }else MessageBox.Show("Uzupełnij pole \"zadanie");
+                    form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
+                    form1.Sortowanie();
+                    dodano = true;
+                    form1.Display_first_task_details();
+                    
+                }
+                else MessageBox.Show("Uzupełnij pole \"zadanie");
             }
             else
             {

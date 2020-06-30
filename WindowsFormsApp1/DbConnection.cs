@@ -15,17 +15,20 @@ namespace WindowsFormsApp1
         private string User { get; set; }
         private string Pass { get; set; }
         private string ConnectionString { get; set; }
+       
+        private string Port { get; set; }
 
-        public DbConnection(string i, string n, string u, string p)
+        public DbConnection(string i, string port, string n, string u, string p)
         {
             Ip = i;
             Name = n;
             User = u;
             Pass = p;
+            Port = port;
         }
         public MySqlConnection polaczenie()
         {
-            ConnectionString = "Server=" + Ip + "; Database=" + Name + "; User Id=" + User + "; Password=" + Pass + "; Convert Zero Datetime=True";
+            ConnectionString = "Server=" + Ip +  "; Port= "+Port+"; Database=" + Name + "; User Id=" + User + "; Password=" + Pass + "; Convert Zero Datetime=True" ;
             MySqlConnection polaczenie = new MySqlConnection(ConnectionString);
             return polaczenie;
         }

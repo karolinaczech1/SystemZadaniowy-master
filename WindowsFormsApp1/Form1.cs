@@ -36,87 +36,87 @@ namespace WindowsFormsApp1
             ComboBoxKolumnaSzukania.SelectedIndex = 2;   //domyślne wyszukiwanie w kolumnie 2, czyli zadanie
 
             Zaladuj_ponownie();
-            
-           /* connected = false;
-            //Jesli wpisno dane do łączenia z bazą:
-            if (File.Exists("database.txt") && Dane[0] != string.Empty)
-            {
-                
-                DataBase();  //próba połączenia z bazą
-                Wczytaj_Filtry();
-                kolor_terminu_w_dataGrid();
-                ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
-                
-                //Jeślu udało się połączyć z bazą:
-                if (connected == true)  
-                {
-                    TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
-                    //wczytanie listy userów
-                    ShowUsers();
-                     if(Wszystkie_Zadania_Z_Bazy.Count >= 1)
+
+            /* connected = false;
+             //Jesli wpisno dane do łączenia z bazą:
+             if (File.Exists("database.txt") && Dane[0] != string.Empty)
+             {
+
+                 DataBase();  //próba połączenia z bazą
+                 Wczytaj_Filtry();
+                 kolor_terminu_w_dataGrid();
+                 ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
+
+                 //Jeślu udało się połączyć z bazą:
+                 if (connected == true)  
+                 {
+                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
+                     //wczytanie listy userów
+                     ShowUsers();
+                      if(Wszystkie_Zadania_Z_Bazy.Count >= 1)
+                      {
+                          DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
+                          DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
+                      }
+                      else
+                      {
+                          DateTimeZakresDatOd.Text = "20-06-2020";   
+                          DateTimeZakresDatDo.Text = "30-12-2020";
+                      }
+
+                     if (File.Exists("logowanie.txt"))   //jeśli plik istnieje
                      {
-                         DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
-                         DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
+                         Logowanie();  //proba automatycznego zalogowania
+                         if(zalogowany == true)
+                         {
+                             ComboBoxWykonawcy.SelectedItem = zalogowany_user;  //domyślny filtr na wyświetlanie zadań dla zalogowanego usera
+                            // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                         }
+                         else
+                         {
+                             ComboBoxWykonawcy.SelectedItem = "wszystkie";
+                            // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                             MessageBox.Show("Nie jesteś zalogowany.");
+                         }
                      }
-                     else
+                     else 
                      {
-                         DateTimeZakresDatOd.Text = "20-06-2020";   
-                         DateTimeZakresDatDo.Text = "30-12-2020";
+                         ComboBoxWykonawcy.SelectedItem = "wszystkie";
+                         //Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                         MessageBox.Show("Nie jesteś zalogowany.");
                      }
-                    
-                    if (File.Exists("logowanie.txt"))   //jeśli plik istnieje
-                    {
-                        Logowanie();  //proba automatycznego zalogowania
-                        if(zalogowany == true)
-                        {
-                            ComboBoxWykonawcy.SelectedItem = zalogowany_user;  //domyślny filtr na wyświetlanie zadań dla zalogowanego usera
-                           // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                        }
-                        else
-                        {
-                            ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                           // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                            MessageBox.Show("Nie jesteś zalogowany.");
-                        }
-                    }
-                    else 
-                    {
-                        ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                        //Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                        MessageBox.Show("Nie jesteś zalogowany.");
-                    }
 
-                    Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                    Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
-                    Odczyt_Ustawien_Kolumn();
-                    
+                     Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+                     Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
+                     Odczyt_Ustawien_Kolumn();
 
-                }
-                else 
-                {
-                    TextBoxDBinfo.Text = "Nie udało się nawiązać połączenia z bazą.";
-                }
 
-            }
-            else
-            {
-                TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
-            }
-            this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending);   //domyślne sortowanie - malejąco według ID */
-           
+                 }
+                 else 
+                 {
+                     TextBoxDBinfo.Text = "Nie udało się nawiązać połączenia z bazą.";
+                 }
+
+             }
+             else
+             {
+                 TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
+             }
+             this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending);   //domyślne sortowanie - malejąco według ID */
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
 
         /*  ############################## ZMIENNE, LISTY, TABLICE ############################## */
         public string zalogowany_user;
         public bool zalogowany = false;
-        public string[] Dane = new string[4];
-        
+        public string[] Dane = new string[5];
+
         public string[] IleDni_KoloryTerminow = new string[6];
         bool connected = false;
         bool uzytkownik_istnieje;
@@ -194,7 +194,7 @@ namespace WindowsFormsApp1
                 {
                     try
                     {
-                        DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                        DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                         MySqlConnection con = connection.polaczenie();
                         con.Open();
                         MySqlCommand komendaSQL = con.CreateCommand();
@@ -228,20 +228,24 @@ namespace WindowsFormsApp1
         //przycisk do łączenia z bazą danych
         private void ButtonSaveDB_Click(object sender, EventArgs e)
         {
-             string server = TextBoxServerID.Text;
-             string name = TextBoxDBName.Text;
-             string user = TextBoxDBUser.Text;
-             string pass = TextBoxDBPassword.Text;
-             
-             //szyfrowanie
-             string ServerID = "";
-             string DBName = "";
-             string DBUser = "";
-             string DBPassword = "";
-             try
-             {
-                 using (Szyfr.CreateEncryptor(key, iv))
-                 {
+            string server = TextBoxServerID.Text;
+            string port = TextBoxDBPort.Text;
+            string name = TextBoxDBName.Text;
+            string user = TextBoxDBUser.Text;
+            string pass = TextBoxDBPassword.Text;
+            
+
+            //szyfrowanie
+            string ServerID = "";
+            string DBPort = "";
+            string DBName = "";
+            string DBUser = "";
+            string DBPassword = "";
+            
+            try
+            {
+                using (Szyfr.CreateEncryptor(key, iv))
+                {
                     // Encrypt the string to an array of bytes.
                     if (server != string.Empty)
                     {
@@ -249,6 +253,12 @@ namespace WindowsFormsApp1
                         for (int i = 0; i < encryptedServerID.Count(); i++) { ServerID += encryptedServerID[i] + " "; }
                     }
                     else ServerID = " ";
+                    if (port != string.Empty)
+                    {
+                        byte[] encryptedDBPort = EncryptStringToBytes(port, key, iv);
+                        for (int i = 0; i < encryptedDBPort.Count(); i++) { DBPort += encryptedDBPort[i] + " "; }
+                    }
+                    else DBPort = " ";
                     if (name != string.Empty)
                     {
                         byte[] encryptedDBName = EncryptStringToBytes(name, key, iv);
@@ -268,43 +278,45 @@ namespace WindowsFormsApp1
                     }
                     else DBPassword = " ";
 
-                     string file_name = "database.txt";
-                     if (File.Exists(file_name))
-                     {
-                         File.WriteAllText(file_name, String.Empty);
-                         FileStream dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
-                         StreamWriter writer = new StreamWriter(dane);
-                         writer.WriteLine(ServerID);
-                         writer.WriteLine(DBName);
-                         writer.WriteLine(DBUser);
-                         writer.WriteLine(DBPassword);
-                         writer.Close();
-                         dane.Close();
+                    string file_name = "database.txt";
+                    if (File.Exists(file_name))
+                    {
+                        File.WriteAllText(file_name, String.Empty);
+                        FileStream dane = new FileStream(file_name, FileMode.Append, FileAccess.Write);
+                        StreamWriter writer = new StreamWriter(dane);
+                        writer.WriteLine(ServerID);
+                        writer.WriteLine(DBPort);
+                        writer.WriteLine(DBName);
+                        writer.WriteLine(DBUser);
+                        writer.WriteLine(DBPassword);
+                        writer.Close();
+                        dane.Close();
                         MessageBox.Show("Zapisano");
-                     }
-                     else
-                     {
-                         FileStream dane = new FileStream(file_name, FileMode.CreateNew);
-                         StreamWriter writer = new StreamWriter(dane);
-                         writer.WriteLine(ServerID);
-                         writer.WriteLine(DBName);
-                         writer.WriteLine(DBUser);
-                         writer.WriteLine(DBPassword);
-                         writer.Close();
-                         dane.Close();
+                    }
+                    else
+                    {
+                        FileStream dane = new FileStream(file_name, FileMode.CreateNew);
+                        StreamWriter writer = new StreamWriter(dane);
+                        writer.WriteLine(ServerID);
+                        writer.WriteLine(DBPort);
+                        writer.WriteLine(DBName);
+                        writer.WriteLine(DBUser);
+                        writer.WriteLine(DBPassword);
+                        writer.Close();
+                        dane.Close();
                         MessageBox.Show("Zapisano");
-                     }
+                    }
 
                     Zaladuj_ponownie();
-                     ///załadowanie od nowa wszystkiego
+                    ///załadowanie od nowa wszystkiego
 
                 }
-             }
-             catch (Exception x)
-             {
-                 MessageBox.Show("Error: {0}", x.Message);
-             }
-               
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show("Error: {0}", x.Message);
+            }
+
 
 
             //DZIALAJACE BEZ SZYFROWANIA:
@@ -380,7 +392,7 @@ namespace WindowsFormsApp1
             //Widocznosc_kolumn_ustawiona();
             Odczyt_Ustawien_Kolumn();
         }
-      
+
 
 
 
@@ -464,7 +476,7 @@ namespace WindowsFormsApp1
             //zmiana w bazie
             try
             {
-                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 MySqlCommand komendaSQL = con.CreateCommand();
@@ -502,7 +514,7 @@ namespace WindowsFormsApp1
             //zmiana w bazie
             try
             {
-                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 MySqlCommand komendaSQL = con.CreateCommand();
@@ -547,7 +559,7 @@ namespace WindowsFormsApp1
                 int index = Znajdz_index_na_liscie_ograniczonej(id.ToString());
                 try
                 {
-                    DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                    DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                     MySqlConnection con = connection.polaczenie();
                     con.Open();
                     MySqlCommand komendaSQL = con.CreateCommand();
@@ -575,7 +587,7 @@ namespace WindowsFormsApp1
 
                     metroGrid1.Rows.Clear();
                     zmiana_zakresu_dat(Zadania);
-                    Display_specific_task_details(id);   
+                    Display_specific_task_details(id);
 
                 }
                 catch (MySqlException ee)
@@ -603,12 +615,12 @@ namespace WindowsFormsApp1
 
         }
 
-        
+
 
         //wyświetlanie szczegółów po kliknięciu na zadanie w tabeli
         private void metroGrid1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-           
+
             if (e.RowIndex != -1)
             {
                 metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
@@ -669,7 +681,7 @@ namespace WindowsFormsApp1
             Sortowanie();
         }
         //zmiana kryterium sortowania
-        private void ComboBoxSortowanie_SelectedIndexChanged(object sender, EventArgs e) 
+        private void ComboBoxSortowanie_SelectedIndexChanged(object sender, EventArgs e)
         {
             Sortowanie();
         }
@@ -700,32 +712,44 @@ namespace WindowsFormsApp1
 
                 if (Czy_usunac(Znajdz_index_na_liscie_ograniczonej(db_id.ToString())) == true)
                 {
-                    try
+                    string zapytanie = "DELETE FROM `zadania` WHERE `zadania`.`id_zadania` = " + db_id + "";
+                    BazaDanych(zapytanie, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                    Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
+                    Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
+                    metroGrid1.Rows.Clear();
+                    if (Zadania.Count > 0)
                     {
-                        DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
-                        MySqlConnection con = connection.polaczenie();
-                        con.Open();
-                        MySqlCommand komendaSQL = con.CreateCommand();
-                        komendaSQL.CommandText = "DELETE FROM `zadania` WHERE `zadania`.`id_zadania` = " + db_id + "";
-                        MySqlDataReader r = komendaSQL.ExecuteReader();
-                        r.Close();
-                        con.Close();
-                        Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
-                        Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
-                        metroGrid1.Rows.Clear();
-                        if (Zadania.Count > 0)
-                        {
-                            ShowRow(Zadania);
-                            DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                            DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                            Display_first_task_details();
-                        }
+                        ShowRow(Zadania);
+                        DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                        DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                        Display_first_task_details();
                     }
-                    catch (MySqlException ee)
-                    {
-                        MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+                    /* try
+                     {
+                         DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                         MySqlConnection con = connection.polaczenie();
+                         con.Open();
+                         MySqlCommand komendaSQL = con.CreateCommand();
+                         komendaSQL.CommandText = "DELETE FROM `zadania` WHERE `zadania`.`id_zadania` = " + db_id + "";
+                         MySqlDataReader r = komendaSQL.ExecuteReader();
+                         r.Close();
+                         con.Close();
+                         Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
+                         Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
+                         metroGrid1.Rows.Clear();
+                         if (Zadania.Count > 0)
+                         {
+                             ShowRow(Zadania);
+                             DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                             DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                             Display_first_task_details();
+                         }
+                     }
+                     catch (MySqlException ee)
+                     {
+                         MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
 
-                    }
+                     }*/
                     //metroTabTaskDetails.Hide();
                 }
                 else
@@ -740,7 +764,7 @@ namespace WindowsFormsApp1
         //przycisk otwiercjący Form3 z edycją zadania
         private void ButtonEditTask_Click(object sender, EventArgs e)
         {
-            if(metroGrid1.Rows.Count != 0)
+            if (metroGrid1.Rows.Count != 0)
             {
                 Form3 EdytujZadanie = new Form3(this);
                 EdytujZadanie.ShowDialog();
@@ -748,7 +772,7 @@ namespace WindowsFormsApp1
         }
 
         /*------------------------------------------------ DODAWANIE ZADANIA  ------------------------------------------------*/
-        
+
         //przycisk otwierający Form2 z dodawaniem zadania
         private void ButtonNewTask_Click(object sender, EventArgs e)
         {
@@ -788,103 +812,127 @@ namespace WindowsFormsApp1
             else zalogowany = false;
         }
 
-        
-        
+
+
         //pierwsze połączenie z bazą i pobranie wszyskich zadań i użytkowników
         private void DataBase()
         {
-            Dane[0] = ""; Dane[1] = ""; Dane[2] = ""; Dane[3] = "";
-            string[] odczyt_linii = new string[4];
+            Dane[0] = ""; Dane[1] = ""; Dane[2] = ""; Dane[3] = ""; Dane[4] = "";
+            string[] odczyt_linii = new string[5];
             FileStream odczyt = new FileStream("database.txt", FileMode.Open, FileAccess.Read);
             StreamReader reader = new StreamReader(odczyt);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < odczyt_linii.Count(); i++)
             {
                 odczyt_linii[i] = reader.ReadLine();
             }
             reader.Close();
             odczyt.Close();
-           //rodzielenie odczyt_linii do tablicy byte
-             char spacja = ' ';
+            //rodzielenie odczyt_linii do tablicy byte
+            char spacja = ' ';
 
+            //IP servera
             if (odczyt_linii[0] != " ")
             {
-                string[] ID = odczyt_linii[0].Split(spacja);
-                byte[] IDbyte = new byte[ID.Count() - 1];
-                for (int i = 0; i < ID.Count() - 1; i++) IDbyte[i] = Convert.ToByte(ID[i]);
+                string[] IP = odczyt_linii[0].Split(spacja);
+                byte[] IPbyte = new byte[IP.Count() - 1];
+                for (int i = 0; i < IP.Count() - 1; i++) IPbyte[i] = Convert.ToByte(IP[i]);
                 try
                 {
                     using (Szyfr.CreateDecryptor(key, iv))
                     {
-                        Dane[0] += DecryptStringFromBytes(IDbyte, key, iv);
+                        Dane[0] += DecryptStringFromBytes(IPbyte, key, iv);
                     }
                 }
                 catch (Exception x)
                 {
-                   // Dane[0] += "1.1";
+                    // Dane[0] += "1.1";
                     MessageBox.Show("Error: database()1 {0}", x.Message);
                 }
             }
-            else Dane[0] += "1.2";
+            else Dane[0] += "0.2";
+            //PORT
             if (odczyt_linii[1] != " ")
             {
-                string[] Name = odczyt_linii[1].Split(spacja);
+                string[] Port = odczyt_linii[1].Split(spacja);
+                byte[] Portbyte = new byte[Port.Count() - 1];
+                for (int i = 0; i < Port.Count() - 1; i++) Portbyte[i] = Convert.ToByte(Port[i]);
+                try
+                {
+                    using (Szyfr.CreateDecryptor(key, iv))
+                    {
+                        Dane[1] += DecryptStringFromBytes(Portbyte, key, iv);
+                    }
+                }
+                catch (Exception x)
+                {
+                    // Dane[1] += "1.1";
+                    MessageBox.Show("Error: database()1 {0}", x.Message);
+                }
+            }
+            else Dane[1] += "";
+            //DB NAME
+            if (odczyt_linii[2] != " ")
+            {
+                string[] Name = odczyt_linii[2].Split(spacja);
                 byte[] Namebyte = new byte[Name.Count() - 1];
                 for (int i = 0; i < Name.Count() - 1; i++) Namebyte[i] = Convert.ToByte(Name[i]);
                 try
                 {
                     using (Szyfr.CreateDecryptor(key, iv))
                     {
-                        Dane[1] += DecryptStringFromBytes(Namebyte, key, iv);
+                        Dane[2] += DecryptStringFromBytes(Namebyte, key, iv);
                     }
                 }
                 catch (Exception x)
                 {
-                    //Dane[1] += "2.1";
+                    //Dane[2] += "2.1";
                     MessageBox.Show("Error: database()2 {0}", x.Message);
                 }
             }
-            else Dane[1] += "2.2";
-            if (odczyt_linii[2] != " ")
+            else Dane[2] += "";
+            //DB USER
+            if (odczyt_linii[3] != " ")
             {
-                string[] User = odczyt_linii[2].Split(spacja);
+                string[] User = odczyt_linii[3].Split(spacja);
                 byte[] Userbyte = new byte[User.Count() - 1];
                 for (int i = 0; i < User.Count() - 1; i++) Userbyte[i] = Convert.ToByte(User[i]);
                 try
                 {
                     using (Szyfr.CreateDecryptor(key, iv))
                     {
-                        Dane[2] += DecryptStringFromBytes(Userbyte, key, iv);
+                        Dane[3] += DecryptStringFromBytes(Userbyte, key, iv);
                     }
                 }
                 catch (Exception x)
                 {
-                   // Dane[2] += "3.1";
+                    // Dane[3] += "3.1";
                     MessageBox.Show("Error: database()3 {0}", x.Message);
                 }
             }
-            else Dane[2] += "3.2";
-            if (odczyt_linii[3] != " ")
+            else Dane[3] += "3.2";
+            //DB PASSWORD
+            if (odczyt_linii[4] != " ")
             {
-                string[] Password = odczyt_linii[3].Split(spacja);
+                string[] Password = odczyt_linii[4].Split(spacja);
                 byte[] Passwordbyte = new byte[Password.Count() - 1];
                 for (int i = 0; i < Password.Count() - 1; i++) Passwordbyte[i] = Convert.ToByte(Password[i]);
                 try
                 {
                     using (Szyfr.CreateDecryptor(key, iv))
                     {
-                        Dane[3] += DecryptStringFromBytes(Passwordbyte, key, iv);
+                        Dane[4] += DecryptStringFromBytes(Passwordbyte, key, iv);
                     }
                 }
                 catch (Exception x)
                 {
-                   // Dane[3] += "4.1";
+                    // Dane[4] += "4.1";
                     MessageBox.Show("Error: database()4 {0}", x.Message);
                 }
             }
-            else Dane[3] += "";
+            else Dane[4] += "";
             TextBoxDBTesting.Text = "";
             //test w textboxie:
-            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3];             
+            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3] + "  "+Dane[4];
             DB_first_connection();
 
 
@@ -893,16 +941,17 @@ namespace WindowsFormsApp1
         private void DB_first_connection()
         {
             TextBoxServerID.Text = Dane[0];
-            TextBoxDBName.Text = Dane[1];
-            TextBoxDBUser.Text = Dane[2];
-            TextBoxDBPassword.Text = Dane[3];
+            TextBoxDBPort.Text = Dane[1];
+            TextBoxDBName.Text = Dane[2];
+            TextBoxDBUser.Text = Dane[3];
+            TextBoxDBPassword.Text = Dane[4];
 
             try
             {
-                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
-                
+
                 MySqlCommand komenda1 = con.CreateCommand();
 
                 komenda1.CommandText = "SELECT * FROM zadania";
@@ -949,7 +998,7 @@ namespace WindowsFormsApp1
             catch (MySqlException e)
             {
                 connected = false;
-                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą." + e.ToString());
                 TextBoxDBinfo.Text = "Brak połączenia z bazą";
             }
         }
@@ -989,7 +1038,7 @@ namespace WindowsFormsApp1
                 {
                     metroTextBox1.Text += Zaznaczenia[i] + "   ";
                 }
-                 Widocznosc_kolumn_ustawiona(Zaznaczenia);
+                Widocznosc_kolumn_ustawiona(Zaznaczenia);
             }
             else
             {
@@ -1000,7 +1049,7 @@ namespace WindowsFormsApp1
 
         //Po uruchomieniu zaznaczenie pierwszego wiersza i wyświetlanie szczegółów pierwszego zadania z datagrid view
         public void Display_first_task_details()
-        { 
+        {
             //Zaznaczenie odpowiedniego wiersza (o ile jakis jest)
             if (metroGrid1.Rows.Count != 0)
             {
@@ -1020,7 +1069,7 @@ namespace WindowsFormsApp1
         //zaznaczenie konkretnego wiersza i wyeswietlenie szczegolow odpowiedniego zadania (głównie dopodtrzymywania zaznaczenia po jakiejś zmianie, np zmianie statusu zadania)
         public void Display_specific_task_details(int id)
         {
-            if(metroGrid1.Rows.Count !=0)
+            if (metroGrid1.Rows.Count != 0)
             {
                 this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 this.metroGrid1.MultiSelect = false;
@@ -1097,7 +1146,7 @@ namespace WindowsFormsApp1
         //wczytywanie zadań do sekcji szczegóły
         public void Load_Task_Details(int index)
         {
-            
+
             metroTabTaskDetails.Show();
             Wczytaj_wykonawcow(ComboBoxDetailsWykonawcy);
 
@@ -1152,7 +1201,7 @@ namespace WindowsFormsApp1
                 kolor_terminu_w_dataGrid();
             }
             else metroTabTaskDetails.Hide();
-            
+
         }
 
 
@@ -1182,7 +1231,7 @@ namespace WindowsFormsApp1
             metroCheckBox10.Text = "widoczne";
             //ustawienie widoczności kolumn
             for (int i = 0; i < 10; i++)
-            {          
+            {
                 this.metroGrid1.Columns[i].Visible = true;
             }
         }
@@ -1191,7 +1240,7 @@ namespace WindowsFormsApp1
         private void Widocznosc_kolumn_ustawiona(String[] tablica_ze_stanem_checkboxow)
         {
             if (tablica_ze_stanem_checkboxow[0] == "1") { metroCheckBox1.Checked = true; metroCheckBox1.Text = "widoczne"; this.metroGrid1.Columns[0].Visible = true; }
-            else if(tablica_ze_stanem_checkboxow[0] == "0") { metroCheckBox1.Checked = false; metroCheckBox1.Text = "niewidoczne"; this.metroGrid1.Columns[0].Visible = false; }
+            else if (tablica_ze_stanem_checkboxow[0] == "0") { metroCheckBox1.Checked = false; metroCheckBox1.Text = "niewidoczne"; this.metroGrid1.Columns[0].Visible = false; }
 
             if (tablica_ze_stanem_checkboxow[1] == "1") { metroCheckBox2.Checked = true; metroCheckBox2.Text = "widoczne"; this.metroGrid1.Columns[1].Visible = true; }
             else if (tablica_ze_stanem_checkboxow[1] == "0") { metroCheckBox2.Checked = false; metroCheckBox2.Text = "niewidoczne"; this.metroGrid1.Columns[1].Visible = false; }
@@ -1254,7 +1303,7 @@ namespace WindowsFormsApp1
         //funkcja zwracająca kolor w zależności od tego ile czasu zostało do końca zadania
         private Color[] kolor(int index)
         {
-            
+
             Color[] kolor = new Color[2];
             string ilosc_dni = ile_czasu_do_konca_zadania(index, Wszystkie_Zadania_Z_Bazy);
             int dni;
@@ -1299,39 +1348,39 @@ namespace WindowsFormsApp1
         //Ustawianie koloru terminu w zależności od tego ile dni zostało do końca
         private void kolor_terminu_w_dataGrid()
         {
-           
-            for (int i=0; i<Wszystkie_Zadania_Z_Bazy.Count; i++)
-             {
-                 for(int j=0; j<metroGrid1.RowCount; j++)
-                 {
+
+            for (int i = 0; i < Wszystkie_Zadania_Z_Bazy.Count; i++)
+            {
+                for (int j = 0; j < metroGrid1.RowCount; j++)
+                {
                     if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == false) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
                     {
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
                     }
-                    if(metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == true)
+                    if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == true)
                     {
                         metroGrid1.Rows[j].DefaultCellStyle.ForeColor = Color.Gray;
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
                     }
-                   /* if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && (Wszystkie_Zadania_Z_Bazy[i].Termin == null || Wszystkie_Zadania_Z_Bazy[i].Termin == string.Empty)) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
-                    {
-                        metroGrid1[6, j].Style.BackColor = kolor(i)[0];
-                        metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
-                    }*/
-                    
+                    /* if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && (Wszystkie_Zadania_Z_Bazy[i].Termin == null || Wszystkie_Zadania_Z_Bazy[i].Termin == string.Empty)) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
+                     {
+                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
+                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
+                     }*/
+
                 }
-             }
+            }
 
-         }
-
-
-         /*---------------------------------------- UZYWANE W INNYCH FORMACH ----------------------------------------*/
+        }
 
 
-            //funkcja służąca do przekazywania obiektów Tasks do innych form
-            public Object Pobierz_Zadanie(int index, string pole)
+        /*---------------------------------------- UZYWANE W INNYCH FORMACH ----------------------------------------*/
+
+
+        //funkcja służąca do przekazywania obiektów Tasks do innych form
+        public Object Pobierz_Zadanie(int index, string pole)
         {
             if (pole == "Id_zadania") return Wszystkie_Zadania_Z_Bazy[index].Id_zadania;
             else if (pole == "Priorytet") return Wszystkie_Zadania_Z_Bazy[index].Priorytet;
@@ -1349,11 +1398,11 @@ namespace WindowsFormsApp1
             else if (pole == "Data_wykonania") return Wszystkie_Zadania_Z_Bazy[index].Data_wykonania;
             else if (pole == "Opis") return Wszystkie_Zadania_Z_Bazy[index].Opis;
             else if (pole == "Dodane_przez") return Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
-            
+
             else if (pole == "last_db_id")
             {
                 if (Wszystkie_Zadania_Z_Bazy.Count == 0) return 1;
-                else return Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Id_zadania; 
+                else return Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Id_zadania;
             }
             else return null;
         }
@@ -1391,7 +1440,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
+                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                 MySqlConnection con = connection.polaczenie();
                 con.Open();
                 connected = true;
@@ -1457,13 +1506,13 @@ namespace WindowsFormsApp1
                 metroGrid1.Rows.Clear();
 
                 // ? zmiana zakresu dat wywołuje funkcję  zmiana_zakresu_dat(), która zasępuje ShowRow ale z uwzględnieniem dat
-                 if(Zadania.Count != 0)
-                  {
-                      DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                      DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                  } //
+                if (Zadania.Count != 0)
+                {
+                    DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                    DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                } //
                 zmiana_zakresu_dat(Zadania);  //  
- 
+
                 kolor_terminu_w_dataGrid();
                 Display_first_task_details();   //zmiana zaznaczenia na pierwszy wiersz datagrid
 
@@ -1497,27 +1546,27 @@ namespace WindowsFormsApp1
         private void zmiana_zakresu_dat(List<Tasks> lista)   // może zastępować ShowRow()
         {
 
-            
+
             metroGrid1.Rows.Clear();
             for (int i = 0; i < lista.Count; i++)
             {
-               /* DateTime dodanie = Convert.ToDateTime(lista[i].Data_dodania.ToString("dd-MM-yyyy"));
-                DateTime data_od = Convert.ToDateTime((DateTimeZakresDatOd.Value.AddDays(-1)).ToString("dd-MM-yyyy"));
-                DateTime data_do = Convert.ToDateTime((DateTimeZakresDatDo.Value.AddDays(1.0)).ToString("dd-MM-yyyy"));
-               
-                if (dodanie >= data_od && dodanie <= data_do)
+                /* DateTime dodanie = Convert.ToDateTime(lista[i].Data_dodania.ToString("dd-MM-yyyy"));
+                 DateTime data_od = Convert.ToDateTime((DateTimeZakresDatOd.Value.AddDays(-1)).ToString("dd-MM-yyyy"));
+                 DateTime data_do = Convert.ToDateTime((DateTimeZakresDatDo.Value.AddDays(1.0)).ToString("dd-MM-yyyy"));
+
+                 if (dodanie >= data_od && dodanie <= data_do)
+                 {
+                     metroGrid1.Rows.Add(konwersja(lista[i]));
+                 }*/
+                //jeśli data dodania danego zadania mieści się w wybranym zakresie
+                if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value.AddDays(-1) && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1.0))
                 {
                     metroGrid1.Rows.Add(konwersja(lista[i]));
-                }*/
-                //jeśli data dodania danego zadania mieści się w wybranym zakresie
-                 if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value.AddDays(-1) && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1.0))
-                 {
-                    metroGrid1.Rows.Add(konwersja(lista[i]));
-                 }
+                }
 
                 Display_first_task_details();
-               kolor_terminu_w_dataGrid();
-               Sortowanie();
+                kolor_terminu_w_dataGrid();
+                Sortowanie();
 
             }
         }
@@ -1531,7 +1580,7 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Id_zadania.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]);  }
+                    if (Zadania[i].Id_zadania.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 1)
@@ -1545,21 +1594,21 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Zadanie.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Zadanie.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 3)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Rodzaj.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Rodzaj.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 4)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Wykonawca.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Wykonawca.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 5)  //szukanie w opisie
@@ -1568,10 +1617,10 @@ namespace WindowsFormsApp1
                 {
                     if (Zadania[i].Opis.Contains(TextBoxSzukanaFraza.Text))
                     {
-                        
+
                         Wyszukane.Add(Zadania[i]);
                         metroTabTaskDetails.Show();
-                        
+
                         Load_Task_Details(Znajdz_index_na_liscie(Zadania[i].Id_zadania.ToString()));
 
                     }
@@ -1582,28 +1631,28 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Termin.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Termin.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 7)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Status.ToString().Contains(TextBoxSzukanaFraza.Text)) { ; Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Status.ToString().Contains(TextBoxSzukanaFraza.Text)) {; Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 8)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Data_wykonania.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Data_wykonania.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 9)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Dodane_przez.Contains(TextBoxSzukanaFraza.Text)) {  Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Dodane_przez.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
                 }
             }
 
@@ -1616,7 +1665,7 @@ namespace WindowsFormsApp1
         /*---------------------------------------- INNE ----------------------------------------*/
 
         //konwersja obiektu Tasks do wiersza datagridview (np. do dodawania jednego wiersza do datagridview)
-        public DataGridViewRow konwersja(Tasks zadanie)   
+        public DataGridViewRow konwersja(Tasks zadanie)
         {
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(metroGrid1);
@@ -1705,7 +1754,7 @@ namespace WindowsFormsApp1
         private int NumerWiersza(int id)
         {
             int numer_wiersza = 0;
-            for(int i=0; i<metroGrid1.RowCount; i++)
+            for (int i = 0; i < metroGrid1.RowCount; i++)
             {
                 if (Convert.ToInt32(metroGrid1[0, i].Value) == id)
                 {
@@ -1810,14 +1859,14 @@ namespace WindowsFormsApp1
             {
                 connected = false;
                 DataBase();  //próba połączenia z bazą
-                
+
 
                 //UDAŁO SIE POŁĄCZYĆ Z BAZĄ
                 if (connected == true)
                 {
 
                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
-                    
+
                     Wczytaj_Filtry();
                     kolor_terminu_w_dataGrid();
                     ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
@@ -1863,7 +1912,7 @@ namespace WindowsFormsApp1
                     Odczyt_Ustawien_Kolumn();
                     this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending); //domyślne sortowanie - malejąco według ID
                 }
-                
+
                 //NIE UDAŁO SIE POŁĄCZYĆ Z BAZA
                 else
                 {
@@ -1877,31 +1926,38 @@ namespace WindowsFormsApp1
 
         }
 
-        
+
+
+        //Uniwersalna funkcja do łączenia z bazą do komend: insert, update, delete
+        public void BazaDanych(string komenda, string db_server, string port,string db_name, string db_user, string db_password)
+        {
+            try
+            {
+                DbConnection connection = new DbConnection(db_server, port, db_name, db_user, db_password);
+                MySqlConnection con = connection.polaczenie();
+                con.Open();
+                MySqlCommand komendaSQL = con.CreateCommand();
+                string zapytanie = komenda;
+                komendaSQL.CommandText = zapytanie;
+                MySqlDataReader r = komendaSQL.ExecuteReader();
+                r.Close();
+                con.Close();
+
+            }
+            catch (MySqlException ee)
+            {
+                //MessageBox.Show("Wystąpił błąd podczas łączenia z bazą. przycisk dodaj zadanie");
+                MessageBox.Show(ee.ToString());
+            }
+
+        }
+    
 
 
 
 
 
         /*_______________________________________________________________________________________________________________________________________________*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
