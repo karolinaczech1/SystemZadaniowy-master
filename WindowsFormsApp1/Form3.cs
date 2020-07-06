@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
             form1.Wczytaj_wykonawcow(ComboBoxEdytujWykonawce);
             ComboBoxEdytujWykonawce.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Wykonawca").ToString();
 
-            if (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin").ToString() != string.Empty)
+           /* if (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin").ToString() != string.Empty)
             {
                 CheckBoxTermin.Checked = true;
                 dateTimePickerData.Text = (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin")).ToString();
@@ -44,8 +44,18 @@ namespace WindowsFormsApp1
             {
                 CheckBoxTermin.Checked = false;
                 dateTimePickerTime.Text = (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin")).ToString();
+            }*/
+
+            if (form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString() != string.Empty && form1.metroGrid1[6, form1.NumerWiersza(id)].Value != null)
+            {
+                CheckBoxTermin.Checked = true;
+                dateTimePickerData.Text = form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString();
             }
-            
+            else if(form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString() == string.Empty || form1.metroGrid1[6, form1.NumerWiersza(id)].Value == null)
+            {
+                CheckBoxTermin.Checked = false;
+                dateTimePickerTime.Text = form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString();
+            }
 
             TextBoxEdycjZadania.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Zadanie").ToString();
             TextBoxEdytujOpis.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Opis").ToString();
@@ -163,7 +173,8 @@ namespace WindowsFormsApp1
                 //odswiezenie datagrid
                 form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
                 //odswiezenie details
-                form1.Load_Task_Details(form1.Znajdz_index_na_liscie(id.ToString()));
+
+                form1.Display_specific_task_details(id);
 
                 MessageBox.Show("Zapisano zmiany.");
                 this.Close();

@@ -25,6 +25,14 @@ using Org.BouncyCastle.Bcpg.OpenPgp;
 using Renci.SshNet.Security;
 using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
+using PdfSharp;
+using PdfSharp.Pdf;
+using System.Net;
+using System.Web;
+using Pechkin.Synchronized;
+using Pechkin;
+using ImageMagick;
 
 namespace WindowsFormsApp1
 {
@@ -121,8 +129,8 @@ namespace WindowsFormsApp1
         public string[] IleDni_KoloryTerminow = new string[6];
         bool connected = false;
         bool uzytkownik_istnieje;
-        List<Tasks> Zadania = new List<Tasks>();
-        List<Tasks> Wszystkie_Zadania_Z_Bazy = new List<Tasks>();
+        public List<Tasks> Zadania = new List<Tasks>();
+        public List<Tasks> Wszystkie_Zadania_Z_Bazy = new List<Tasks>();
         public List<Users> Uzytkownicy = new List<Users>();
 
         Form3 form3;
@@ -135,6 +143,12 @@ namespace WindowsFormsApp1
         Form1(Form2 form)
         {
             this.form2 = form;
+        }
+
+        Form4 form4;
+        Form1(Form4 form)
+        {
+             this.form4 = form;
         }
 
 
@@ -234,7 +248,7 @@ namespace WindowsFormsApp1
             string name = TextBoxDBName.Text;
             string user = TextBoxDBUser.Text;
             string pass = TextBoxDBPassword.Text;
-            
+
 
             //szyfrowanie
             string ServerID = "";
@@ -242,7 +256,7 @@ namespace WindowsFormsApp1
             string DBName = "";
             string DBUser = "";
             string DBPassword = "";
-            
+
             try
             {
                 using (Szyfr.CreateEncryptor(key, iv))
@@ -933,12 +947,12 @@ namespace WindowsFormsApp1
             else Dane[4] += "";
             TextBoxDBTesting.Text = "";
             //test w textboxie:
-            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3] + "  "+Dane[4];
+            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3] + "  " + Dane[4];
             DB_first_connection();
 
 
         }
-      
+
         private void DB_first_connection()
         {
             TextBoxServerID.Text = Dane[0];
@@ -1409,16 +1423,16 @@ namespace WindowsFormsApp1
             else return null;
         }
         //podmiana zadania na liście filtrowanej
-        public void Podmien_zadanie(int id, Tasks zmienone_zadanie)
+        public void Podmien_zadanie(int index, Tasks zmienone_zadanie)
         {
-            Zadania.RemoveAt(id);
-            Zadania.Insert(id, zmienone_zadanie);
+            Zadania.RemoveAt(index);
+            Zadania.Insert(index, zmienone_zadanie);
         }
         //podmiana zadania na liście całościowej
-        public void Podmien_zadanie_we_wszystkich(int id, Tasks zmienone_zadanie)
+        public void Podmien_zadanie_we_wszystkich(int index, Tasks zmienone_zadanie)
         {
-            Wszystkie_Zadania_Z_Bazy.RemoveAt(id);
-            Wszystkie_Zadania_Z_Bazy.Insert(id, zmienone_zadanie);
+            Wszystkie_Zadania_Z_Bazy.RemoveAt(index);
+            Wszystkie_Zadania_Z_Bazy.Insert(index, zmienone_zadanie);
         }
         //dodanie zadania do listy filtrowanej
         public void Dodaj_Zadanie_do_listy(Tasks nowe_zadanie)
@@ -1753,7 +1767,7 @@ namespace WindowsFormsApp1
 
 
         //funkcja wyszukująca numer wiersza, jeśli zawiera on dane ID
-        private int NumerWiersza(int id)
+        public int NumerWiersza(int id)
         {
             int numer_wiersza = 0;
             for (int i = 0; i < metroGrid1.RowCount; i++)
@@ -1868,7 +1882,7 @@ namespace WindowsFormsApp1
                 {
                     //wielkosc czcionki w datagridview
                     this.metroGrid1.DefaultCellStyle.Font = new Font("Tahoma", 9.5F);
-                    
+
                     /* foreach (DataGridViewColumn c in metroGrid1.Columns)
                      {
                          c.DefaultCellStyle.Font = new Font("Arial", 13.5F, GraphicsUnit.Pixel);
@@ -1939,7 +1953,7 @@ namespace WindowsFormsApp1
 
 
         //Uniwersalna funkcja do łączenia z bazą do komend: insert, update, delete
-        public void BazaDanych(string komenda, string db_server, string port,string db_name, string db_user, string db_password)
+        public void BazaDanych(string komenda, string db_server, string port, string db_name, string db_user, string db_password)
         {
             try
             {
@@ -1962,8 +1976,187 @@ namespace WindowsFormsApp1
 
         }
 
-       
 
+
+        /*------------------------------------------------ GENEROWANIE PDF ---------------------------------------------------*/
+        public bool ByteArrayToFile(string _FileName, byte[] _ByteArray)
+        {
+            try
+            {
+                // Open file for reading
+                FileStream _FileStream = new FileStream(_FileName, FileMode.Create, FileAccess.Write);
+                // Writes a block of bytes to this stream using data from  a byte array.
+                _FileStream.Write(_ByteArray, 0, _ByteArray.Length);
+
+                // Close file stream
+                _FileStream.Close();
+
+                return true;
+            }
+            catch (Exception _Exception)
+            {
+                MessageBox.Show("Exception caught in process while trying to save : {0}", _Exception.ToString());
+                //Console.WriteLine("Exception caught in process while trying to save : {0}", _Exception.ToString());
+            }
+
+            return false;
+
+        }
+        public void generujPDF_ps(string htmlMain)
+        {
+            // Simple PDF from String
+            //byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert("<html><body><h1>Hello world!</h1></body></html>");
+            byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain);
+
+            // Folder where the file will be created 
+            //string directory = "Certyfikaty\\";
+            // Name of the PDF
+            string filename = "Raporty\\"+DateTime.Now.ToShortDateString() + "-raport" + ".pdf";
+
+            if (ByteArrayToFile(filename, pdfBuffer))
+            {
+                MessageBox.Show(filename);
+                //Console.WriteLine("PDF Succesfully created");
+            }
+            else
+            {
+                //Console.WriteLine("Cannot create PDF");
+                MessageBox.Show("nie mozna utworzyc pdf");
+            }
+
+            //Open PDF
+            try
+            {
+                System.Diagnostics.Process.Start(filename);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie mozna otworzyc pdf" + ex.Message);
+                //LogEvents loge = new LogEvents("Nie mozna otworzyc PDF: " + ex.Message + " (funkcja generatePDF2)");
+            }
+
+
+        }
+        
+        public void podmien_html(DateTime dod, DateTime ddo, string uzytkownik)
+        {
+
+            string htmlMain = "";
+
+            //parametry
+            DateTime data_od = dod;
+            DateTime data_do = ddo;
+            string wykonawca = uzytkownik;
+
+
+            //pobranie wybranych zadań do list:
+            List<Tasks> Wykonane = new List<Tasks>();
+            List<Tasks> Niewykonane = new List<Tasks>();
+
+            //zadania wszystkich uzytkownikow
+            if (wykonawca == "wszyscy")
+            {
+                for (int i = 0; i < Wszystkie_Zadania_Z_Bazy.Count; i++)
+                {
+                    DateTime data_dodania = Convert.ToDateTime(Wszystkie_Zadania_Z_Bazy[i].Data_dodania.ToShortDateString());
+                    if ((data_dodania >= data_od && data_dodania <= data_do) && Wszystkie_Zadania_Z_Bazy[i].Status == true)
+                    {
+                        Wykonane.Add(Wszystkie_Zadania_Z_Bazy[i]);
+                    }
+                    else if ((data_dodania >= data_od && data_dodania <= data_do) && Wszystkie_Zadania_Z_Bazy[i].Status == false)
+                    {
+                        Niewykonane.Add(Wszystkie_Zadania_Z_Bazy[i]);
+                    }
+                }
+            }
+            //zadania jednego wybranego uzytkownika
+            else
+            {
+                for (int i = 0; i < Wszystkie_Zadania_Z_Bazy.Count; i++)
+                {
+                    DateTime data_dodania = Convert.ToDateTime(Wszystkie_Zadania_Z_Bazy[i].Data_dodania.ToShortDateString());
+                    if ((data_dodania >= data_od && data_dodania <= data_do) && Wszystkie_Zadania_Z_Bazy[i].Status == true && Wszystkie_Zadania_Z_Bazy[i].Wykonawca == wykonawca)
+                    {
+                        Wykonane.Add(Wszystkie_Zadania_Z_Bazy[i]);
+                    }
+                    else if ((data_dodania >= data_od && data_dodania <= data_do) && Wszystkie_Zadania_Z_Bazy[i].Status == false && Wszystkie_Zadania_Z_Bazy[i].Wykonawca == wykonawca)
+                    {
+                        Niewykonane.Add(Wszystkie_Zadania_Z_Bazy[i]);
+                    }
+
+                }
+            }
+
+            //pobranie html:
+            string htmlItem = "";
+
+            try
+            {
+                 htmlItem = File.ReadAllText("raport-test.html", Encoding.GetEncoding("Windows-1250"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie udało się podmienić danych.");
+                //LogEvents loge = new LogEvents("Nie udalo sie zaladowac pliku \"ItemCertCompany.html\" lub Solo: " + ex.Message + " (funkcja prepareHtmlcert w Form1)");
+            }
+
+            //stworzenie wierszy tabeli do html:
+            string tabela_wykonane = "";
+            for(int i=0; i<Wykonane.Count(); i++)
+            {
+                string wiersz = "<tr> <td> "+Wykonane[i].Id_zadania+ " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + Wykonane[i].Data_dodania + "</td><td> " + Wykonane[i].Termin + "</td><td> " + Wykonane[i].Data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr></br>";
+                tabela_wykonane  += wiersz;
+            }
+            string tabela_niewykonane = "";
+            for (int i = 0; i < Niewykonane.Count(); i++)
+            {
+                string wiersz = "<tr> <td> "+Niewykonane[i].Id_zadania+ " </td><td> " + Niewykonane[i].Priorytet + "</td><td> " + Niewykonane[i].Zadanie + "</td><td> " + Niewykonane[i].Rodzaj + "</td><td> " + Niewykonane[i].Wykonawca + "</td><td> " + Niewykonane[i].Data_dodania + "</td><td> " + Niewykonane[i].Termin + "</td><td> " + Niewykonane[i].Dodane_przez + "</td>    </tr></br>";
+                tabela_niewykonane += wiersz;
+            }
+
+            //podmiana
+            try
+            {
+                htmlItem = htmlItem.Replace("{data_od}", data_od.ToShortDateString());
+                htmlItem = htmlItem.Replace("{data_do}", data_do.ToShortDateString());
+                htmlItem = htmlItem.Replace("{ile_wykonanych}", Wykonane.Count.ToString());
+                htmlItem = htmlItem.Replace("{ile_niewykonanych}", Niewykonane.Count.ToString());
+                htmlItem = htmlItem.Replace("{tabela_wykonane}", tabela_wykonane);
+                htmlItem = htmlItem.Replace("{tabela_niewykonane}", tabela_niewykonane);
+
+                //Insert edited item to main html string and again create {htmlItem} tag
+                //for next item.
+                htmlMain += htmlItem;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie udalo sie podmienic zmiennych");
+               //LogEvents loge = new LogEvents("Nie udalo sie podmienic zmiennych (imienazwisko,firma,adres,plec: " + ex.Message + " (funkcja prepareHtmlcert())");
+            }
+
+            generujPDF_ps(htmlMain);
+
+        }
+    
+
+        
+        private void ButtonGenerujPDF_Click(object sender, EventArgs e)
+        {
+
+            //otworzyc nowy form
+           Form4 GenerujPDF = new Form4(this);
+           GenerujPDF.ShowDialog();
+           
+           //podmien_html(Convert.ToDateTime("2020-05-10"),Convert.ToDateTime("2020-07-20"),zalogowany_user);
+            
+
+        }
+
+
+
+        
+       
 
 
 
