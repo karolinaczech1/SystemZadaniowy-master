@@ -2002,43 +2002,52 @@ namespace WindowsFormsApp1
             return false;
 
         }
-        public void generujPDF_ps(string htmlMain)
+        public void generujPDF_ps(string htmlMain, DateTime dod, DateTime ddo, string path, bool czy_owtorzyc)
         {
             // Simple PDF from String
-            //byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert("<html><body><h1>Hello world!</h1></body></html>");
-            byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain);
-
-            // Folder where the file will be created 
-            //string directory = "Certyfikaty\\";
-            // Name of the PDF
-            string filename = "Raporty\\"+DateTime.Now.ToShortDateString() + "-raport" + ".pdf";
-
-            if (ByteArrayToFile(filename, pdfBuffer))
+           //!!!!!!!!!!!! byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain);
+            int x = 1;
+            
+            // Name and location of the PDF
+            string filename = path + "\\"+ dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + ".pdf";
+            if(File.Exists(filename))
             {
-                MessageBox.Show(filename);
+                filename = path + "\\" + dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + x + ".pdf";
+                if(File.Exists(filename)) filename = path + "\\" + dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + x+1 + ".pdf";
+                
+            }
+            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlMain, PageSize.A4, 0);
+            pdf.Save(filename);
+            //string filename = "Raporty\\" + dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + ".pdf";
+
+          //!!!!!!!!!!!  if (ByteArrayToFile(filename, pdfBuffer))
+           // {
+                //MessageBox.Show(filename);
                 //Console.WriteLine("PDF Succesfully created");
-            }
-            else
-            {
+                //Open PDF
+                if (czy_owtorzyc == true)
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(filename);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nie mozna otworzyc pdf" + ex.Message);
+                        //LogEvents loge = new LogEvents("Nie mozna otworzyc PDF: " + ex.Message + " (funkcja generatePDF2)");
+                    }
+                }
+                else MessageBox.Show("Utworzono.");
+           //}
+            //else
+            //{
                 //Console.WriteLine("Cannot create PDF");
-                MessageBox.Show("nie mozna utworzyc pdf");
-            }
-
-            //Open PDF
-            try
-            {
-                System.Diagnostics.Process.Start(filename);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Nie mozna otworzyc pdf" + ex.Message);
-                //LogEvents loge = new LogEvents("Nie mozna otworzyc PDF: " + ex.Message + " (funkcja generatePDF2)");
-            }
-
+               //!!!! MessageBox.Show("nie mozna utworzyc pdf");
+           // }
 
         }
         
-        public void podmien_html(DateTime dod, DateTime ddo, string uzytkownik)
+        public void podmien_html(DateTime dod, DateTime ddo, string uzytkownik, string path, bool czy_otworzyc)
         {
 
             string htmlMain = "";
@@ -2101,16 +2110,33 @@ namespace WindowsFormsApp1
             }
 
             //stworzenie wierszy tabeli do html:
+
+            
+
             string tabela_wykonane = "";
             for(int i=0; i<Wykonane.Count(); i++)
             {
-                string wiersz = "<tr> <td> "+Wykonane[i].Id_zadania+ " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + Wykonane[i].Data_dodania + "</td><td> " + Wykonane[i].Termin + "</td><td> " + Wykonane[i].Data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr></br>";
+                string data_dodania = Wykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
+                string termin = "".ToString();
+                string data_wykonania = "".ToString();
+                for (int j = 0; j <= 15; j++) 
+                { 
+                    if(Wykonane[i].Termin != null && Wykonane[i].Termin != string.Empty) termin += Wykonane[i].Termin[j]; 
+                    data_wykonania += Wykonane[i].Data_wykonania[j]; 
+                }
+                string wiersz = "<tr> <td> "+Wykonane[i].Id_zadania+ " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr></br>";
                 tabela_wykonane  += wiersz;
             }
             string tabela_niewykonane = "";
             for (int i = 0; i < Niewykonane.Count(); i++)
             {
-                string wiersz = "<tr> <td> "+Niewykonane[i].Id_zadania+ " </td><td> " + Niewykonane[i].Priorytet + "</td><td> " + Niewykonane[i].Zadanie + "</td><td> " + Niewykonane[i].Rodzaj + "</td><td> " + Niewykonane[i].Wykonawca + "</td><td> " + Niewykonane[i].Data_dodania + "</td><td> " + Niewykonane[i].Termin + "</td><td> " + Niewykonane[i].Dodane_przez + "</td>    </tr></br>";
+                string data_dodania = Niewykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
+                string termin = "".ToString();
+                for (int j = 0; j <= 15; j++)
+                {
+                    if (Niewykonane[i].Termin != null && Niewykonane[i].Termin != string.Empty) termin += Niewykonane[i].Termin[j];
+                }
+                string wiersz = "<tr> <td> "+Niewykonane[i].Id_zadania+ " </td><td> " + Niewykonane[i].Priorytet + "</td><td> " + Niewykonane[i].Zadanie + "</td><td> " + Niewykonane[i].Rodzaj + "</td><td> " + Niewykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + Niewykonane[i].Dodane_przez + "</td>    </tr></br>";
                 tabela_niewykonane += wiersz;
             }
 
@@ -2135,7 +2161,7 @@ namespace WindowsFormsApp1
                //LogEvents loge = new LogEvents("Nie udalo sie podmienic zmiennych (imienazwisko,firma,adres,plec: " + ex.Message + " (funkcja prepareHtmlcert())");
             }
 
-            generujPDF_ps(htmlMain);
+            generujPDF_ps(htmlMain, dod, ddo, path, czy_otworzyc);
 
         }
     

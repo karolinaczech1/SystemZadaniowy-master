@@ -36,6 +36,9 @@
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.ComboBoxWykonawcy = new MetroFramework.Controls.MetroComboBox();
             this.btnGenerujPDF = new MetroFramework.Controls.MetroButton();
+            this.ButtonLokalizacja = new MetroFramework.Controls.MetroButton();
+            this.CheckBoxZapiszLokalizacje = new MetroFramework.Controls.MetroCheckBox();
+            this.CheckBoxOtworzPDF = new MetroFramework.Controls.MetroCheckBox();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -110,7 +113,7 @@
             // 
             // btnGenerujPDF
             // 
-            this.btnGenerujPDF.Location = new System.Drawing.Point(109, 321);
+            this.btnGenerujPDF.Location = new System.Drawing.Point(79, 370);
             this.btnGenerujPDF.Name = "btnGenerujPDF";
             this.btnGenerujPDF.Size = new System.Drawing.Size(105, 43);
             this.btnGenerujPDF.TabIndex = 7;
@@ -118,11 +121,45 @@
             this.btnGenerujPDF.UseSelectable = true;
             this.btnGenerujPDF.Click += new System.EventHandler(this.btnGenerujPDF_Click);
             // 
+            // ButtonLokalizacja
+            // 
+            this.ButtonLokalizacja.Location = new System.Drawing.Point(75, 299);
+            this.ButtonLokalizacja.Name = "ButtonLokalizacja";
+            this.ButtonLokalizacja.Size = new System.Drawing.Size(273, 39);
+            this.ButtonLokalizacja.TabIndex = 9;
+            this.ButtonLokalizacja.Text = "miejsce zapisu pliku";
+            this.ButtonLokalizacja.UseSelectable = true;
+            this.ButtonLokalizacja.Click += new System.EventHandler(this.ButtonLokalizacja_Click_1);
+            // 
+            // CheckBoxZapiszLokalizacje
+            // 
+            this.CheckBoxZapiszLokalizacje.AutoSize = true;
+            this.CheckBoxZapiszLokalizacje.Location = new System.Drawing.Point(383, 321);
+            this.CheckBoxZapiszLokalizacje.Name = "CheckBoxZapiszLokalizacje";
+            this.CheckBoxZapiszLokalizacje.Size = new System.Drawing.Size(195, 17);
+            this.CheckBoxZapiszLokalizacje.TabIndex = 10;
+            this.CheckBoxZapiszLokalizacje.Text = "zapisz jako miejsce docelowe";
+            this.CheckBoxZapiszLokalizacje.UseSelectable = true;
+            this.CheckBoxZapiszLokalizacje.CheckedChanged += new System.EventHandler(this.CheckBoxZapiszLokalizacje_CheckedChanged);
+            // 
+            // CheckBoxOtworzPDF
+            // 
+            this.CheckBoxOtworzPDF.AutoSize = true;
+            this.CheckBoxOtworzPDF.Location = new System.Drawing.Point(215, 384);
+            this.CheckBoxOtworzPDF.Name = "CheckBoxOtworzPDF";
+            this.CheckBoxOtworzPDF.Size = new System.Drawing.Size(177, 17);
+            this.CheckBoxOtworzPDF.TabIndex = 11;
+            this.CheckBoxOtworzPDF.Text = "otwórz PDF po utworzeniu";
+            this.CheckBoxOtworzPDF.UseSelectable = true;
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CheckBoxOtworzPDF);
+            this.Controls.Add(this.CheckBoxZapiszLokalizacje);
+            this.Controls.Add(this.ButtonLokalizacja);
             this.Controls.Add(this.btnGenerujPDF);
             this.Controls.Add(this.ComboBoxWykonawcy);
             this.Controls.Add(this.metroLabel4);
@@ -148,5 +185,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroComboBox ComboBoxWykonawcy;
         private MetroFramework.Controls.MetroButton btnGenerujPDF;
+        private MetroFramework.Controls.MetroButton ButtonLokalizacja;
+        private MetroFramework.Controls.MetroCheckBox CheckBoxZapiszLokalizacje;
+        private MetroFramework.Controls.MetroCheckBox CheckBoxOtworzPDF;
     }
 }

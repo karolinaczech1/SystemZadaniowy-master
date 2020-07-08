@@ -44,6 +44,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroTabControl2 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.ButtonGenerujPDF = new MetroFramework.Controls.MetroButton();
             this.DateTimeZakresDatDo = new MetroFramework.Controls.MetroDateTime();
             this.metroLabel26 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel25 = new MetroFramework.Controls.MetroLabel();
@@ -170,7 +171,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.ButtonGenerujPDF = new MetroFramework.Controls.MetroButton();
             this.metroTabControl2.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             this.metroTabTaskDetails.SuspendLayout();
@@ -188,10 +188,10 @@
             // 
             this.metroTabControl2.Controls.Add(this.metroTabPage3);
             this.metroTabControl2.Controls.Add(this.metroTabPage4);
-            this.metroTabControl2.Location = new System.Drawing.Point(9, 17);
+            this.metroTabControl2.Location = new System.Drawing.Point(9, 29);
             this.metroTabControl2.Name = "metroTabControl2";
             this.metroTabControl2.SelectedIndex = 0;
-            this.metroTabControl2.Size = new System.Drawing.Size(1484, 789);
+            this.metroTabControl2.Size = new System.Drawing.Size(1484, 777);
             this.metroTabControl2.TabIndex = 0;
             this.metroTabControl2.UseSelectable = true;
             // 
@@ -222,12 +222,22 @@
             this.metroTabPage3.HorizontalScrollbarSize = 10;
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage3.Name = "metroTabPage3";
-            this.metroTabPage3.Size = new System.Drawing.Size(1476, 747);
+            this.metroTabPage3.Size = new System.Drawing.Size(1476, 735);
             this.metroTabPage3.TabIndex = 0;
             this.metroTabPage3.Text = "Zadania";
             this.metroTabPage3.VerticalScrollbarBarColor = true;
             this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage3.VerticalScrollbarSize = 10;
+            // 
+            // ButtonGenerujPDF
+            // 
+            this.ButtonGenerujPDF.Location = new System.Drawing.Point(764, 9);
+            this.ButtonGenerujPDF.Name = "ButtonGenerujPDF";
+            this.ButtonGenerujPDF.Size = new System.Drawing.Size(117, 38);
+            this.ButtonGenerujPDF.TabIndex = 23;
+            this.ButtonGenerujPDF.Text = "Generuj PDF";
+            this.ButtonGenerujPDF.UseSelectable = true;
+            this.ButtonGenerujPDF.Click += new System.EventHandler(this.ButtonGenerujPDF_Click);
             // 
             // DateTimeZakresDatDo
             // 
@@ -2421,16 +2431,6 @@
             this.metroContextMenu1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.metroContextMenu1.Name = "metroContextMenu1";
             this.metroContextMenu1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // ButtonGenerujPDF
-            // 
-            this.ButtonGenerujPDF.Location = new System.Drawing.Point(764, 9);
-            this.ButtonGenerujPDF.Name = "ButtonGenerujPDF";
-            this.ButtonGenerujPDF.Size = new System.Drawing.Size(117, 38);
-            this.ButtonGenerujPDF.TabIndex = 23;
-            this.ButtonGenerujPDF.Text = "Generuj PDF";
-            this.ButtonGenerujPDF.UseSelectable = true;
-            this.ButtonGenerujPDF.Click += new System.EventHandler(this.ButtonGenerujPDF_Click);
             // 
             // Form1
             // 
