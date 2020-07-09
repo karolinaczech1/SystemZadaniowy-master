@@ -118,7 +118,6 @@
             this.metroTabPage6 = new MetroFramework.Controls.MetroTabPage();
             this.metroLabel31 = new MetroFramework.Controls.MetroLabel();
             this.TextBoxDBPort = new MetroFramework.Controls.MetroTextBox();
-            this.TextBoxDBTesting = new MetroFramework.Controls.MetroTextBox();
             this.TextBoxDBinfo = new MetroFramework.Controls.MetroTextBox();
             this.TextBoxDBPassword = new MetroFramework.Controls.MetroTextBox();
             this.TextBoxDBUser = new MetroFramework.Controls.MetroTextBox();
@@ -149,7 +148,6 @@
             this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
             this.metroTabPage9 = new MetroFramework.Controls.MetroTabPage();
             this.ButtonZapiszWidokKolumn = new MetroFramework.Controls.MetroButton();
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             this.metroCheckBox10 = new MetroFramework.Controls.MetroCheckBox();
             this.metroCheckBox9 = new MetroFramework.Controls.MetroCheckBox();
             this.metroCheckBox8 = new MetroFramework.Controls.MetroCheckBox();
@@ -242,7 +240,7 @@
             // DateTimeZakresDatDo
             // 
             this.DateTimeZakresDatDo.Location = new System.Drawing.Point(732, 698);
-            this.DateTimeZakresDatDo.MinimumSize = new System.Drawing.Size(0, 30);
+            this.DateTimeZakresDatDo.MinimumSize = new System.Drawing.Size(4, 30);
             this.DateTimeZakresDatDo.Name = "DateTimeZakresDatDo";
             this.DateTimeZakresDatDo.Size = new System.Drawing.Size(200, 30);
             this.DateTimeZakresDatDo.TabIndex = 22;
@@ -278,7 +276,7 @@
             // DateTimeZakresDatOd
             // 
             this.DateTimeZakresDatOd.Location = new System.Drawing.Point(495, 698);
-            this.DateTimeZakresDatOd.MinimumSize = new System.Drawing.Size(0, 30);
+            this.DateTimeZakresDatOd.MinimumSize = new System.Drawing.Size(4, 30);
             this.DateTimeZakresDatOd.Name = "DateTimeZakresDatOd";
             this.DateTimeZakresDatOd.Size = new System.Drawing.Size(200, 30);
             this.DateTimeZakresDatOd.TabIndex = 18;
@@ -1208,9 +1206,9 @@
             this.metroTabPage4.HorizontalScrollbarBarColor = true;
             this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage4.HorizontalScrollbarSize = 10;
-            this.metroTabPage4.Location = new System.Drawing.Point(4, 39);
+            this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Size = new System.Drawing.Size(1476, 746);
+            this.metroTabPage4.Size = new System.Drawing.Size(1476, 735);
             this.metroTabPage4.TabIndex = 1;
             this.metroTabPage4.Text = "Ustawienia";
             this.metroTabPage4.VerticalScrollbarBarColor = true;
@@ -1225,7 +1223,7 @@
             this.metroTabControl3.Controls.Add(this.metroTabPage9);
             this.metroTabControl3.Location = new System.Drawing.Point(56, 24);
             this.metroTabControl3.Name = "metroTabControl3";
-            this.metroTabControl3.SelectedIndex = 1;
+            this.metroTabControl3.SelectedIndex = 0;
             this.metroTabControl3.Size = new System.Drawing.Size(1275, 591);
             this.metroTabControl3.TabIndex = 2;
             this.metroTabControl3.UseSelectable = true;
@@ -1244,9 +1242,9 @@
             this.metroTabPage5.HorizontalScrollbarBarColor = true;
             this.metroTabPage5.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage5.HorizontalScrollbarSize = 10;
-            this.metroTabPage5.Location = new System.Drawing.Point(4, 39);
+            this.metroTabPage5.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage5.Name = "metroTabPage5";
-            this.metroTabPage5.Size = new System.Drawing.Size(1267, 548);
+            this.metroTabPage5.Size = new System.Drawing.Size(1267, 549);
             this.metroTabPage5.TabIndex = 0;
             this.metroTabPage5.Text = "Użytkownik";
             this.metroTabPage5.VerticalScrollbarBarColor = true;
@@ -1386,7 +1384,7 @@
             this.TextBoxUserName.CustomButton.UseSelectable = true;
             this.TextBoxUserName.CustomButton.Visible = false;
             this.TextBoxUserName.Lines = new string[0];
-            this.TextBoxUserName.Location = new System.Drawing.Point(19, 60);
+            this.TextBoxUserName.Location = new System.Drawing.Point(25, 60);
             this.TextBoxUserName.MaxLength = 32767;
             this.TextBoxUserName.Name = "TextBoxUserName";
             this.TextBoxUserName.PasswordChar = '\0';
@@ -1405,7 +1403,6 @@
             // 
             this.metroTabPage6.Controls.Add(this.metroLabel31);
             this.metroTabPage6.Controls.Add(this.TextBoxDBPort);
-            this.metroTabPage6.Controls.Add(this.TextBoxDBTesting);
             this.metroTabPage6.Controls.Add(this.TextBoxDBinfo);
             this.metroTabPage6.Controls.Add(this.TextBoxDBPassword);
             this.metroTabPage6.Controls.Add(this.TextBoxDBUser);
@@ -1467,36 +1464,6 @@
             this.TextBoxDBPort.UseSelectable = true;
             this.TextBoxDBPort.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.TextBoxDBPort.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // TextBoxDBTesting
-            // 
-            // 
-            // 
-            // 
-            this.TextBoxDBTesting.CustomButton.Image = null;
-            this.TextBoxDBTesting.CustomButton.Location = new System.Drawing.Point(-11, 2);
-            this.TextBoxDBTesting.CustomButton.Name = "";
-            this.TextBoxDBTesting.CustomButton.Size = new System.Drawing.Size(395, 395);
-            this.TextBoxDBTesting.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.TextBoxDBTesting.CustomButton.TabIndex = 1;
-            this.TextBoxDBTesting.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.TextBoxDBTesting.CustomButton.UseSelectable = true;
-            this.TextBoxDBTesting.CustomButton.Visible = false;
-            this.TextBoxDBTesting.Lines = new string[0];
-            this.TextBoxDBTesting.Location = new System.Drawing.Point(648, 61);
-            this.TextBoxDBTesting.MaxLength = 32767;
-            this.TextBoxDBTesting.Name = "TextBoxDBTesting";
-            this.TextBoxDBTesting.PasswordChar = '\0';
-            this.TextBoxDBTesting.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TextBoxDBTesting.SelectedText = "";
-            this.TextBoxDBTesting.SelectionLength = 0;
-            this.TextBoxDBTesting.SelectionStart = 0;
-            this.TextBoxDBTesting.ShortcutsEnabled = true;
-            this.TextBoxDBTesting.Size = new System.Drawing.Size(387, 400);
-            this.TextBoxDBTesting.TabIndex = 12;
-            this.TextBoxDBTesting.UseSelectable = true;
-            this.TextBoxDBTesting.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.TextBoxDBTesting.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // TextBoxDBinfo
             // 
@@ -2080,7 +2047,6 @@
             // metroTabPage9
             // 
             this.metroTabPage9.Controls.Add(this.ButtonZapiszWidokKolumn);
-            this.metroTabPage9.Controls.Add(this.metroTextBox1);
             this.metroTabPage9.Controls.Add(this.metroCheckBox10);
             this.metroTabPage9.Controls.Add(this.metroCheckBox9);
             this.metroTabPage9.Controls.Add(this.metroCheckBox8);
@@ -2104,9 +2070,9 @@
             this.metroTabPage9.HorizontalScrollbarBarColor = true;
             this.metroTabPage9.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage9.HorizontalScrollbarSize = 10;
-            this.metroTabPage9.Location = new System.Drawing.Point(4, 39);
+            this.metroTabPage9.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage9.Name = "metroTabPage9";
-            this.metroTabPage9.Size = new System.Drawing.Size(1267, 548);
+            this.metroTabPage9.Size = new System.Drawing.Size(1267, 549);
             this.metroTabPage9.TabIndex = 3;
             this.metroTabPage9.Text = "Widoczność Kolumn";
             this.metroTabPage9.VerticalScrollbarBarColor = true;
@@ -2122,39 +2088,6 @@
             this.ButtonZapiszWidokKolumn.Text = "Zapisz";
             this.ButtonZapiszWidokKolumn.UseSelectable = true;
             this.ButtonZapiszWidokKolumn.Click += new System.EventHandler(this.ButtonZapiszWidokKolumn_Click_1);
-            // 
-            // metroTextBox1
-            // 
-            // 
-            // 
-            // 
-            this.metroTextBox1.CustomButton.Image = null;
-            this.metroTextBox1.CustomButton.Location = new System.Drawing.Point(60, 1);
-            this.metroTextBox1.CustomButton.Name = "";
-            this.metroTextBox1.CustomButton.Size = new System.Drawing.Size(459, 459);
-            this.metroTextBox1.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroTextBox1.CustomButton.TabIndex = 1;
-            this.metroTextBox1.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroTextBox1.CustomButton.UseSelectable = true;
-            this.metroTextBox1.CustomButton.Visible = false;
-            this.metroTextBox1.Lines = new string[] {
-        "metroTextBox1"};
-            this.metroTextBox1.Location = new System.Drawing.Point(657, 46);
-            this.metroTextBox1.MaxLength = 32767;
-            this.metroTextBox1.Multiline = true;
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.PasswordChar = '\0';
-            this.metroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBox1.SelectedText = "";
-            this.metroTextBox1.SelectionLength = 0;
-            this.metroTextBox1.SelectionStart = 0;
-            this.metroTextBox1.ShortcutsEnabled = true;
-            this.metroTextBox1.Size = new System.Drawing.Size(520, 461);
-            this.metroTextBox1.TabIndex = 23;
-            this.metroTextBox1.Text = "metroTextBox1";
-            this.metroTextBox1.UseSelectable = true;
-            this.metroTextBox1.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.metroTextBox1.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // metroCheckBox10
             // 
@@ -2434,6 +2367,8 @@
             // 
             // Form1
             // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1512, 829);
             this.Controls.Add(this.metroTabControl2);
             this.Name = "Form1";
@@ -2506,7 +2441,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private MetroFramework.Controls.MetroTextBox TextBoxUsersList;
         private MetroFramework.Controls.MetroLabel metroLabel11;
-        private MetroFramework.Controls.MetroTextBox TextBoxDBTesting;
         private MetroFramework.Controls.MetroTextBox TextBoxDBinfo;
         private MetroFramework.Controls.MetroButton ButtonUsunZadanie;
         private MetroFramework.Controls.MetroTextBox TextBoxDetailsWykonawca;
@@ -2593,7 +2527,6 @@
         private MetroFramework.Controls.MetroCheckBox metroCheckBox2;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
         private System.Windows.Forms.Label label10;
-        private MetroFramework.Controls.MetroTextBox metroTextBox1;
         private MetroFramework.Controls.MetroLabel metroLabel29;
         private MetroFramework.Controls.MetroButton ButtonZapiszWidokKolumn;
         private MetroFramework.Controls.MetroTextBox TextBoxDBPort;

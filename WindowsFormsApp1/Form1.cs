@@ -46,72 +46,6 @@ namespace WindowsFormsApp1
 
             Zaladuj_ponownie();
 
-            /* connected = false;
-             //Jesli wpisno dane do łączenia z bazą:
-             if (File.Exists("database.txt") && Dane[0] != string.Empty)
-             {
-
-                 DataBase();  //próba połączenia z bazą
-                 Wczytaj_Filtry();
-                 kolor_terminu_w_dataGrid();
-                 ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
-
-                 //Jeślu udało się połączyć z bazą:
-                 if (connected == true)  
-                 {
-                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
-                     //wczytanie listy userów
-                     ShowUsers();
-                      if(Wszystkie_Zadania_Z_Bazy.Count >= 1)
-                      {
-                          DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
-                          DateTimeZakresDatDo.Value = Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Data_dodania;  //domyślny zakres dat: do daty ostatniego zadania
-                      }
-                      else
-                      {
-                          DateTimeZakresDatOd.Text = "20-06-2020";   
-                          DateTimeZakresDatDo.Text = "30-12-2020";
-                      }
-
-                     if (File.Exists("logowanie.txt"))   //jeśli plik istnieje
-                     {
-                         Logowanie();  //proba automatycznego zalogowania
-                         if(zalogowany == true)
-                         {
-                             ComboBoxWykonawcy.SelectedItem = zalogowany_user;  //domyślny filtr na wyświetlanie zadań dla zalogowanego usera
-                            // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                         }
-                         else
-                         {
-                             ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                            // Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                             MessageBox.Show("Nie jesteś zalogowany.");
-                         }
-                     }
-                     else 
-                     {
-                         ComboBoxWykonawcy.SelectedItem = "wszystkie";
-                         //Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                         MessageBox.Show("Nie jesteś zalogowany.");
-                     }
-
-                     Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
-                     Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
-                     Odczyt_Ustawien_Kolumn();
-
-
-                 }
-                 else 
-                 {
-                     TextBoxDBinfo.Text = "Nie udało się nawiązać połączenia z bazą.";
-                 }
-
-             }
-             else
-             {
-                 TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
-             }
-             this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending);   //domyślne sortowanie - malejąco według ID */
 
         }
 
@@ -321,9 +255,8 @@ namespace WindowsFormsApp1
                         dane.Close();
                         MessageBox.Show("Zapisano");
                     }
-
+                    //załadowanie od nowa wszystkiego
                     Zaladuj_ponownie();
-                    ///załadowanie od nowa wszystkiego
 
                 }
             }
@@ -945,9 +878,7 @@ namespace WindowsFormsApp1
                 }
             }
             else Dane[4] += "";
-            TextBoxDBTesting.Text = "";
-            //test w textboxie:
-            TextBoxDBTesting.Text += Dane[0] + "   " + Dane[1] + "   " + Dane[2] + "  " + Dane[3] + "  " + Dane[4];
+           
             DB_first_connection();
 
 
@@ -1037,23 +968,12 @@ namespace WindowsFormsApp1
                 StreamReader reader = new StreamReader(odczyt);
                 for (int i = 0; i < 10; i++)
                 {
-                    /*  if (reader.ReadLine() == "1")
-                      {
-                          Zaznaczenia[i] = "1";
-                      }
-                      else if(reader.ReadLine() == "0")
-                      {
-                          Zaznaczenia[i] = "1";
-                      }*/
+
                     Zaznaczenia[i] = reader.ReadLine();
                 }
                 reader.Close();
                 odczyt.Close();
-                metroTextBox1.Text = "";
-                for (int i = 0; i < 10; i++)
-                {
-                    metroTextBox1.Text += Zaznaczenia[i] + "   ";
-                }
+               
                 Widocznosc_kolumn_ustawiona(Zaznaczenia);
             }
             else
@@ -1500,6 +1420,7 @@ namespace WindowsFormsApp1
 
                 MySqlDataReader r = komenda1.ExecuteReader();
                 Zadania.Clear();
+                metroGrid1.Rows.Clear();
                 while (r.Read())
                 {
                     int id = Convert.ToInt32(r["id_zadania"]);
@@ -1516,21 +1437,12 @@ namespace WindowsFormsApp1
                     string dp = r["dodane_przez"].ToString();
                     Tasks zadanie = new Tasks(id, p, z, ro, w, dd, dds, t, s, dw, o, dp);
                     Zadania.Add(zadanie);
+                    metroGrid1.Rows.Add(konwersja(zadanie));
                 }
                 r.Close();
                 con.Close();
-                metroGrid1.Rows.Clear();
-
-                // ? zmiana zakresu dat wywołuje funkcję  zmiana_zakresu_dat(), która zasępuje ShowRow ale z uwzględnieniem dat
-                if (Zadania.Count != 0)
-                {
-                    DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                    DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                } //
-                zmiana_zakresu_dat(Zadania);  //  
-
-                kolor_terminu_w_dataGrid();
-                Display_first_task_details();   //zmiana zaznaczenia na pierwszy wiersz datagrid
+                //metroGrid1.Rows.Clear();
+               // zmiana_zakresu_dat(Zadania);       
 
             }
             catch (MySqlException e)
@@ -1561,30 +1473,21 @@ namespace WindowsFormsApp1
         //ZMIANY ZAKRESU DAT
         private void zmiana_zakresu_dat(List<Tasks> lista)   // może zastępować ShowRow()
         {
-
-
-            metroGrid1.Rows.Clear();
-            for (int i = 0; i < lista.Count; i++)
-            {
-                /* DateTime dodanie = Convert.ToDateTime(lista[i].Data_dodania.ToString("dd-MM-yyyy"));
-                 DateTime data_od = Convert.ToDateTime((DateTimeZakresDatOd.Value.AddDays(-1)).ToString("dd-MM-yyyy"));
-                 DateTime data_do = Convert.ToDateTime((DateTimeZakresDatDo.Value.AddDays(1.0)).ToString("dd-MM-yyyy"));
-
-                 if (dodanie >= data_od && dodanie <= data_do)
-                 {
-                     metroGrid1.Rows.Add(konwersja(lista[i]));
-                 }*/
-                //jeśli data dodania danego zadania mieści się w wybranym zakresie
-                if (Convert.ToDateTime(lista[i].Data_dodania_string) >= DateTimeZakresDatOd.Value && Convert.ToDateTime(lista[i].Data_dodania_string) <= DateTimeZakresDatDo.Value.AddDays(1))
-                {
-                    metroGrid1.Rows.Add(konwersja(lista[i]));
-                }
-
-                Display_first_task_details();
-                kolor_terminu_w_dataGrid();
-                Sortowanie();
-
-            }
+             metroGrid1.Rows.Clear();
+             for (int i = 0; i < lista.Count; i++)
+             {
+                  DateTime data_dodania = Convert.ToDateTime(lista[i].Data_dodania.ToShortDateString());
+                  DateTime data_od = Convert.ToDateTime(DateTimeZakresDatOd.Value.ToShortDateString());
+                  DateTime data_do = Convert.ToDateTime(DateTimeZakresDatDo.Value.ToShortDateString());
+                  if (data_dodania >= data_od && data_dodania <= data_do)
+                  {
+                      metroGrid1.Rows.Add(konwersja(lista[i]));
+                  }
+                     
+             }
+            Sortowanie();
+            Display_first_task_details();
+            kolor_terminu_w_dataGrid();
         }
 
         private void Wyszukiwanie()
@@ -1979,35 +1882,12 @@ namespace WindowsFormsApp1
 
 
         /*------------------------------------------------ GENEROWANIE PDF ---------------------------------------------------*/
-        public bool ByteArrayToFile(string _FileName, byte[] _ByteArray)
-        {
-            try
-            {
-                // Open file for reading
-                FileStream _FileStream = new FileStream(_FileName, FileMode.Create, FileAccess.Write);
-                // Writes a block of bytes to this stream using data from  a byte array.
-                _FileStream.Write(_ByteArray, 0, _ByteArray.Length);
-
-                // Close file stream
-                _FileStream.Close();
-
-                return true;
-            }
-            catch (Exception _Exception)
-            {
-                MessageBox.Show("Exception caught in process while trying to save : {0}", _Exception.ToString());
-                //Console.WriteLine("Exception caught in process while trying to save : {0}", _Exception.ToString());
-            }
-
-            return false;
-
-        }
+        
         public void generujPDF_ps(string htmlMain, DateTime dod, DateTime ddo, string path, bool czy_owtorzyc)
         {
-            // Simple PDF from String
-           //!!!!!!!!!!!! byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain);
+           
+           // byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain); //Pechkin, wymagaana funkcja ByteArrayToFile(..)
             int x = 1;
-            
             // Name and location of the PDF
             string filename = path + "\\"+ dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + ".pdf";
             if(File.Exists(filename))
@@ -2016,14 +1896,12 @@ namespace WindowsFormsApp1
                 if(File.Exists(filename)) filename = path + "\\" + dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + x+1 + ".pdf";
                 
             }
-            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlMain, PageSize.A4, 0);
-            pdf.Save(filename);
-            //string filename = "Raporty\\" + dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + ".pdf";
+            //TheArtOfDev pdf sharp
+            try
+            {
+                PdfDocument pdf = PdfGenerator.GeneratePdf(htmlMain, PageSize.A4, 0);
+                pdf.Save(filename);
 
-          //!!!!!!!!!!!  if (ByteArrayToFile(filename, pdfBuffer))
-           // {
-                //MessageBox.Show(filename);
-                //Console.WriteLine("PDF Succesfully created");
                 //Open PDF
                 if (czy_owtorzyc == true)
                 {
@@ -2038,12 +1916,10 @@ namespace WindowsFormsApp1
                     }
                 }
                 else MessageBox.Show("Utworzono.");
-           //}
-            //else
-            //{
-                //Console.WriteLine("Cannot create PDF");
-               //!!!! MessageBox.Show("nie mozna utworzyc pdf");
-           // }
+            }catch(Exception e)
+            {
+                MessageBox.Show("Nie udało się utworzyć pdf");
+            }
 
         }
         
