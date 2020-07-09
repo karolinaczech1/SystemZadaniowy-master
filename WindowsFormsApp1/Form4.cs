@@ -134,6 +134,12 @@ namespace WindowsFormsApp1
 
             DateTime dod = Convert.ToDateTime(DateTimeOD.Value.ToShortDateString());
             DateTime ddo = Convert.ToDateTime(DateTimeDO.Value.ToShortDateString());
+            if (ComboBoxWykonawcy.SelectedItem == null)
+            {
+                ComboBoxWykonawcy.Text = "wszyscy";
+                ComboBoxWykonawcy.SelectedItem = "wszyscy";    
+            } 
+          
             if (path != string.Empty && path != null)
             {
                 form1.podmien_html(dod, ddo, ComboBoxWykonawcy.SelectedItem.ToString(), path, Czy_otworzyc_pdf());

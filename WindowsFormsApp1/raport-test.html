@@ -1,0 +1,152 @@
+
+
+
+
+
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<title>Raport zadań</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;500&display=swap" rel="stylesheet"> 
+    
+	<style>
+	#container
+	{
+		width: 580px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#logo
+	{
+        height: auto;
+		background-color: lightblue;
+		color: black;
+		text-align: center; 
+        font-family: 'Montserrat', sans-serif;
+        font-size: 30px;
+        
+	}
+    #tytul
+    {
+        font-weight: 200;
+        
+        padding-top: 10px;
+        margin-bottom: 0px;   
+    }
+    #info
+    {
+        font-weight: 200;
+        font-size: 19px;
+        padding-top: 0px;
+        padding-bottom: 10px;
+    }
+
+	#wykonane
+    {
+        width: 580px;
+        margin-top: 10px;
+        border: medium solid lightgreen;
+    }
+    #niewykonane
+    {
+        width: 580px; 
+        margin-top: 10px;
+        border: medium solid lightpink;
+    }
+    #status
+    {
+        font-family: 'Montserrat', sans-serif;  
+        font-weight: 200;
+        text-align: center;
+        margin-top: 2px;
+        margin-bottom: 0px;
+        padding-bottom: 10px;
+    }
+    .tabela
+    {
+        width: 575px;
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+    .tabela td 
+    {
+        font-size: 13px;
+        border: 1px solid black;
+        text-align: center;
+        min-width: 61px;
+        height: 30px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    .tabela th 
+    {
+        font-size: 12px;
+        text-align: center;
+        background-color: lightblue;
+        border: 1px solid black;
+        height: 30px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }    
+        
+        
+	</style>
+
+</head>
+
+    
+    
+<body>
+
+	<div id="container">
+	
+        
+		<div id="logo">
+            <div id="tytul"> Raport  zadan </div> <br/>
+            <div id="info">  {data_od}  -  {data_do}</div>
+        </div> 
+        
+        
+        <div id="wykonane">
+            
+            <h3 id="status">WYKONANE   ({ile_wykonanych})</h3>
+            
+            <table class="tabela">
+                
+                 <tr>
+                  <th>ID</th> <th>PRIORYTET</th> <th>ZADANIE</th> <th>RODZAJ</th> <th>WYKONAWCA</th> <th>DATA DODANIA</th> 
+                  <th>TERMIN</th> <th>DATA WYKONANIA</th> <th>DODANE PRZEZ</th>
+                 </tr>   
+
+                {tabela_wykonane}
+            
+            </table>
+        
+        </div>
+    
+    
+        <div id="niewykonane">
+            
+            <h3 id="status">NIEWYKONANE   ({ile_niewykonanych})</h3>
+            
+            <table class="tabela">
+                
+                <tr>
+                  <th>ID</th> <th>PRIORYTET</th> <th>ZADANIE</th> <th>RODZAJ</th> <th>WYKONAWCA</th> <th>DATA DODANIA</th> 
+                  <th>TERMIN</th> <th>DODANE PRZEZ</th>
+                 </tr>  
+
+                {tabela_niewykonane}
+                
+            </table>
+        
+        </div>
+    </div>    
+    
+</body>   
+</html> 

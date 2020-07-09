@@ -155,14 +155,15 @@ namespace WindowsFormsApp1
                         Users user = new Users(ostatnie_id_wbazie, nazwa);
                         Uzytkownicy.Add(user);
                         ShowUsers();
-                        Wczytaj_wykonawcow(ComboBoxDetailsWykonawcy);
+                        ComboBoxWykonawcy.Items.Add(nazwa);
+                        
                     }
                     catch (MySqlException ee)
                     {
                         MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
 
                     }
-                    TextBoxAddUser.Text = ostatnie_id_wbazie.ToString();
+                   
                 }
                 else MessageBox.Show("Nazwa użytkownika musi się składać z conajmniej 3 znaków.");
             }
@@ -409,6 +410,26 @@ namespace WindowsFormsApp1
 
         /*   -----------------------      przyciski    USTAWIENIA: RODZAJE ZADAŃ       ----------------------------       */
 
+
+        //usuwanie uzytkownika
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            int id_uzytkownika = Convert.ToInt32(metroGridUzytkownicy[0, metroGridUzytkownicy.CurrentRow.Index].Value);
+            DialogResult dialogResult = MessageBox.Show("Czy na pewno chcesz usunąć rodzaj " + metroGridUzytkownicy[1, metroGridUzytkownicy.CurrentRow.Index].Value + "?", "Usuwanie użytkownika", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string komenda = "DELETE FROM `uzytkownicy` WHERE `uzytkownicy`.`id_uzytkownika` = " + id_uzytkownika;
+                BazaDanych(komenda, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                Uzytkownicy.RemoveAt(metroGridUzytkownicy.CurrentRow.Index);
+                ShowUsers();
+                Wczytaj_wykonawcow(ComboBoxWykonawcy);
+                ComboBoxWykonawcy.Items.Add("wszystkie");
+                if (zalogowany == true) ComboBoxWykonawcy.Text = zalogowany_user;
+                else ComboBoxWykonawcy.Text = "wszystkie";
+            }
+        }
+
+
         //usuwanie rodzaju zadania
         private void ButtonUSUNRodzaj_Click(object sender, EventArgs e)
         {
@@ -422,6 +443,7 @@ namespace WindowsFormsApp1
 
             }
         }
+        
         //funkcja, która po kliknięciu na textbox czysci go, żeby można było wpisać nowy rodzaj zadania
         private void TextBoxNowyRodzaj_Click(object sender, EventArgs e)
         {
@@ -1149,7 +1171,6 @@ namespace WindowsFormsApp1
         {
             Wczytaj_wykonawcow(ComboBoxWykonawcy);
             ComboBoxWykonawcy.Items.Add("wszystkie");
-
             ComboBoxStatus.Items.Clear();
             ComboBoxStatus.Items.Add("niewykonane");
             ComboBoxStatus.Items.Add("wykonane");
@@ -1160,10 +1181,14 @@ namespace WindowsFormsApp1
         //funkcja do wyświetlanie listy użytkowników
         private void ShowUsers()
         {
-            TextBoxUsersList.Text = "";
+            metroGridUzytkownicy.Rows.Clear();
             for (int i = 0; i < Uzytkownicy.Count; i++)
             {
-                TextBoxUsersList.Text += "ID: " + Uzytkownicy[i].id_uzytkownika + " nazwa: " + Uzytkownicy[i].nazwa_uzytkownika + " \n";
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(metroGridUzytkownicy);
+                row.Cells[0].Value = Uzytkownicy[i].id_uzytkownika;
+                row.Cells[1].Value = Uzytkownicy[i].nazwa_uzytkownika;
+                metroGridUzytkownicy.Rows.Add(row);
             }
         }
 
@@ -1171,12 +1196,13 @@ namespace WindowsFormsApp1
         public void Wczytaj_wykonawcow(MetroComboBox comboBox)
         {
             comboBox.Items.Clear();
+            
             for (int i = 0; i < Uzytkownicy.Count; i++)
             {
 
                 comboBox.Items.Add(Uzytkownicy[i].nazwa_uzytkownika);
             }
-
+            
         }
 
         //wczytywanie zadań do sekcji szczegóły
@@ -2084,7 +2110,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nie udało się podmienić danych.");
+                MessageBox.Show("1Nie udało się podmienić danych."+ex.ToString());
                 //LogEvents loge = new LogEvents("Nie udalo sie zaladowac pliku \"ItemCertCompany.html\" lub Solo: " + ex.Message + " (funkcja prepareHtmlcert w Form1)");
             }
 
@@ -2136,7 +2162,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nie udalo sie podmienic zmiennych");
+                MessageBox.Show("Nie udalo sie podmienic zmiennych"+ex.ToString());
                //LogEvents loge = new LogEvents("Nie udalo sie podmienic zmiennych (imienazwisko,firma,adres,plec: " + ex.Message + " (funkcja prepareHtmlcert())");
             }
 
@@ -2159,6 +2185,8 @@ namespace WindowsFormsApp1
         }
 
         
+
+
 
 
 
