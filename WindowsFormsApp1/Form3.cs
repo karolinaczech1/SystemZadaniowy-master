@@ -145,6 +145,7 @@ namespace WindowsFormsApp1
                     {
                         ComboBoxRodzajZadania.Items.Add(Rodzaje[i].rodzaj);
                     }
+                    form1.WypelnijMetroGridRodzaje();
                 }
                 catch (MySqlException ee)
                 {

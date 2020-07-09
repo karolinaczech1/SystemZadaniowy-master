@@ -35,9 +35,10 @@ namespace WindowsFormsApp1
             
         }
 
-        List<Types> Rodzaje = new List<Types>();
+        public List<Types> Rodzaje = new List<Types>();
         public void Get_Types(List<Types> lista)
         {
+            Rodzaje.Clear();
             try
             {
                 DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
@@ -108,6 +109,7 @@ namespace WindowsFormsApp1
                          Types rodzaj_zadania = new Types(nowe_id, rodzaj);
                          Rodzaje.Add(rodzaj_zadania);
                          Load_Types();
+                         form1.WypelnijMetroGridRodzaje();
                      }
                      catch (MySqlException ee)
                      {
@@ -168,20 +170,22 @@ namespace WindowsFormsApp1
                     //dodanie do bazy danych
                     string zapytanie = "INSERT INTO `zadania` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin_wykonania`, `status`, `data_wykonania`, `opis`, `dodane_przez`) " +
                              "VALUES (" + nowe_id + ", " + priorytet + ", '" + zadanie + "', '" + rodzaj + "', '" + wykonawca + "', '" + data_dodania.ToString("yyyy-MM-dd H:mm:ss") + "', '" + termin + "', " + 0 + ", '" + data_wykonania + "', '" + opis + "', '" + dodane_przez + "');";
-                    form1.BazaDanych(zapytanie, form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]); 
-                    //utworzenie obiektu
-                    Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, status, data_wykonania, opis, dodane_przez);
-                    //dodanie do listy
-                    form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
-                    form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
-                    //odswiezenie datagridview
-                    form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
-                    form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;
+                    form1.BazaDanych(zapytanie, form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
 
-                    form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
-                    form1.Sortowanie();
-                    dodano = true;
-                    form1.Display_first_task_details();
+                        //utworzenie obiektu
+                        Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, status, data_wykonania, opis, dodane_przez);
+                        //dodanie do listy
+                        form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
+                        form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
+                        //odswiezenie datagridview
+                        form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
+                        form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;
+
+                        form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
+                        form1.Sortowanie();
+                        dodano = true;
+                        form1.Display_first_task_details();
+                    
                     
                 }
                 else MessageBox.Show("Uzupełnij pole \"zadanie");

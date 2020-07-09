@@ -66,6 +66,7 @@ namespace WindowsFormsApp1
         public List<Tasks> Zadania = new List<Tasks>();
         public List<Tasks> Wszystkie_Zadania_Z_Bazy = new List<Tasks>();
         public List<Users> Uzytkownicy = new List<Users>();
+        public List<Types> Rodzaje = new List<Types>(); //lista przechowujaca rodzaje zadań
 
         Form3 form3;
         Form1(Form3 form)
@@ -88,7 +89,7 @@ namespace WindowsFormsApp1
 
 
 
-        /*  ############################## ZDARZENIA ############################## */
+        /*  ########################################          ZDARZENIA           ######################################## */
 
         /*------------------------------------------------ PRZYCISKI Z USTAWIEŃ  ------------------------------------------------*/
 
@@ -406,8 +407,85 @@ namespace WindowsFormsApp1
             else metroCheckBox10.Text = "niewidoczne";
         }
 
+        /*   -----------------------      przyciski    USTAWIENIA: RODZAJE ZADAŃ       ----------------------------       */
 
+        //usuwanie rodzaju zadania
+        private void ButtonUSUNRodzaj_Click(object sender, EventArgs e)
+        {
+            int id_rodzaju = Convert.ToInt32(metroGridRodzaje[0, metroGridRodzaje.CurrentRow.Index].Value);
+            DialogResult dialogResult = MessageBox.Show("Czy na pewno chcesz usunąć rodzaj " + metroGridRodzaje[1, metroGridRodzaje.CurrentRow.Index].Value + "?", "Usuwanie rodzaju", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string komenda = "DELETE FROM `rodzaje_zadan` WHERE `rodzaje_zadan`.`id_rodzaju` = " + id_rodzaju;
+                BazaDanych(komenda, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                WypelnijMetroGridRodzaje();
 
+            }
+        }
+        //funkcja, która po kliknięciu na textbox czysci go, żeby można było wpisać nowy rodzaj zadania
+        private void TextBoxNowyRodzaj_Click(object sender, EventArgs e)
+        {
+            TextBoxNowyRodzaj.Text = string.Empty;
+        }
+        //dodawanie rodzaju zadania
+        private void ButtonDODAJRodzaj_Click(object sender, EventArgs e)
+        {
+
+            if (TextBoxNowyRodzaj.Text != string.Empty && TextBoxNowyRodzaj.Text != "wpisz nowy rodzaj")
+            {
+                bool czy_istnieje_rodzaj = false;
+                for (int i = 0; i < Rodzaje.Count; i++)
+                {
+                    if (Rodzaje[i].rodzaj == TextBoxNowyRodzaj.Text)
+                    {
+                        czy_istnieje_rodzaj = true;
+                        break;
+                    }
+                }
+                if (czy_istnieje_rodzaj == false)
+                {
+
+                    int id;
+                    if (Rodzaje.Count < 1) id = 1;
+                    else id = (Rodzaje[Rodzaje.Count - 1].id_rodzaju) + 1;
+                    string nowy_rodzaj = TextBoxNowyRodzaj.Text;
+                    string komenda = "INSERT INTO `rodzaje_zadan` (`id_rodzaju`, `rodzaj`) VALUES (" + id + ", '" + nowy_rodzaj + "')";
+                    BazaDanych(komenda, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                    WypelnijMetroGridRodzaje();
+                    TextBoxNowyRodzaj.Text = "wpisz nowy rodzaj";
+                }
+            }
+            else
+            {
+                TextBoxNowyRodzaj.Text = "wpisz rodzaj";
+            }
+        }
+        //zmiana zaznaczenia rodzaju w datagrid
+        private void metroGridRodzaje_SelectionChanged(object sender, EventArgs e)
+        {
+            if (metroGridRodzaje[1, metroGridRodzaje.CurrentRow.Index].Value != null)
+            {
+                TextBoxEdytujRodzaj.ReadOnly = false;
+                TextBoxEdytujRodzaj.Text = metroGridRodzaje[1, metroGridRodzaje.CurrentRow.Index].Value.ToString();
+            }
+            else
+            {
+                TextBoxEdytujRodzaj.Text = string.Empty;
+                TextBoxEdytujRodzaj.ReadOnly = true;
+            }
+        }
+        //usuwanie rodzaju
+        private void ButtonEDYTUJRodzaj_Click(object sender, EventArgs e)
+        {
+            if (TextBoxEdytujRodzaj.Text != string.Empty)
+            {
+                int id = Convert.ToInt32(metroGridRodzaje[0, metroGridRodzaje.CurrentRow.Index].Value);
+                string edytowany_rodzaj = TextBoxEdytujRodzaj.Text;
+                string komenda = "UPDATE `rodzaje_zadan` SET `rodzaj` = '" + edytowany_rodzaj + "' WHERE `rodzaje_zadan`.`id_rodzaju` = " + id + "";
+                BazaDanych(komenda, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                WypelnijMetroGridRodzaje();
+            }
+        }
 
 
 
@@ -662,43 +740,19 @@ namespace WindowsFormsApp1
                 {
                     string zapytanie = "DELETE FROM `zadania` WHERE `zadania`.`id_zadania` = " + db_id + "";
                     BazaDanych(zapytanie, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+
                     Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
                     Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
                     metroGrid1.Rows.Clear();
                     if (Zadania.Count > 0)
                     {
-                        ShowRow(Zadania);
-                        DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                        DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                        Display_first_task_details();
+                       ShowRow(Zadania);
+                       DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
+                       DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
+                       Display_first_task_details();
                     }
-                    /* try
-                     {
-                         DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3]);
-                         MySqlConnection con = connection.polaczenie();
-                         con.Open();
-                         MySqlCommand komendaSQL = con.CreateCommand();
-                         komendaSQL.CommandText = "DELETE FROM `zadania` WHERE `zadania`.`id_zadania` = " + db_id + "";
-                         MySqlDataReader r = komendaSQL.ExecuteReader();
-                         r.Close();
-                         con.Close();
-                         Zadania.RemoveAt(Znajdz_index_na_liscie_ograniczonej(db_id.ToString()));
-                         Wszystkie_Zadania_Z_Bazy.RemoveAt(Znajdz_index_na_liscie(db_id.ToString()));
-                         metroGrid1.Rows.Clear();
-                         if (Zadania.Count > 0)
-                         {
-                             ShowRow(Zadania);
-                             DateTimeZakresDatOd.Value = Zadania[0].Data_dodania;
-                             DateTimeZakresDatDo.Value = Zadania[Zadania.Count - 1].Data_dodania;
-                             Display_first_task_details();
-                         }
-                     }
-                     catch (MySqlException ee)
-                     {
-                         MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
-
-                     }*/
-                    //metroTabTaskDetails.Hide();
+                    
+                   
                 }
                 else
                 {
@@ -737,7 +791,13 @@ namespace WindowsFormsApp1
 
 
 
-        /*  ############################## FUNKCJE ############################## */
+
+        //
+        //.......
+        /*  ############################################# FUNKCJE ############################################# */
+        //......
+        //
+
 
         /*---------------------------------------- PODSTAWOWE wynikające z ustawień (użytkownik, baza danych) ----------------------------------------*/
 
@@ -950,7 +1010,47 @@ namespace WindowsFormsApp1
             }
         }
 
+        
+        //pobieranie rodzajów zadań z bazy i wypisywanie ich w datagrid
+        public void WypelnijMetroGridRodzaje()
+        {
 
+            try
+            {
+                DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                MySqlConnection con = connection.polaczenie();
+                con.Open();
+                MySqlCommand komendaSQL = con.CreateCommand();
+                komendaSQL.CommandText = "SELECT * from rodzaje_zadan";
+                MySqlDataReader r = komendaSQL.ExecuteReader();
+                Rodzaje.Clear();
+                while (r.Read())
+                {
+                    int id_rodzaju = Convert.ToInt32(r["id_rodzaju"]);
+                    string rodzaj = r["rodzaj"].ToString();
+                    Types rodzaj_zadania = new Types(id_rodzaju, rodzaj);
+                    Rodzaje.Add(rodzaj_zadania);
+                }
+                r.Close();
+                con.Close();
+                metroGridRodzaje.Rows.Clear();
+                for (int i = 0; i < Rodzaje.Count; i++)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(metroGridRodzaje);
+                    row.Cells[0].Value = Rodzaje[i].id_rodzaju;
+                    row.Cells[1].Value = Rodzaje[i].rodzaj;
+
+                    metroGridRodzaje.Rows.Add(row);
+                }
+            }
+            catch (MySqlException ee)
+            {
+                MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
+
+            }
+
+        }
 
 
 
@@ -1206,6 +1306,8 @@ namespace WindowsFormsApp1
             else if (tablica_ze_stanem_checkboxow[9] == "0") { metroCheckBox10.Checked = false; metroCheckBox10.Text = "niewidoczne"; this.metroGrid1.Columns[9].Visible = false; }
 
         }
+        
+        
 
 
 
@@ -1798,6 +1900,7 @@ namespace WindowsFormsApp1
                     kolor_terminu_w_dataGrid();
                     ComboBoxStatus.SelectedItem = "wszystkie";  //domyslnie filtr na wyświelanie zadań wykonanych i niewykonanych
                     ShowUsers(); //wczytanie listy userów
+                    WypelnijMetroGridRodzaje(); //wypełnienie metroGridRodzaje dostępnymi rodzajami zadań
                     if (Wszystkie_Zadania_Z_Bazy.Count >= 1)
                     {
                         DateTimeZakresDatOd.Value = Wszystkie_Zadania_Z_Bazy[0].Data_dodania;   //domyslny zakres dat: od daty dodania pierwszego zadania
@@ -2055,10 +2158,36 @@ namespace WindowsFormsApp1
 
         }
 
-
-
         
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

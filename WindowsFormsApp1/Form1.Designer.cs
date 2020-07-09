@@ -42,6 +42,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroTabControl2 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.ButtonGenerujPDF = new MetroFramework.Controls.MetroButton();
@@ -168,7 +171,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.metroTabPage10 = new MetroFramework.Controls.MetroTabPage();
+            this.TextBoxEdytujRodzaj = new MetroFramework.Controls.MetroTextBox();
+            this.TextBoxNowyRodzaj = new MetroFramework.Controls.MetroTextBox();
+            this.ButtonDODAJRodzaj = new MetroFramework.Controls.MetroButton();
+            this.ButtonEDYTUJRodzaj = new MetroFramework.Controls.MetroButton();
+            this.ButtonUSUNRodzaj = new MetroFramework.Controls.MetroButton();
+            this.metroGridRodzaje = new MetroFramework.Controls.MetroGrid();
+            this.id_rodzaju = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rodzaj_zadania = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.usuńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edytujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.metroContextMenu2 = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.metroTabControl2.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             this.metroTabTaskDetails.SuspendLayout();
@@ -180,6 +195,8 @@
             this.metroTabPage6.SuspendLayout();
             this.metroTabPage8.SuspendLayout();
             this.metroTabPage9.SuspendLayout();
+            this.metroTabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.metroGridRodzaje)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabControl2
@@ -1025,7 +1042,7 @@
             // 
             this.ComboBoxWykonawcy.FormattingEnabled = true;
             this.ComboBoxWykonawcy.ItemHeight = 24;
-            this.ComboBoxWykonawcy.Location = new System.Drawing.Point(0, 17);
+            this.ComboBoxWykonawcy.Location = new System.Drawing.Point(3, 17);
             this.ComboBoxWykonawcy.Name = "ComboBoxWykonawcy";
             this.ComboBoxWykonawcy.Size = new System.Drawing.Size(121, 30);
             this.ComboBoxWykonawcy.TabIndex = 3;
@@ -1072,7 +1089,7 @@
             this.metroGrid1.EnableHeadersVisualStyles = false;
             this.metroGrid1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGrid1.GridColor = System.Drawing.Color.White;
-            this.metroGrid1.Location = new System.Drawing.Point(-4, 60);
+            this.metroGrid1.Location = new System.Drawing.Point(0, 53);
             this.metroGrid1.MultiSelect = false;
             this.metroGrid1.Name = "metroGrid1";
             this.metroGrid1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -1221,6 +1238,7 @@
             this.metroTabControl3.Controls.Add(this.metroTabPage6);
             this.metroTabControl3.Controls.Add(this.metroTabPage8);
             this.metroTabControl3.Controls.Add(this.metroTabPage9);
+            this.metroTabControl3.Controls.Add(this.metroTabPage10);
             this.metroTabControl3.Location = new System.Drawing.Point(56, 24);
             this.metroTabControl3.Name = "metroTabControl3";
             this.metroTabControl3.SelectedIndex = 0;
@@ -1416,9 +1434,9 @@
             this.metroTabPage6.HorizontalScrollbarBarColor = true;
             this.metroTabPage6.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage6.HorizontalScrollbarSize = 10;
-            this.metroTabPage6.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage6.Location = new System.Drawing.Point(4, 39);
             this.metroTabPage6.Name = "metroTabPage6";
-            this.metroTabPage6.Size = new System.Drawing.Size(1267, 549);
+            this.metroTabPage6.Size = new System.Drawing.Size(1267, 548);
             this.metroTabPage6.TabIndex = 1;
             this.metroTabPage6.Text = "Baza danych";
             this.metroTabPage6.VerticalScrollbarBarColor = true;
@@ -2070,9 +2088,9 @@
             this.metroTabPage9.HorizontalScrollbarBarColor = true;
             this.metroTabPage9.HorizontalScrollbarHighlightOnWheel = false;
             this.metroTabPage9.HorizontalScrollbarSize = 10;
-            this.metroTabPage9.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage9.Location = new System.Drawing.Point(4, 39);
             this.metroTabPage9.Name = "metroTabPage9";
-            this.metroTabPage9.Size = new System.Drawing.Size(1267, 549);
+            this.metroTabPage9.Size = new System.Drawing.Size(1267, 548);
             this.metroTabPage9.TabIndex = 3;
             this.metroTabPage9.Text = "Widoczność Kolumn";
             this.metroTabPage9.VerticalScrollbarBarColor = true;
@@ -2359,11 +2377,217 @@
             this.label1.Text = "ID";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // metroTabPage10
+            // 
+            this.metroTabPage10.Controls.Add(this.TextBoxEdytujRodzaj);
+            this.metroTabPage10.Controls.Add(this.TextBoxNowyRodzaj);
+            this.metroTabPage10.Controls.Add(this.ButtonDODAJRodzaj);
+            this.metroTabPage10.Controls.Add(this.ButtonEDYTUJRodzaj);
+            this.metroTabPage10.Controls.Add(this.ButtonUSUNRodzaj);
+            this.metroTabPage10.Controls.Add(this.metroGridRodzaje);
+            this.metroTabPage10.HorizontalScrollbarBarColor = true;
+            this.metroTabPage10.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage10.HorizontalScrollbarSize = 10;
+            this.metroTabPage10.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage10.Name = "metroTabPage10";
+            this.metroTabPage10.Size = new System.Drawing.Size(1267, 549);
+            this.metroTabPage10.TabIndex = 4;
+            this.metroTabPage10.Text = "Rodzaje zadań";
+            this.metroTabPage10.VerticalScrollbarBarColor = true;
+            this.metroTabPage10.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage10.VerticalScrollbarSize = 10;
+            // 
+            // TextBoxEdytujRodzaj
+            // 
+            // 
+            // 
+            // 
+            this.TextBoxEdytujRodzaj.CustomButton.Image = null;
+            this.TextBoxEdytujRodzaj.CustomButton.Location = new System.Drawing.Point(136, 1);
+            this.TextBoxEdytujRodzaj.CustomButton.Name = "";
+            this.TextBoxEdytujRodzaj.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.TextBoxEdytujRodzaj.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.TextBoxEdytujRodzaj.CustomButton.TabIndex = 1;
+            this.TextBoxEdytujRodzaj.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.TextBoxEdytujRodzaj.CustomButton.UseSelectable = true;
+            this.TextBoxEdytujRodzaj.CustomButton.Visible = false;
+            this.TextBoxEdytujRodzaj.Lines = new string[0];
+            this.TextBoxEdytujRodzaj.Location = new System.Drawing.Point(547, 195);
+            this.TextBoxEdytujRodzaj.MaxLength = 32767;
+            this.TextBoxEdytujRodzaj.Name = "TextBoxEdytujRodzaj";
+            this.TextBoxEdytujRodzaj.PasswordChar = '\0';
+            this.TextBoxEdytujRodzaj.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TextBoxEdytujRodzaj.SelectedText = "";
+            this.TextBoxEdytujRodzaj.SelectionLength = 0;
+            this.TextBoxEdytujRodzaj.SelectionStart = 0;
+            this.TextBoxEdytujRodzaj.ShortcutsEnabled = true;
+            this.TextBoxEdytujRodzaj.Size = new System.Drawing.Size(160, 25);
+            this.TextBoxEdytujRodzaj.TabIndex = 7;
+            this.TextBoxEdytujRodzaj.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxEdytujRodzaj.UseSelectable = true;
+            this.TextBoxEdytujRodzaj.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.TextBoxEdytujRodzaj.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // TextBoxNowyRodzaj
+            // 
+            // 
+            // 
+            // 
+            this.TextBoxNowyRodzaj.CustomButton.Image = null;
+            this.TextBoxNowyRodzaj.CustomButton.Location = new System.Drawing.Point(136, 1);
+            this.TextBoxNowyRodzaj.CustomButton.Name = "";
+            this.TextBoxNowyRodzaj.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.TextBoxNowyRodzaj.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.TextBoxNowyRodzaj.CustomButton.TabIndex = 1;
+            this.TextBoxNowyRodzaj.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.TextBoxNowyRodzaj.CustomButton.UseSelectable = true;
+            this.TextBoxNowyRodzaj.CustomButton.Visible = false;
+            this.TextBoxNowyRodzaj.Lines = new string[] {
+        "wpisz nowy rodzaj"};
+            this.TextBoxNowyRodzaj.Location = new System.Drawing.Point(547, 131);
+            this.TextBoxNowyRodzaj.MaxLength = 32767;
+            this.TextBoxNowyRodzaj.Name = "TextBoxNowyRodzaj";
+            this.TextBoxNowyRodzaj.PasswordChar = '\0';
+            this.TextBoxNowyRodzaj.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TextBoxNowyRodzaj.SelectedText = "";
+            this.TextBoxNowyRodzaj.SelectionLength = 0;
+            this.TextBoxNowyRodzaj.SelectionStart = 0;
+            this.TextBoxNowyRodzaj.ShortcutsEnabled = true;
+            this.TextBoxNowyRodzaj.Size = new System.Drawing.Size(160, 25);
+            this.TextBoxNowyRodzaj.TabIndex = 6;
+            this.TextBoxNowyRodzaj.Text = "wpisz nowy rodzaj";
+            this.TextBoxNowyRodzaj.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxNowyRodzaj.UseSelectable = true;
+            this.TextBoxNowyRodzaj.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.TextBoxNowyRodzaj.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.TextBoxNowyRodzaj.Click += new System.EventHandler(this.TextBoxNowyRodzaj_Click);
+            // 
+            // ButtonDODAJRodzaj
+            // 
+            this.ButtonDODAJRodzaj.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.ButtonDODAJRodzaj.Location = new System.Drawing.Point(734, 121);
+            this.ButtonDODAJRodzaj.Name = "ButtonDODAJRodzaj";
+            this.ButtonDODAJRodzaj.Size = new System.Drawing.Size(112, 35);
+            this.ButtonDODAJRodzaj.TabIndex = 5;
+            this.ButtonDODAJRodzaj.Text = "Dodaj rodzaj";
+            this.ButtonDODAJRodzaj.UseSelectable = true;
+            this.ButtonDODAJRodzaj.Click += new System.EventHandler(this.ButtonDODAJRodzaj_Click);
+            // 
+            // ButtonEDYTUJRodzaj
+            // 
+            this.ButtonEDYTUJRodzaj.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.ButtonEDYTUJRodzaj.Location = new System.Drawing.Point(734, 185);
+            this.ButtonEDYTUJRodzaj.Name = "ButtonEDYTUJRodzaj";
+            this.ButtonEDYTUJRodzaj.Size = new System.Drawing.Size(112, 35);
+            this.ButtonEDYTUJRodzaj.TabIndex = 4;
+            this.ButtonEDYTUJRodzaj.Text = "Edytuj rodzaj";
+            this.ButtonEDYTUJRodzaj.UseSelectable = true;
+            this.ButtonEDYTUJRodzaj.Click += new System.EventHandler(this.ButtonEDYTUJRodzaj_Click);
+            // 
+            // ButtonUSUNRodzaj
+            // 
+            this.ButtonUSUNRodzaj.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.ButtonUSUNRodzaj.Location = new System.Drawing.Point(547, 44);
+            this.ButtonUSUNRodzaj.Name = "ButtonUSUNRodzaj";
+            this.ButtonUSUNRodzaj.Size = new System.Drawing.Size(112, 35);
+            this.ButtonUSUNRodzaj.TabIndex = 3;
+            this.ButtonUSUNRodzaj.Text = "Usuń rodzaj";
+            this.ButtonUSUNRodzaj.UseSelectable = true;
+            this.ButtonUSUNRodzaj.Click += new System.EventHandler(this.ButtonUSUNRodzaj_Click);
+            // 
+            // metroGridRodzaje
+            // 
+            this.metroGridRodzaje.AllowUserToAddRows = false;
+            this.metroGridRodzaje.AllowUserToDeleteRows = false;
+            this.metroGridRodzaje.AllowUserToResizeRows = false;
+            this.metroGridRodzaje.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.metroGridRodzaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.metroGridRodzaje.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.metroGridRodzaje.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridRodzaje.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            this.metroGridRodzaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.metroGridRodzaje.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_rodzaju,
+            this.rodzaj_zadania});
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.metroGridRodzaje.DefaultCellStyle = dataGridViewCellStyle15;
+            this.metroGridRodzaje.EnableHeadersVisualStyles = false;
+            this.metroGridRodzaje.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.metroGridRodzaje.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.metroGridRodzaje.Location = new System.Drawing.Point(12, 44);
+            this.metroGridRodzaje.MultiSelect = false;
+            this.metroGridRodzaje.Name = "metroGridRodzaje";
+            this.metroGridRodzaje.ReadOnly = true;
+            this.metroGridRodzaje.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridRodzaje.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            this.metroGridRodzaje.RowHeadersWidth = 51;
+            this.metroGridRodzaje.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.metroGridRodzaje.RowTemplate.Height = 24;
+            this.metroGridRodzaje.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.metroGridRodzaje.Size = new System.Drawing.Size(377, 216);
+            this.metroGridRodzaje.TabIndex = 2;
+            this.metroGridRodzaje.SelectionChanged += new System.EventHandler(this.metroGridRodzaje_SelectionChanged);
+            // 
+            // id_rodzaju
+            // 
+            this.id_rodzaju.HeaderText = "ID rodzaju";
+            this.id_rodzaju.MinimumWidth = 6;
+            this.id_rodzaju.Name = "id_rodzaju";
+            this.id_rodzaju.ReadOnly = true;
+            this.id_rodzaju.Width = 125;
+            // 
+            // rodzaj_zadania
+            // 
+            this.rodzaj_zadania.FillWeight = 200F;
+            this.rodzaj_zadania.HeaderText = "Rodzaj zadania";
+            this.rodzaj_zadania.MinimumWidth = 6;
+            this.rodzaj_zadania.Name = "rodzaj_zadania";
+            this.rodzaj_zadania.ReadOnly = true;
+            this.rodzaj_zadania.Width = 200;
+            // 
             // metroContextMenu1
             // 
             this.metroContextMenu1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.metroContextMenu1.Name = "metroContextMenu1";
             this.metroContextMenu1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // usuńToolStripMenuItem
+            // 
+            this.usuńToolStripMenuItem.Name = "usuńToolStripMenuItem";
+            this.usuńToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.usuńToolStripMenuItem.Text = "usuń";
+            // 
+            // edytujToolStripMenuItem
+            // 
+            this.edytujToolStripMenuItem.Name = "edytujToolStripMenuItem";
+            this.edytujToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.edytujToolStripMenuItem.Text = "edytuj";
+            // 
+            // metroContextMenu2
+            // 
+            this.metroContextMenu2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.metroContextMenu2.Name = "metroContextMenu2";
+            this.metroContextMenu2.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -2389,6 +2613,8 @@
             this.metroTabPage8.PerformLayout();
             this.metroTabPage9.ResumeLayout(false);
             this.metroTabPage9.PerformLayout();
+            this.metroTabPage10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.metroGridRodzaje)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2532,6 +2758,18 @@
         private MetroFramework.Controls.MetroTextBox TextBoxDBPort;
         private MetroFramework.Controls.MetroLabel metroLabel31;
         private MetroFramework.Controls.MetroButton ButtonGenerujPDF;
+        private MetroFramework.Controls.MetroTabPage metroTabPage10;
+        private MetroFramework.Controls.MetroGrid metroGridRodzaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_rodzaju;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rodzaj_zadania;
+        private System.Windows.Forms.ToolStripMenuItem usuńToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem edytujToolStripMenuItem;
+        private MetroFramework.Controls.MetroContextMenu metroContextMenu2;
+        private MetroFramework.Controls.MetroButton ButtonDODAJRodzaj;
+        private MetroFramework.Controls.MetroButton ButtonEDYTUJRodzaj;
+        private MetroFramework.Controls.MetroButton ButtonUSUNRodzaj;
+        private MetroFramework.Controls.MetroTextBox TextBoxEdytujRodzaj;
+        private MetroFramework.Controls.MetroTextBox TextBoxNowyRodzaj;
     }
 }
 
