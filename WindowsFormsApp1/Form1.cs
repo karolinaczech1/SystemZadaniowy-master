@@ -1145,9 +1145,10 @@ namespace WindowsFormsApp1
         //funkcja do wyświetlania kolejnych wierszy DataGrid/metroGrid
         public void ShowRow(List<Tasks> lista)
         {
-
+           
             for (int i = 0; i < lista.Count; i++)
             {
+                TerminZadania(Zadania, i);
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(metroGrid1);
                 row.Cells[0].Value = Zadania[i].Id_zadania;
@@ -1365,6 +1366,7 @@ namespace WindowsFormsApp1
         }
 
         //funkcja zwracająca kolor w zależności od tego ile czasu zostało do końca zadania
+       
         private Color[] kolor(int index)
         {
 
@@ -1421,12 +1423,15 @@ namespace WindowsFormsApp1
                     {
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
+                        
+                            
                     }
                     if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && Wszystkie_Zadania_Z_Bazy[i].Status == true)
                     {
                         metroGrid1.Rows[j].DefaultCellStyle.ForeColor = Color.Gray;
                         metroGrid1[6, j].Style.BackColor = kolor(i)[0];
                         metroGrid1[6, j].Style.ForeColor = kolor(i)[1];
+                        
                     }
                     /* if (metroGrid1[0, j].Value.ToString() == Wszystkie_Zadania_Z_Bazy[i].Id_zadania.ToString() && (Wszystkie_Zadania_Z_Bazy[i].Termin == null || Wszystkie_Zadania_Z_Bazy[i].Termin == string.Empty)) // && Wszystkie_Zadania_Z_Bazy[i].Termin != null //znaleznienie odpowiedniej komorki datagrid
                      {
@@ -1436,9 +1441,11 @@ namespace WindowsFormsApp1
 
                 }
             }
+            
 
         }
-
+     
+        
 
         /*---------------------------------------- UZYWANE W INNYCH FORMACH ----------------------------------------*/
 
@@ -1549,6 +1556,7 @@ namespace WindowsFormsApp1
                 MySqlDataReader r = komenda1.ExecuteReader();
                 Zadania.Clear();
                 metroGrid1.Rows.Clear();
+                int i = 0;
                 while (r.Read())
                 {
                     int id = Convert.ToInt32(r["id_zadania"]);
@@ -1565,6 +1573,8 @@ namespace WindowsFormsApp1
                     string dp = r["dodane_przez"].ToString();
                     Tasks zadanie = new Tasks(id, p, z, ro, w, dd, dds, t, s, dw, o, dp);
                     Zadania.Add(zadanie);
+                    TerminZadania(Zadania, i);
+                    i++;
                     metroGrid1.Rows.Add(konwersja(zadanie));
                 }
                 r.Close();
@@ -1601,9 +1611,11 @@ namespace WindowsFormsApp1
         //ZMIANY ZAKRESU DAT
         private void zmiana_zakresu_dat(List<Tasks> lista)   // może zastępować ShowRow()
         {
+             
              metroGrid1.Rows.Clear();
              for (int i = 0; i < lista.Count; i++)
              {
+                  TerminZadania(lista, i);
                   DateTime data_dodania = Convert.ToDateTime(lista[i].Data_dodania.ToShortDateString());
                   DateTime data_od = Convert.ToDateTime(DateTimeZakresDatOd.Value.ToShortDateString());
                   DateTime data_do = Convert.ToDateTime(DateTimeZakresDatDo.Value.ToShortDateString());
@@ -1963,6 +1975,7 @@ namespace WindowsFormsApp1
                         ComboBoxWykonawcy.SelectedItem = "wszystkie";
                         MessageBox.Show("Nie jesteś zalogowany.");
                     }
+                    
                     Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                     Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
                     Odczyt_Ustawien_Kolumn();
@@ -1979,6 +1992,10 @@ namespace WindowsFormsApp1
             {
                 TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
             }
+
+
+          
+            
 
         }
 
@@ -2184,7 +2201,63 @@ namespace WindowsFormsApp1
 
         }
 
+
+
+        /****************************** WYGLĄD ************************************ */
+
+       
+        public void TerminZadania(List<Tasks> lista, int i)
+        {
+            if (lista[i].Termin == null || lista[i].Termin == string.Empty)
+            {
+                if (lista[i].Status == true) lista[i].Termin = "ZAKOŃCZONE";
+                else lista[i].Termin = "BEZTERMINOWE";
+            }
+            else if(lista[i].Termin != null && lista[i].Termin != string.Empty && lista[i].Status == true)
+            {
+                lista[i].Termin = "ZAKOŃCZONE";  
+            }
+        }
+        private void metroGrid1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+             for(int i=0; i<metroGrid1.RowCount; i++)
+            {
+                if(i%2==1) metroGrid1.Rows[i].DefaultCellStyle.BackColor = Color.Beige;
+                else metroGrid1.Rows[i].DefaultCellStyle.BackColor = Color.Bisque;
+            }
+        }
+
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
