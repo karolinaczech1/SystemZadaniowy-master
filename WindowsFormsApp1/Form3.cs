@@ -27,6 +27,7 @@ namespace WindowsFormsApp1
           
             Label_ID.Text = "ID zadania: " + form1.TextBoxDetailsID.Text;
             id = Convert.ToInt32(form1.TextBoxDetailsID.Text);
+            int index = form1.Znajdz_index_na_liscie(id.ToString());
             LabelDodanePrzez.Text = "Dodane przez: " + form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Dodane_przez");
 
             Rodzaje_zadan();
@@ -35,26 +36,19 @@ namespace WindowsFormsApp1
             form1.Wczytaj_wykonawcow(ComboBoxEdytujWykonawce);
             ComboBoxEdytujWykonawce.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Wykonawca").ToString();
 
-           /* if (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin").ToString() != string.Empty)
-            {
-                CheckBoxTermin.Checked = true;
-                dateTimePickerData.Text = (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin")).ToString();
-            }
-            else if(form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin") == null || form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin").ToString() == string.Empty)
-            {
-                CheckBoxTermin.Checked = false;
-                dateTimePickerTime.Text = (form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Termin")).ToString();
-            }*/
+           
 
-            if (form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString() != string.Empty && form1.metroGrid1[6, form1.NumerWiersza(id)].Value != null)
+            if (form1.Wszystkie_Zadania_Z_Bazy[index].Termin != null && form1.Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
             {
                 CheckBoxTermin.Checked = true;
-                dateTimePickerData.Text = form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString();
+                dateTimePickerData.Text = form1.Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();    
+                dateTimePickerTime.Text = form1.Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
             }
-            else if(form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString() == string.Empty || form1.metroGrid1[6, form1.NumerWiersza(id)].Value == null)
+            else if (form1.Wszystkie_Zadania_Z_Bazy[index].Termin == null && form1.Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty)
             {
                 CheckBoxTermin.Checked = false;
-                dateTimePickerTime.Text = form1.metroGrid1[6, form1.NumerWiersza(id)].Value.ToString();
+                dateTimePickerTime.Hide();
+                dateTimePickerData.Hide();
             }
 
             TextBoxEdycjZadania.Text = form1.Pobierz_Zadanie(form1.Znajdz_index_na_liscie(id.ToString()), "Zadanie").ToString();

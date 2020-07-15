@@ -39,6 +39,8 @@
             this.ButtonLokalizacja = new MetroFramework.Controls.MetroButton();
             this.CheckBoxZapiszLokalizacje = new MetroFramework.Controls.MetroCheckBox();
             this.CheckBoxOtworzPDF = new MetroFramework.Controls.MetroCheckBox();
+            this.metroTile1 = new MetroFramework.Controls.MetroTile();
+            this.metroTile7 = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -46,7 +48,7 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel1.Location = new System.Drawing.Point(64, 90);
+            this.metroLabel1.Location = new System.Drawing.Point(75, 89);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(120, 25);
             this.metroLabel1.TabIndex = 0;
@@ -54,18 +56,18 @@
             // 
             // DateTimeOD
             // 
-            this.DateTimeOD.Location = new System.Drawing.Point(127, 133);
+            this.DateTimeOD.Location = new System.Drawing.Point(133, 130);
             this.DateTimeOD.MinimumSize = new System.Drawing.Size(0, 30);
             this.DateTimeOD.Name = "DateTimeOD";
-            this.DateTimeOD.Size = new System.Drawing.Size(200, 30);
+            this.DateTimeOD.Size = new System.Drawing.Size(278, 30);
             this.DateTimeOD.TabIndex = 1;
             // 
             // DateTimeDO
             // 
-            this.DateTimeDO.Location = new System.Drawing.Point(413, 133);
+            this.DateTimeDO.Location = new System.Drawing.Point(490, 130);
             this.DateTimeDO.MinimumSize = new System.Drawing.Size(0, 30);
             this.DateTimeDO.Name = "DateTimeDO";
-            this.DateTimeDO.Size = new System.Drawing.Size(200, 30);
+            this.DateTimeDO.Size = new System.Drawing.Size(278, 30);
             this.DateTimeDO.TabIndex = 2;
             // 
             // metroLabel2
@@ -73,7 +75,7 @@
             this.metroLabel2.AutoSize = true;
             this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel2.Location = new System.Drawing.Point(64, 133);
+            this.metroLabel2.Location = new System.Drawing.Point(78, 130);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(39, 25);
             this.metroLabel2.TabIndex = 3;
@@ -84,7 +86,7 @@
             this.metroLabel3.AutoSize = true;
             this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel3.Location = new System.Drawing.Point(352, 133);
+            this.metroLabel3.Location = new System.Drawing.Point(433, 130);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(39, 25);
             this.metroLabel3.TabIndex = 4;
@@ -95,7 +97,7 @@
             this.metroLabel4.AutoSize = true;
             this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel4.Location = new System.Drawing.Point(64, 190);
+            this.metroLabel4.Location = new System.Drawing.Point(75, 190);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(193, 25);
             this.metroLabel4.TabIndex = 5;
@@ -113,7 +115,7 @@
             // 
             // btnGenerujPDF
             // 
-            this.btnGenerujPDF.Location = new System.Drawing.Point(79, 370);
+            this.btnGenerujPDF.Location = new System.Drawing.Point(79, 365);
             this.btnGenerujPDF.Name = "btnGenerujPDF";
             this.btnGenerujPDF.Size = new System.Drawing.Size(105, 43);
             this.btnGenerujPDF.TabIndex = 7;
@@ -123,7 +125,7 @@
             // 
             // ButtonLokalizacja
             // 
-            this.ButtonLokalizacja.Location = new System.Drawing.Point(75, 299);
+            this.ButtonLokalizacja.Location = new System.Drawing.Point(75, 292);
             this.ButtonLokalizacja.Name = "ButtonLokalizacja";
             this.ButtonLokalizacja.Size = new System.Drawing.Size(273, 39);
             this.ButtonLokalizacja.TabIndex = 9;
@@ -134,9 +136,10 @@
             // CheckBoxZapiszLokalizacje
             // 
             this.CheckBoxZapiszLokalizacje.AutoSize = true;
-            this.CheckBoxZapiszLokalizacje.Location = new System.Drawing.Point(383, 321);
+            this.CheckBoxZapiszLokalizacje.Location = new System.Drawing.Point(378, 301);
             this.CheckBoxZapiszLokalizacje.Name = "CheckBoxZapiszLokalizacje";
             this.CheckBoxZapiszLokalizacje.Size = new System.Drawing.Size(195, 17);
+            this.CheckBoxZapiszLokalizacje.Style = MetroFramework.MetroColorStyle.Orange;
             this.CheckBoxZapiszLokalizacje.TabIndex = 10;
             this.CheckBoxZapiszLokalizacje.Text = "zapisz jako miejsce docelowe";
             this.CheckBoxZapiszLokalizacje.UseSelectable = true;
@@ -145,12 +148,35 @@
             // CheckBoxOtworzPDF
             // 
             this.CheckBoxOtworzPDF.AutoSize = true;
-            this.CheckBoxOtworzPDF.Location = new System.Drawing.Point(215, 384);
+            this.CheckBoxOtworzPDF.Location = new System.Drawing.Point(213, 376);
             this.CheckBoxOtworzPDF.Name = "CheckBoxOtworzPDF";
             this.CheckBoxOtworzPDF.Size = new System.Drawing.Size(177, 17);
+            this.CheckBoxOtworzPDF.Style = MetroFramework.MetroColorStyle.Orange;
             this.CheckBoxOtworzPDF.TabIndex = 11;
             this.CheckBoxOtworzPDF.Text = "otwórz PDF po utworzeniu";
             this.CheckBoxOtworzPDF.UseSelectable = true;
+            // 
+            // metroTile1
+            // 
+            this.metroTile1.ActiveControl = null;
+            this.metroTile1.Enabled = false;
+            this.metroTile1.Location = new System.Drawing.Point(79, 361);
+            this.metroTile1.Name = "metroTile1";
+            this.metroTile1.Size = new System.Drawing.Size(105, 23);
+            this.metroTile1.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTile1.TabIndex = 12;
+            this.metroTile1.UseSelectable = true;
+            // 
+            // metroTile7
+            // 
+            this.metroTile7.ActiveControl = null;
+            this.metroTile7.Enabled = false;
+            this.metroTile7.Location = new System.Drawing.Point(75, 288);
+            this.metroTile7.Name = "metroTile7";
+            this.metroTile7.Size = new System.Drawing.Size(273, 30);
+            this.metroTile7.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTile7.TabIndex = 34;
+            this.metroTile7.UseSelectable = true;
             // 
             // Form4
             // 
@@ -168,7 +194,10 @@
             this.Controls.Add(this.DateTimeDO);
             this.Controls.Add(this.DateTimeOD);
             this.Controls.Add(this.metroLabel1);
+            this.Controls.Add(this.metroTile1);
+            this.Controls.Add(this.metroTile7);
             this.Name = "Form4";
+            this.Style = MetroFramework.MetroColorStyle.Orange;
             this.Text = "Generuj PDF";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,5 +217,7 @@
         private MetroFramework.Controls.MetroButton ButtonLokalizacja;
         private MetroFramework.Controls.MetroCheckBox CheckBoxZapiszLokalizacje;
         private MetroFramework.Controls.MetroCheckBox CheckBoxOtworzPDF;
+        private MetroFramework.Controls.MetroTile metroTile1;
+        private MetroFramework.Controls.MetroTile metroTile7;
     }
 }

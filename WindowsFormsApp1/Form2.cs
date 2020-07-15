@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using MySql.Data;
+using Org.BouncyCastle.Crypto.Digests;
 
 namespace WindowsFormsApp1
 {
@@ -125,70 +126,105 @@ namespace WindowsFormsApp1
             
         }
 
-        bool dodano = false;
+        bool dodano = false; 
         private void Dodaj_zadanie()
         {
             if (form1.zalogowany == true)
             {
-                int nowe_id = Convert.ToInt32(form1.Pobierz_Zadanie(0, "last_db_id")) + 1;
-                int priorytet = Convert.ToInt32(ComboBoxPriorytet.Text);
-                string zadanie = TextBoxTytulZadania.Text;
-                string rodzaj;
-                string wykonawca = ComboBoxWykonawca.SelectedItem.ToString();
-
-                System.DateTime data_dodania = DateTime.UtcNow.ToLocalTime();
-                string data_dodania_string = data_dodania.ToString("ddd, dd MMM yyyy HH':'mm ");
-
-                string termin;
-                if(CheckBoxTermin.Checked == true)
-                {
-                    dateTimePickerData.Show();
-                    dateTimePickerTime.Show();
-                    termin = dateTimePickerData.Value.ToString("dd-MM-yyyy") +" "+ dateTimePickerTime.Text;
-                }
-                else
-                {
-                    dateTimePickerData.Hide();
-                    dateTimePickerTime.Hide();
-                    termin = string.Empty;
-                }
-                bool status = false;
-                string data_wykonania = null;
-                string opis = TextBoxOpisZadania.Text;
-                string dodane_przez = form1.zalogowany_user;
-                if (zadanie != string.Empty)
-                {
-                    if (CheckBoxInnyRodzaj.Checked == true)
+                    //ID
+                    int nowe_id=0;
+                    if (form1.Wszystkie_Zadania_Z_Bazy.Count == 0) nowe_id += 1;
+                    else  nowe_id += (form1.Wszystkie_Zadania_Z_Bazy[form1.Wszystkie_Zadania_Z_Bazy.Count-1].Id_zadania)+1;
+                    //PRIORYTET
+                    int priorytet = Convert.ToInt32(ComboBoxPriorytet.Text);
+                    //ZADANIE
+                    string zadanie = TextBoxTytulZadania.Text;
+                    //WYKONAWCA
+                    string wykonawca = ComboBoxWykonawca.SelectedItem.ToString();
+                    //DATA DODANIA
+                    System.DateTime data_dodania = DateTime.UtcNow.ToLocalTime();
+                    string data_dod = data_dodania.ToString("yyyy-MM-dd H:mm:ss");
+                    //STATUS
+                    bool status = false;
+                    //DATA WYKONANIA
+                    string data_wykonania = null;
+                    //OPIS
+                    string opis = TextBoxOpisZadania.Text;
+                    //DODANE PRZEZ
+                    string dodane_przez = form1.zalogowany_user;
+                    //RODZAJ
+                    string rodzaj;
+                    if (zadanie != string.Empty)
                     {
-                        Add_Type(TextBoxEdytujRodzajZadania.Text);
-                        rodzaj = TextBoxEdytujRodzajZadania.Text;
-                    }
-                    else
+                        if (CheckBoxInnyRodzaj.Checked == true)
+                        {
+                            Add_Type(TextBoxEdytujRodzajZadania.Text);
+                            rodzaj = TextBoxEdytujRodzajZadania.Text;
+                        }
+                        else
+                        {
+                            rodzaj = ComboBoxRodzajZadania.Text;
+                        }
+                        //TERMIN
+                        string termin;
+                        if (CheckBoxTermin.Checked == true)
+                        {
+                            dateTimePickerData.Show();
+                            dateTimePickerTime.Show();
+                            termin = dateTimePickerData.Value.ToString("dd-MM-yyyy") + " " + dateTimePickerTime.Text;
+                        }
+                        else
+                        {
+                            dateTimePickerData.Hide();
+                            dateTimePickerTime.Hide();
+                            termin = string.Empty;
+                        }
+                    //dodanie do bazy danych   
+                    try
                     {
-                        rodzaj = ComboBoxRodzajZadania.Text;
+                        try
+                        {
+
+                            DbConnection connection = new DbConnection(form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
+                            MySqlConnection con = connection.polaczenie();
+                            con.Open();
+                            MySqlCommand komendaSQL = con.CreateCommand();
+                            string zapytanie = "INSERT INTO `zadania` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin_wykonania`, `status`, `data_wykonania`, `opis`, `dodane_przez`) " +
+                                 "VALUES (" + nowe_id + ", " + priorytet + ", '" + zadanie + "', '" + rodzaj + "', '" + wykonawca + "', '" + data_dod + "', '" + termin + "', " + 0 + ", '" + data_wykonania + "', '" + opis + "', '" + dodane_przez + "');";
+                            komendaSQL.CommandText = zapytanie;
+                            MySqlDataReader r = komendaSQL.ExecuteReader();
+                            r.Close();
+                            con.Close();
+
+                            //utworzenie obiektu
+
+                            Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dod, termin, status, data_wykonania, opis, dodane_przez);
+                            //dodanie do listy
+                            form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
+                            form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
+                            //odswiezenie datagridview
+                            form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
+                            form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;
+                            form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
+                            form1.Sortowanie();
+                            form1.Display_first_task_details();
+                            dodano = true;
+
+                        }
+                        catch (MySqlException ee)
+                        {
+                            //MessageBox.Show("Wystąpił błąd podczas łączenia z bazą. przycisk dodaj zadanie");
+                            MessageBox.Show(ee.ToString());
+                        }
                     }
-                    //dodanie do bazy danych
-                    string zapytanie = "INSERT INTO `zadania` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin_wykonania`, `status`, `data_wykonania`, `opis`, `dodane_przez`) " +
-                             "VALUES (" + nowe_id + ", " + priorytet + ", '" + zadanie + "', '" + rodzaj + "', '" + wykonawca + "', '" + data_dodania.ToString("yyyy-MM-dd H:mm:ss") + "', '" + termin + "', " + 0 + ", '" + data_wykonania + "', '" + opis + "', '" + dodane_przez + "');";
-                    form1.BazaDanych(zapytanie, form1.Dane[0], form1.Dane[1], form1.Dane[2], form1.Dane[3], form1.Dane[4]);
+                    catch (Exception f)
+                   {
+                    MessageBox.Show(f.ToString());
+                   }
 
-                        //utworzenie obiektu
-                        Tasks nowe_zadanie = new Tasks(nowe_id, priorytet, zadanie, rodzaj, wykonawca, data_dodania, data_dodania_string, termin, status, data_wykonania, opis, dodane_przez);
-                        //dodanie do listy
-                        form1.Dodaj_Zadanie_do_listy_wszystkich_zadan(nowe_zadanie);
-                        form1.Dodaj_Zadanie_do_listy(nowe_zadanie);
-                        //odswiezenie datagridview
-                        form1.metroGrid1.Rows.Add(form1.konwersja(nowe_zadanie));
-                        form1.DateTimeZakresDatDo.Value = nowe_zadanie.Data_dodania;
-
-                        form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
-                        form1.Sortowanie();
-                        dodano = true;
-                        form1.Display_first_task_details();
-                    
-                    
-                }
+            }
                 else MessageBox.Show("Uzupełnij pole \"zadanie");
+              
             }
             else
             {
@@ -196,7 +232,7 @@ namespace WindowsFormsApp1
             }
         }
         private void ButtonDodajZadanie_Click(object sender, EventArgs e)
-        {
+        {     
             Dodaj_zadanie();
             if(dodano == true) this.Close();
         }
@@ -238,7 +274,5 @@ namespace WindowsFormsApp1
         }
 
         
-
-
     }
 }

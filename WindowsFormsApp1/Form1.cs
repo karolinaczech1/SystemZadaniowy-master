@@ -30,9 +30,9 @@ using PdfSharp;
 using PdfSharp.Pdf;
 using System.Net;
 using System.Web;
-using Pechkin.Synchronized;
-using Pechkin;
 using ImageMagick;
+using System.Buffers.Text;
+
 
 namespace WindowsFormsApp1
 {
@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            ComboBoxSortowanie.SelectedIndex = 0;    //domyślne sortowanie wg kolumny 0, czyli ID
+            ComboBoxSortowanie.SelectedIndex = 1;    //domyślne sortowanie wg kolumny 0, czyli ID
             ComboBoxKolumnaSzukania.SelectedIndex = 2;   //domyślne wyszukiwanie w kolumnie 2, czyli zadanie
 
             Zaladuj_ponownie();
@@ -520,7 +520,7 @@ namespace WindowsFormsApp1
             int index = Znajdz_index_na_liscie(TextBoxDetailsID.Text);
             int id = Convert.ToInt32(TextBoxDetailsID.Text);
             //zmiana w details
-            TextBoxDetailsWykonawca.Text = nowyWykonawca;
+            //TextBoxDetailsWykonawca.Text = nowyWykonawca;
             //zmiana w bazie
             try
             {
@@ -543,11 +543,13 @@ namespace WindowsFormsApp1
 
             Wszystkie_Zadania_Z_Bazy[index].Wykonawca = nowyWykonawca;
             Zadania[Znajdz_index_na_liscie_ograniczonej(TextBoxDetailsID.Text)].Wykonawca = nowyWykonawca;
+            
             //odswiezenie datagrid ShowRow()
             metroGrid1.Rows.Clear();
-            ShowRow(Zadania);
+            zmiana_zakresu_dat(Zadania);
+            //ShowRow(Zadania);
             Display_specific_task_details(id);
-
+            
         }
 
 
@@ -558,7 +560,7 @@ namespace WindowsFormsApp1
             int id = Convert.ToInt32(TextBoxDetailsID.Text);
             int index = Znajdz_index_na_liscie(TextBoxDetailsID.Text);
             //zmiana w details
-            TextBoxDetailsPriorytet.Text = nowyPriorytet.ToString();
+           // TextBoxDetailsPriorytet.Text = nowyPriorytet.ToString();
             //zmiana w bazie
             try
             {
@@ -581,7 +583,7 @@ namespace WindowsFormsApp1
             Zadania[Znajdz_index_na_liscie_ograniczonej(TextBoxDetailsID.Text)].Priorytet = nowyPriorytet;
             //odswiezenie datagrid ShowRow()
             metroGrid1.Rows.Clear();
-            ShowRow(Zadania); //może zamienić n zmiana_zakresu_dat(Zadania)
+            zmiana_zakresu_dat(Zadania); //może zamienić n zmiana_zakresu_dat(Zadania)
             Display_specific_task_details(id);
 
 
@@ -619,6 +621,7 @@ namespace WindowsFormsApp1
                         Zadania[index].Data_wykonania = thisDay.ToString();
                         Wszystkie_Zadania_Z_Bazy[numerindexu].Data_wykonania = thisDay.ToString();
                         komendaSQL.CommandText = "UPDATE `zadania` SET `status` = '1', `data_wykonania` = '" + thisDay.ToString() + "' WHERE `zadania`.`id_zadania` = " + id + "; ";
+                        TerminZadania(Zadania, index);
                     }
                     else if (Convert.ToInt32(metroGrid1.Rows[e.RowIndex].Cells[7].Value) == 0)
                     {
@@ -627,6 +630,7 @@ namespace WindowsFormsApp1
                         Zadania[index].Data_wykonania = null;
                         Wszystkie_Zadania_Z_Bazy[numerindexu].Data_wykonania = null;
                         komendaSQL.CommandText = "UPDATE `zadania` SET `status` = '0', `data_wykonania` = NULL  WHERE `zadania`.`id_zadania` = " + id + "; ";
+                        TerminZadania(Zadania, index);
                     }
 
                     MySqlDataReader r = komendaSQL.ExecuteReader();
@@ -659,6 +663,7 @@ namespace WindowsFormsApp1
                 metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
                 string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
                 Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
+                
             }
 
         }
@@ -673,6 +678,9 @@ namespace WindowsFormsApp1
             {
                 metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
                 metroGrid1.Rows[e.RowIndex].Selected = true; //zaznaczenie kliknietego wiersza
+
+                ComboBoxDetailsZmienPriorytet.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1[0, e.RowIndex].Value.ToString())].Priorytet.ToString();
+               //ComboBoxDetailsWykonawcy.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1[0, e.RowIndex].Value.ToString())].Wykonawca;
             }
 
         }
@@ -714,6 +722,20 @@ namespace WindowsFormsApp1
         {
             zmiana_zakresu_dat(Zadania);
         }
+        //zmiana ustawień zakresu dat
+        private void CheckBoxZakresDatTermin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBoxZakresDatTermin.Checked == true) CheckBoxZakresDatDataDodania.Checked = false;
+            else CheckBoxZakresDatDataDodania.Checked = true;
+            zmiana_zakresu_dat(Zadania);
+        }
+
+        private void CheckBoxZakresDatDataDodania_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBoxZakresDatDataDodania.Checked == true) CheckBoxZakresDatTermin.Checked = false;
+            else CheckBoxZakresDatTermin.Checked = true;
+            zmiana_zakresu_dat(Zadania);
+        }
 
         //Zmiana ustawień sortowania MALEJĄCO LUB ROSNĄCO
         private void CheckBoxMalejaco_CheckedChanged(object sender, EventArgs e)
@@ -741,6 +763,7 @@ namespace WindowsFormsApp1
         //automatyczne wyszukiwanie po zmianie tekstu TetBoxa z frazą do wszykania
         private void TextBoxSzukanaFraza_TextChanged(object sender, EventArgs e)   //zmiana szukanej frazy
         {
+            
             Wyszukiwanie();
             kolor_terminu_w_dataGrid();
 
@@ -793,6 +816,7 @@ namespace WindowsFormsApp1
                 Form3 EdytujZadanie = new Form3(this);
                 EdytujZadanie.ShowDialog();
             }
+            else MessageBox.Show("error");
         }
 
         /*------------------------------------------------ DODAWANIE ZADANIA  ------------------------------------------------*/
@@ -811,6 +835,12 @@ namespace WindowsFormsApp1
             }
         }
 
+
+        /*------------------------------------------------ ODŚWIEŻANIE  ------------------------------------------------*/
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            refresh();
+        }
 
 
 
@@ -1145,23 +1175,27 @@ namespace WindowsFormsApp1
         //funkcja do wyświetlania kolejnych wierszy DataGrid/metroGrid
         public void ShowRow(List<Tasks> lista)
         {
-           
+
+            metroGrid1.Rows.Clear();
             for (int i = 0; i < lista.Count; i++)
             {
-                TerminZadania(Zadania, i);
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(metroGrid1);
-                row.Cells[0].Value = Zadania[i].Id_zadania;
-                row.Cells[1].Value = Zadania[i].Priorytet;
-                row.Cells[2].Value = Zadania[i].Zadanie;
-                row.Cells[3].Value = Zadania[i].Rodzaj;
-                row.Cells[4].Value = Zadania[i].Wykonawca;
-                row.Cells[5].Value = Zadania[i].Data_dodania;
-                row.Cells[6].Value = Zadania[i].Termin;
-                row.Cells[7].Value = Zadania[i].Status;
-                row.Cells[8].Value = Zadania[i].Data_wykonania;
-                row.Cells[9].Value = Zadania[i].Dodane_przez;
-                metroGrid1.Rows.Add(row);
+               
+                    TerminZadania(Zadania, i);
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(metroGrid1);
+                    row.Cells[0].Value = Zadania[i].Id_zadania;
+                    row.Cells[1].Value = Zadania[i].Priorytet;
+                    row.Cells[2].Value = Zadania[i].Zadanie;
+                    row.Cells[3].Value = Zadania[i].Rodzaj;
+                    row.Cells[4].Value = Zadania[i].Wykonawca;
+                    row.Cells[5].Value = Zadania[i].Data_dodania;
+                    row.Cells[6].Value = Zadania[i].Termin;
+                    row.Cells[7].Value = Zadania[i].Status;
+                    row.Cells[8].Value = Zadania[i].Data_wykonania;
+                    row.Cells[9].Value = Zadania[i].Dodane_przez;
+                    metroGrid1.Rows.Add(row);
+                
+               
             }
 
             Sortowanie();
@@ -1197,7 +1231,6 @@ namespace WindowsFormsApp1
         public void Wczytaj_wykonawcow(MetroComboBox comboBox)
         {
             comboBox.Items.Clear();
-            
             for (int i = 0; i < Uzytkownicy.Count; i++)
             {
 
@@ -1225,38 +1258,42 @@ namespace WindowsFormsApp1
                 TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
 
 
-
                 //W zależności od tego, czy zadanie ma termin wykonania
                 if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
                 {
                     TextBoxDetailsTerm.Show();
                     TextBoxDetailsTerm.Text = Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
+                    groupBoxDetailsTerm.BackColor = kolor(index)[0];
+                    TextBoxDetailsTerm.BackColor = kolor(index)[1];
                 }
                 else if (Wszystkie_Zadania_Z_Bazy[index].Termin == null || Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty)
                 {
-                    TextBoxDetailsTerm.Text = string.Empty;
-                    TextBoxDetailsTerm.Hide();
+                    //TextBoxDetailsTerm.Hide();
+                    TextBoxDetailsTerm.Text = "brak";
+                    groupBoxDetailsTerm.BackColor = kolor(index)[0];
                 }
 
                 //W zależności od stanuzadania
                 if (Wszystkie_Zadania_Z_Bazy[index].Status == true)  //jeśli zadanie jest zakończone
                 {
-                    textBoxIle_dni_do_konca_zadania.Hide();
+                    textBoxIle_dni_do_konca_zadania2.Text = "ZADANIE ZAKOŃCZONE";
+                   // textBoxIle_dni_do_konca_zadania.BackColor = kolor(index)[0];
+                   // textBoxIle_dni_do_konca_zadania.ForeColor = Color.Black;
                     TextBoxDetailsStatus.Text = "wykonane";
                     TextBoxDetailsDataZak.Text = Wszystkie_Zadania_Z_Bazy[index].Data_wykonania;
                 }
                 else
                 {
-                    textBoxIle_dni_do_konca_zadania.Show();
+                    textBoxIle_dni_do_konca_zadania2.Show();
                     string czas = ile_czasu_do_konca_zadania(index, Wszystkie_Zadania_Z_Bazy);
-                    if (czas == null || czas == string.Empty) textBoxIle_dni_do_konca_zadania.Text = "zadanie bezterminowe";
-                    else if (Convert.ToInt32(czas) == 0) textBoxIle_dni_do_konca_zadania.Text = "DEADLINE";
-                    else if (Convert.ToInt32(czas) < 0) textBoxIle_dni_do_konca_zadania.Text = "Zadanie po terminie.";
-                    else if (Convert.ToInt32(czas) == 1) textBoxIle_dni_do_konca_zadania.Text = czas + " dzień do końca zadania";
-                    else textBoxIle_dni_do_konca_zadania.Text = czas + " dni do końca zadania";
+                    if (czas == null || czas == string.Empty) textBoxIle_dni_do_konca_zadania2.Text = "ZADANIE BEZTERMINOWE";
+                    else if (Convert.ToInt32(czas) == 0) textBoxIle_dni_do_konca_zadania2.Text = "DEADLINE";
+                    else if (Convert.ToInt32(czas) < 0) textBoxIle_dni_do_konca_zadania2.Text = "ZADANIE PO TERMINIE";
+                    else if (Convert.ToInt32(czas) == 1) textBoxIle_dni_do_konca_zadania2.Text = czas + " DZIEŃ DO KOŃCA ZADANIA";
+                    else textBoxIle_dni_do_konca_zadania2.Text = czas + " DNI DO KOŃCA ZADANIA";
 
-                    textBoxIle_dni_do_konca_zadania.BackColor = kolor(index)[0];
-                    textBoxIle_dni_do_konca_zadania.ForeColor = kolor(index)[1];
+                  //  textBoxIle_dni_do_konca_zadania.BackColor = kolor(index)[0];
+                   // textBoxIle_dni_do_konca_zadania.ForeColor = kolor(index)[1];
                     TextBoxDetailsStatus.Text = "niewykonane";
                     TextBoxDetailsDataZak.Text = "";
                 }
@@ -1354,10 +1391,11 @@ namespace WindowsFormsApp1
                     TimeSpan roznica = Convert.ToDateTime(term) - Convert.ToDateTime(dzis);
                     return roznica.Days.ToString();
                 }
-                else
+                else if (lista[index].Termin == null || lista[index].Termin == string.Empty)
                 {
                     return string.Empty;
                 }
+                else return string.Empty;
             }
             else
             {
@@ -1473,7 +1511,7 @@ namespace WindowsFormsApp1
             else if (pole == "last_db_id")
             {
                 if (Wszystkie_Zadania_Z_Bazy.Count == 0) return 1;
-                else return Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count - 1].Id_zadania;
+                else return Wszystkie_Zadania_Z_Bazy[Wszystkie_Zadania_Z_Bazy.Count].Id_zadania;
             }
             else return null;
         }
@@ -1577,6 +1615,7 @@ namespace WindowsFormsApp1
                     i++;
                     metroGrid1.Rows.Add(konwersja(zadanie));
                 }
+                kolor_terminu_w_dataGrid();
                 r.Close();
                 con.Close();
                 //metroGrid1.Rows.Clear();
@@ -1596,14 +1635,84 @@ namespace WindowsFormsApp1
         //SORTOWANIE
         public void Sortowanie() //sortowanie w zależnościod kryterium, wywołane w ShowRow()
         {
-            if (CheckBoxMalejaco.Checked == true && CheckBoxRosnaco.Checked == false)
+            //sortowanie według terminu
+            if (ComboBoxSortowanie.SelectedIndex == 6)
             {
-                this.metroGrid1.Sort(this.metroGrid1.Columns[ComboBoxSortowanie.SelectedIndex], ListSortDirection.Descending);
+                List<Tasks> wykonane = new List<Tasks>();
+                List<Tasks> bezterminowe = new List<Tasks>();
+                List<Tasks> termin = new List<Tasks>();
+                metroGrid1.Columns["termin"].ValueType = System.Type.GetType("System.DateTime");
+
+                for (int i=0; i<Zadania.Count; i++)
+                {
+                    if (Zadania[i].Termin == "ZAKOŃCZONE") wykonane.Add(Zadania[i]);
+                    else if (Zadania[i].Termin == "BEZTERMINOWE") bezterminowe.Add(Zadania[i]);
+                    else termin.Add(Zadania[i]);
+                }
+                //malejąco
+                if(CheckBoxMalejaco.Checked == true && CheckBoxRosnaco.Checked == false)
+                {
+                    metroGrid1.Rows.Clear();
+                    for (int i = 0; i < termin.Count; i++)
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.CreateCells(metroGrid1);
+                        row.Cells[0].Value = termin[i].Id_zadania;
+                        row.Cells[1].Value = termin[i].Priorytet;
+                        row.Cells[2].Value = termin[i].Zadanie;
+                        row.Cells[3].Value = termin[i].Rodzaj;
+                        row.Cells[4].Value = termin[i].Wykonawca;
+                        row.Cells[5].Value = termin[i].Data_dodania;
+                        row.Cells[6].Value = Convert.ToDateTime(termin[i].Termin);
+                        row.Cells[7].Value = termin[i].Status;
+                        row.Cells[8].Value = termin[i].Data_wykonania;
+                        row.Cells[9].Value = termin[i].Dodane_przez;
+                        metroGrid1.Rows.Add(row);   
+                    } 
+                    this.metroGrid1.Sort(this.metroGrid1.Columns["termin"], ListSortDirection.Descending);
+                    for (int i = 0; i < bezterminowe.Count; i++) metroGrid1.Rows.Add(konwersja(bezterminowe[i]));
+                    for (int i = 0; i < wykonane.Count; i++) metroGrid1.Rows.Add(konwersja(wykonane[i]));
+
+                }
+                //rosnąco
+                else if(CheckBoxRosnaco.Checked == true && CheckBoxMalejaco.Checked == false)
+                {
+                    metroGrid1.Rows.Clear();
+                    for (int i = 0; i < termin.Count; i++)
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.CreateCells(metroGrid1);
+                        row.Cells[0].Value = termin[i].Id_zadania;
+                        row.Cells[1].Value = termin[i].Priorytet;
+                        row.Cells[2].Value = termin[i].Zadanie;
+                        row.Cells[3].Value = termin[i].Rodzaj;
+                        row.Cells[4].Value = termin[i].Wykonawca;
+                        row.Cells[5].Value = termin[i].Data_dodania;
+                        row.Cells[6].Value = Convert.ToDateTime(termin[i].Termin);
+                        row.Cells[7].Value = termin[i].Status;
+                        row.Cells[8].Value = termin[i].Data_wykonania;
+                        row.Cells[9].Value = termin[i].Dodane_przez;
+                        metroGrid1.Rows.Add(row);
+                    }
+                    this.metroGrid1.Sort(this.metroGrid1.Columns["termin"], ListSortDirection.Ascending);
+                    for (int i = 0; i < bezterminowe.Count; i++) metroGrid1.Rows.Add(konwersja(bezterminowe[i]));
+                    for (int i = 0; i < wykonane.Count; i++) metroGrid1.Rows.Add(konwersja(wykonane[i]));
+                }
             }
-            else if (CheckBoxMalejaco.Checked == false && CheckBoxRosnaco.Checked == true)
+            //sortowanie według pozostałych kolumn
+            else
             {
-                this.metroGrid1.Sort(this.metroGrid1.Columns[ComboBoxSortowanie.SelectedIndex], ListSortDirection.Ascending);
+                metroGrid1.Columns[5].ValueType = System.Type.GetType("System.DateTime");
+                if (CheckBoxMalejaco.Checked == true && CheckBoxRosnaco.Checked == false)
+                {
+                    this.metroGrid1.Sort(this.metroGrid1.Columns[ComboBoxSortowanie.SelectedIndex], ListSortDirection.Descending);
+                }
+                else if (CheckBoxMalejaco.Checked == false && CheckBoxRosnaco.Checked == true)
+                {
+                    this.metroGrid1.Sort(this.metroGrid1.Columns[ComboBoxSortowanie.SelectedIndex], ListSortDirection.Ascending);
+                }
             }
+
             kolor_terminu_w_dataGrid();
         }
 
@@ -1611,20 +1720,47 @@ namespace WindowsFormsApp1
         //ZMIANY ZAKRESU DAT
         private void zmiana_zakresu_dat(List<Tasks> lista)   // może zastępować ShowRow()
         {
-             
-             metroGrid1.Rows.Clear();
-             for (int i = 0; i < lista.Count; i++)
-             {
-                  TerminZadania(lista, i);
-                  DateTime data_dodania = Convert.ToDateTime(lista[i].Data_dodania.ToShortDateString());
-                  DateTime data_od = Convert.ToDateTime(DateTimeZakresDatOd.Value.ToShortDateString());
-                  DateTime data_do = Convert.ToDateTime(DateTimeZakresDatDo.Value.ToShortDateString());
-                  if (data_dodania >= data_od && data_dodania <= data_do)
-                  {
-                      metroGrid1.Rows.Add(konwersja(lista[i]));
-                  }
-                     
-             }
+            metroGrid1.Rows.Clear();
+            //WEDŁUG DATY DODANIA
+            if (CheckBoxZakresDatDataDodania.Checked == true)
+            {
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    //TerminZadania(lista, i);
+                    DateTime data_dodania = Convert.ToDateTime(lista[i].Data_dodania.ToShortDateString());
+                    DateTime data_od = Convert.ToDateTime(DateTimeZakresDatOd.Value.ToShortDateString());
+                    DateTime data_do = Convert.ToDateTime(DateTimeZakresDatDo.Value.ToShortDateString());
+                    if (data_dodania >= data_od && data_dodania <= data_do)
+                    {
+                        metroGrid1.Rows.Add(konwersja(lista[i]));
+                    }
+                }
+            }
+            //WEDŁUG TERMINU
+            else if (CheckBoxZakresDatTermin.Checked == true)
+            {
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    DateTime data_od = Convert.ToDateTime(DateTimeZakresDatOd.Value.ToShortDateString());
+                    DateTime data_do = Convert.ToDateTime(DateTimeZakresDatDo.Value.ToShortDateString());
+                    if (lista[i].Termin != "BEZTERMINOWE" && lista[i].Termin != "ZAKOŃCZONE" && lista[i].Termin != null && lista[i].Termin != string.Empty)
+                    {
+                        DateTime termin = Convert.ToDateTime(lista[i].Termin);
+                        if (termin >= data_od && termin <= data_do)
+                        {
+                            metroGrid1.Rows.Add(konwersja(lista[i]));
+                        }
+                    }  
+                }
+                /*for(int i=0; i<lista.Count; i++)
+                {
+                    if((lista[i].Termin == "BEZTERMINOWE" || lista[i].Termin == null || lista[i].Termin == string.Empty) && lista[i].Status == false)
+                    {
+                        metroGrid1.Rows.Add(konwersja(lista[i]));
+                    }
+                }*/
+            }
+           
             Sortowanie();
             Display_first_task_details();
             kolor_terminu_w_dataGrid();
@@ -1639,48 +1775,48 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Id_zadania.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Id_zadania.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 1)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Priorytet.ToString().Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Priorytet.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 2)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Zadanie.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Zadanie.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 3)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Rodzaj.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Rodzaj.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 4)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Wykonawca.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Wykonawca.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 5)  //szukanie w opisie
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Opis.Contains(TextBoxSzukanaFraza.Text))
+                    if (Zadania[i].Opis.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper()))
                     {
 
                         Wyszukane.Add(Zadania[i]);
                         metroTabTaskDetails.Show();
-
-                        Load_Task_Details(Znajdz_index_na_liscie(Zadania[i].Id_zadania.ToString()));
+                        if(metroGrid1.RowCount > 0) Display_first_task_details();
+                        //Load_Task_Details(Znajdz_index_na_liscie(Zadania[i].Id_zadania.ToString()));
 
                     }
 
@@ -1690,28 +1826,28 @@ namespace WindowsFormsApp1
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Termin.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Termin.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 7)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Status.ToString().Contains(TextBoxSzukanaFraza.Text)) {; Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Status.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) {; Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 8)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Data_wykonania.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Data_wykonania.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
             else if (ComboBoxKolumnaSzukania.SelectedIndex == 9)
             {
                 for (int i = 0; i < Zadania.Count; i++)
                 {
-                    if (Zadania[i].Dodane_przez.Contains(TextBoxSzukanaFraza.Text)) { Wyszukane.Add(Zadania[i]); }
+                    if (Zadania[i].Dodane_przez.ToString().ToUpper().Contains(TextBoxSzukanaFraza.Text.ToUpper())) { Wyszukane.Add(Zadania[i]); }
                 }
             }
 
@@ -1923,14 +2059,10 @@ namespace WindowsFormsApp1
                 //UDAŁO SIE POŁĄCZYĆ Z BAZĄ
                 if (connected == true)
                 {
-                    //wielkosc czcionki w datagridview
-                    this.metroGrid1.DefaultCellStyle.Font = new Font("Tahoma", 9.5F);
-
-                    /* foreach (DataGridViewColumn c in metroGrid1.Columns)
-                     {
-                         c.DefaultCellStyle.Font = new Font("Arial", 13.5F, GraphicsUnit.Pixel);
-                     }*/
-
+                   //wielkosc czcionki w datagridview
+                   this.metroGrid1.DefaultCellStyle.Font = new Font("Tahoma", 9.5F);
+                    //zakres dat według daty dodania
+                    CheckBoxZakresDatDataDodania.Checked = true;
 
                     TextBoxDBinfo.Text = "Nawiązano połączenie z bazą.";
 
@@ -1947,7 +2079,7 @@ namespace WindowsFormsApp1
                     else
                     {
                         DateTimeZakresDatOd.Text = "20-06-2020";
-                        DateTimeZakresDatDo.Text = "30-12-2020";
+                        DateTimeZakresDatDo.Value = DateTime.Now.ToLocalTime();
                     }
 
                     //JEŚLI ISNIEJE PLIK LOGOWANIE.TXT
@@ -1979,7 +2111,7 @@ namespace WindowsFormsApp1
                     Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
                     Display_first_task_details();   //przy uruchamianiu wyswietlenie szczegółów pierwszego zadania w datagrid
                     Odczyt_Ustawien_Kolumn();
-                    this.metroGrid1.Sort(this.metroGrid1.Columns[0], ListSortDirection.Descending); //domyślne sortowanie - malejąco według ID
+                    this.metroGrid1.Sort(this.metroGrid1.Columns[1], ListSortDirection.Descending); //domyślne sortowanie - malejąco według PRIORYTETU
                 }
 
                 //NIE UDAŁO SIE POŁĄCZYĆ Z BAZA
@@ -1992,13 +2124,22 @@ namespace WindowsFormsApp1
             {
                 TextBoxDBinfo.Text = "Wprowadź dane do połączenia z bazą.";
             }
-
-
-          
-            
+  
 
         }
+        //funkcja do odświeżania - wyświetla wszystkie zadania
+        private void refresh()
+        {
+            //pobranie wszystkich zadań z bazy
+            DB_first_connection();
+            //pobranie listy zadań według filtrów
+            Filtrowanie(ComboBoxWykonawcy.Text, ComboBoxStatus.Text);
+            //sortowanie (takie jakie było przed odświeżeniem)
+            Sortowanie();
+            //odświeżenie listy użytkowników
+            ShowUsers();
 
+        }
 
 
         //Uniwersalna funkcja do łączenia z bazą do komend: insert, update, delete
@@ -2028,13 +2169,14 @@ namespace WindowsFormsApp1
 
 
         /*------------------------------------------------ GENEROWANIE PDF ---------------------------------------------------*/
-        
+         
         public void generujPDF_ps(string htmlMain, DateTime dod, DateTime ddo, string path, bool czy_owtorzyc)
         {
            
            // byte[] pdfBuffer = new SimplePechkin(new GlobalConfig()).Convert(htmlMain); //Pechkin, wymagaana funkcja ByteArrayToFile(..)
             int x = 1;
             // Name and location of the PDF
+            
             string filename = path + "\\"+ dod.ToShortDateString() + "-" + ddo.ToShortDateString() + "-raport" + ".pdf";
             if(File.Exists(filename))
             {
@@ -2045,9 +2187,13 @@ namespace WindowsFormsApp1
             //TheArtOfDev pdf sharp
             try
             {
-                PdfDocument pdf = PdfGenerator.GeneratePdf(htmlMain, PageSize.A4, 0);
-                pdf.Save(filename);
+                PdfSharp.Pdf.PdfDocument pdf = PdfGenerator.GeneratePdf(htmlMain, PageSize.A4, 0);
+                PdfSharp.Pdf.PdfPage page = pdf.AddPage();
+                PdfSharp.Drawing.XGraphics gfx = PdfSharp.Drawing.XGraphics.FromPdfPage(page);
+               
 
+                pdf.Save(filename);
+                
                 //Open PDF
                 if (czy_owtorzyc == true)
                 {
@@ -2068,12 +2214,15 @@ namespace WindowsFormsApp1
             }
 
         }
-        
+
+        List<Tasks> Wykonane = new List<Tasks>();
+        List<Tasks> Niewykonane = new List<Tasks>();
+
         public void podmien_html(DateTime dod, DateTime ddo, string uzytkownik, string path, bool czy_otworzyc)
         {
 
             string htmlMain = "";
-
+      
             //parametry
             DateTime data_od = dod;
             DateTime data_do = ddo;
@@ -2081,9 +2230,9 @@ namespace WindowsFormsApp1
 
 
             //pobranie wybranych zadań do list:
-            List<Tasks> Wykonane = new List<Tasks>();
-            List<Tasks> Niewykonane = new List<Tasks>();
-
+            Wykonane.Clear();
+            Niewykonane.Clear();
+            
             //zadania wszystkich uzytkownikow
             if (wykonawca == "wszyscy")
             {
@@ -2124,6 +2273,7 @@ namespace WindowsFormsApp1
             try
             {
                  htmlItem = File.ReadAllText("raport-test.html", Encoding.GetEncoding("Windows-1250"));
+                
             }
             catch (Exception ex)
             {
@@ -2132,35 +2282,41 @@ namespace WindowsFormsApp1
             }
 
             //stworzenie wierszy tabeli do html:
-
             
 
+
             string tabela_wykonane = "";
-            for(int i=0; i<Wykonane.Count(); i++)
-            {
-                string data_dodania = Wykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
-                string termin = "".ToString();
-                string data_wykonania = "".ToString();
-                for (int j = 0; j <= 15; j++) 
-                { 
-                    if(Wykonane[i].Termin != null && Wykonane[i].Termin != string.Empty) termin += Wykonane[i].Termin[j]; 
-                    data_wykonania += Wykonane[i].Data_wykonania[j]; 
-                }
-                string wiersz = "<tr> <td> "+Wykonane[i].Id_zadania+ " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr></br>";
-                tabela_wykonane  += wiersz;
-            }
             string tabela_niewykonane = "";
-            for (int i = 0; i < Niewykonane.Count(); i++)
-            {
-                string data_dodania = Niewykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
-                string termin = "".ToString();
-                for (int j = 0; j <= 15; j++)
+            
+                for (int i = 0; i < Wykonane.Count(); i++)
                 {
-                    if (Niewykonane[i].Termin != null && Niewykonane[i].Termin != string.Empty) termin += Niewykonane[i].Termin[j];
+                    string data_dodania = Wykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
+                    string termin = "".ToString();
+                    string data_wykonania = "".ToString();
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        if (Wykonane[i].Termin != null && Wykonane[i].Termin != string.Empty) termin += Wykonane[i].Termin[j];
+                        data_wykonania += Wykonane[i].Data_wykonania[j];
+                    }
+                    string wiersz = "<tr> <td> " + Wykonane[i].Id_zadania + " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr>";
+                    tabela_wykonane += wiersz;
+                     
                 }
-                string wiersz = "<tr> <td> "+Niewykonane[i].Id_zadania+ " </td><td> " + Niewykonane[i].Priorytet + "</td><td> " + Niewykonane[i].Zadanie + "</td><td> " + Niewykonane[i].Rodzaj + "</td><td> " + Niewykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + Niewykonane[i].Dodane_przez + "</td>    </tr></br>";
-                tabela_niewykonane += wiersz;
+            
+            
+                for (int i = 0; i < Niewykonane.Count(); i++)
+                {
+                    string data_dodania = Niewykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
+                    string termin = "".ToString();
+                    for (int j = 0; j <= 15; j++)
+                    {
+                        if (Niewykonane[i].Termin != null && Niewykonane[i].Termin != string.Empty) termin += Niewykonane[i].Termin[j];
+                    }
+                    string wiersz = "<tr> <td> " + Niewykonane[i].Id_zadania + " </td><td> " + Niewykonane[i].Priorytet + "</td><td> " + Niewykonane[i].Zadanie + "</td><td> " + Niewykonane[i].Rodzaj + "</td><td> " + Niewykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + Niewykonane[i].Dodane_przez + "</td>    </tr>";
+                    tabela_niewykonane += wiersz;
+                  
             }
+            
 
             //podmiana
             try
@@ -2205,29 +2361,34 @@ namespace WindowsFormsApp1
 
         /****************************** WYGLĄD ************************************ */
 
-       
-        public void TerminZadania(List<Tasks> lista, int i)
+       //wyświetlanie napisu "zakończone" lub "bezterminowe" w kolumnie termin
+        public void TerminZadania(List<Tasks> lista, int i)  //używać tylko do listy Zadania, bo inaczej bedzie problem z kolorami terminow
         {
             if (lista[i].Termin == null || lista[i].Termin == string.Empty)
             {
                 if (lista[i].Status == true) lista[i].Termin = "ZAKOŃCZONE";
                 else lista[i].Termin = "BEZTERMINOWE";
             }
-            else if(lista[i].Termin != null && lista[i].Termin != string.Empty && lista[i].Status == true)
+            else if ((lista[i].Termin != null || lista[i].Termin != string.Empty) && lista[i].Status == true)
             {
-                lista[i].Termin = "ZAKOŃCZONE";  
+                lista[i].Termin = "ZAKOŃCZONE";
             }
         }
+        //co drugi wiersz data grid ma inny kolor
         private void metroGrid1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
              for(int i=0; i<metroGrid1.RowCount; i++)
             {
                 if(i%2==1) metroGrid1.Rows[i].DefaultCellStyle.BackColor = Color.Beige;
-                else metroGrid1.Rows[i].DefaultCellStyle.BackColor = Color.Bisque;
+                else metroGrid1.Rows[i].DefaultCellStyle.BackColor = Color.White;
             }
         }
 
         
+
+
+
+
 
 
 

@@ -46,65 +46,100 @@
             this.dateTimePickerTime = new System.Windows.Forms.DateTimePicker();
             this.ButtonDodajKolejne = new MetroFramework.Controls.MetroButton();
             this.CheckBoxTermin = new MetroFramework.Controls.MetroCheckBox();
+            this.metroTile1 = new MetroFramework.Controls.MetroTile();
+            this.metroTile2 = new MetroFramework.Controls.MetroTile();
+            this.metroTile3 = new MetroFramework.Controls.MetroTile();
+            this.metroTile4 = new MetroFramework.Controls.MetroTile();
+            this.metroTile3.SuspendLayout();
+            this.metroTile4.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroLabel1
             // 
+            this.metroLabel1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(58, 107);
+            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel1.ForeColor = System.Drawing.Color.White;
+            this.metroLabel1.Location = new System.Drawing.Point(72, 22);
             this.metroLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(62, 20);
+            this.metroLabel1.Size = new System.Drawing.Size(92, 25);
+            this.metroLabel1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel1.TabIndex = 0;
             this.metroLabel1.Text = "priorytet";
             // 
             // metroLabel2
             // 
+            this.metroLabel2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(63, 169);
+            this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel2.ForeColor = System.Drawing.Color.White;
+            this.metroLabel2.Location = new System.Drawing.Point(84, 82);
             this.metroLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(57, 20);
+            this.metroLabel2.Size = new System.Drawing.Size(80, 25);
+            this.metroLabel2.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel2.TabIndex = 1;
             this.metroLabel2.Text = "zadanie";
             // 
             // metroLabel3
             // 
+            this.metroLabel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(18, 246);
+            this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel3.ForeColor = System.Drawing.Color.White;
+            this.metroLabel3.Location = new System.Drawing.Point(14, 157);
             this.metroLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(98, 20);
+            this.metroLabel3.Size = new System.Drawing.Size(141, 25);
+            this.metroLabel3.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel3.TabIndex = 2;
             this.metroLabel3.Text = "rodzaj zadania";
             // 
             // metroLabel4
             // 
+            this.metroLabel4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(36, 311);
+            this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel4.ForeColor = System.Drawing.Color.White;
+            this.metroLabel4.Location = new System.Drawing.Point(48, 218);
             this.metroLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(80, 20);
+            this.metroLabel4.Size = new System.Drawing.Size(116, 25);
+            this.metroLabel4.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel4.TabIndex = 3;
             this.metroLabel4.Text = "wykonawca";
             // 
             // metroLabel5
             // 
+            this.metroLabel5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(72, 374);
+            this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel5.ForeColor = System.Drawing.Color.White;
+            this.metroLabel5.Location = new System.Drawing.Point(93, 280);
             this.metroLabel5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(49, 20);
+            this.metroLabel5.Size = new System.Drawing.Size(71, 25);
+            this.metroLabel5.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel5.TabIndex = 4;
             this.metroLabel5.Text = "termin";
             // 
             // metroLabel6
             // 
+            this.metroLabel6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(708, 107);
+            this.metroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel6.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel6.Location = new System.Drawing.Point(19, 150);
             this.metroLabel6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(34, 20);
+            this.metroLabel6.Size = new System.Drawing.Size(49, 25);
+            this.metroLabel6.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroLabel6.TabIndex = 5;
             this.metroLabel6.Text = "opis";
             // 
@@ -123,7 +158,7 @@
             "8",
             "9",
             "10"});
-            this.ComboBoxPriorytet.Location = new System.Drawing.Point(173, 107);
+            this.ComboBoxPriorytet.Location = new System.Drawing.Point(226, 113);
             this.ComboBoxPriorytet.Margin = new System.Windows.Forms.Padding(4);
             this.ComboBoxPriorytet.Name = "ComboBoxPriorytet";
             this.ComboBoxPriorytet.Size = new System.Drawing.Size(160, 30);
@@ -146,7 +181,7 @@
             this.TextBoxOpisZadania.CustomButton.UseSelectable = true;
             this.TextBoxOpisZadania.CustomButton.Visible = false;
             this.TextBoxOpisZadania.Lines = new string[0];
-            this.TextBoxOpisZadania.Location = new System.Drawing.Point(759, 107);
+            this.TextBoxOpisZadania.Location = new System.Drawing.Point(814, 90);
             this.TextBoxOpisZadania.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxOpisZadania.MaxLength = 32767;
             this.TextBoxOpisZadania.Multiline = true;
@@ -169,7 +204,7 @@
             // 
             // 
             this.TextBoxTytulZadania.CustomButton.Image = null;
-            this.TextBoxTytulZadania.CustomButton.Location = new System.Drawing.Point(430, 2);
+            this.TextBoxTytulZadania.CustomButton.Location = new System.Drawing.Point(444, 2);
             this.TextBoxTytulZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxTytulZadania.CustomButton.Name = "";
             this.TextBoxTytulZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
@@ -179,7 +214,7 @@
             this.TextBoxTytulZadania.CustomButton.UseSelectable = true;
             this.TextBoxTytulZadania.CustomButton.Visible = false;
             this.TextBoxTytulZadania.Lines = new string[0];
-            this.TextBoxTytulZadania.Location = new System.Drawing.Point(173, 169);
+            this.TextBoxTytulZadania.Location = new System.Drawing.Point(226, 173);
             this.TextBoxTytulZadania.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxTytulZadania.MaxLength = 32767;
             this.TextBoxTytulZadania.Multiline = true;
@@ -190,7 +225,7 @@
             this.TextBoxTytulZadania.SelectionLength = 0;
             this.TextBoxTytulZadania.SelectionStart = 0;
             this.TextBoxTytulZadania.ShortcutsEnabled = true;
-            this.TextBoxTytulZadania.Size = new System.Drawing.Size(464, 36);
+            this.TextBoxTytulZadania.Size = new System.Drawing.Size(478, 36);
             this.TextBoxTytulZadania.TabIndex = 8;
             this.TextBoxTytulZadania.UseSelectable = true;
             this.TextBoxTytulZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -212,7 +247,7 @@
             this.TextBoxEdytujRodzajZadania.CustomButton.UseSelectable = true;
             this.TextBoxEdytujRodzajZadania.CustomButton.Visible = false;
             this.TextBoxEdytujRodzajZadania.Lines = new string[0];
-            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(399, 246);
+            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(416, 248);
             this.TextBoxEdytujRodzajZadania.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxEdytujRodzajZadania.MaxLength = 32767;
             this.TextBoxEdytujRodzajZadania.Name = "TextBoxEdytujRodzajZadania";
@@ -230,12 +265,12 @@
             // 
             // ButtonDodajZadanie
             // 
-            this.ButtonDodajZadanie.Location = new System.Drawing.Point(320, 532);
+            this.ButtonDodajZadanie.Location = new System.Drawing.Point(339, 566);
             this.ButtonDodajZadanie.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonDodajZadanie.Name = "ButtonDodajZadanie";
             this.ButtonDodajZadanie.Size = new System.Drawing.Size(183, 52);
             this.ButtonDodajZadanie.TabIndex = 12;
-            this.ButtonDodajZadanie.Text = "Dodaj zadanie";
+            this.ButtonDodajZadanie.Text = "Dodaj zadanie i zamknij";
             this.ButtonDodajZadanie.UseSelectable = true;
             this.ButtonDodajZadanie.Click += new System.EventHandler(this.ButtonDodajZadanie_Click);
             // 
@@ -243,7 +278,7 @@
             // 
             this.ComboBoxRodzajZadania.FormattingEnabled = true;
             this.ComboBoxRodzajZadania.ItemHeight = 24;
-            this.ComboBoxRodzajZadania.Location = new System.Drawing.Point(173, 246);
+            this.ComboBoxRodzajZadania.Location = new System.Drawing.Point(226, 248);
             this.ComboBoxRodzajZadania.Name = "ComboBoxRodzajZadania";
             this.ComboBoxRodzajZadania.Size = new System.Drawing.Size(160, 30);
             this.ComboBoxRodzajZadania.TabIndex = 14;
@@ -252,7 +287,7 @@
             // CheckBoxInnyRodzaj
             // 
             this.CheckBoxInnyRodzaj.AutoSize = true;
-            this.CheckBoxInnyRodzaj.Location = new System.Drawing.Point(413, 222);
+            this.CheckBoxInnyRodzaj.Location = new System.Drawing.Point(416, 224);
             this.CheckBoxInnyRodzaj.Name = "CheckBoxInnyRodzaj";
             this.CheckBoxInnyRodzaj.Size = new System.Drawing.Size(50, 17);
             this.CheckBoxInnyRodzaj.TabIndex = 15;
@@ -263,7 +298,7 @@
             // 
             this.ComboBoxWykonawca.FormattingEnabled = true;
             this.ComboBoxWykonawca.ItemHeight = 24;
-            this.ComboBoxWykonawca.Location = new System.Drawing.Point(173, 311);
+            this.ComboBoxWykonawca.Location = new System.Drawing.Point(226, 309);
             this.ComboBoxWykonawca.Name = "ComboBoxWykonawca";
             this.ComboBoxWykonawca.Size = new System.Drawing.Size(160, 30);
             this.ComboBoxWykonawca.TabIndex = 16;
@@ -272,7 +307,7 @@
             // dateTimePickerData
             // 
             this.dateTimePickerData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerData.Location = new System.Drawing.Point(269, 377);
+            this.dateTimePickerData.Location = new System.Drawing.Point(339, 379);
             this.dateTimePickerData.Name = "dateTimePickerData";
             this.dateTimePickerData.Size = new System.Drawing.Size(121, 22);
             this.dateTimePickerData.TabIndex = 17;
@@ -281,7 +316,7 @@
             // dateTimePickerTime
             // 
             this.dateTimePickerTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerTime.Location = new System.Drawing.Point(413, 377);
+            this.dateTimePickerTime.Location = new System.Drawing.Point(488, 379);
             this.dateTimePickerTime.Name = "dateTimePickerTime";
             this.dateTimePickerTime.ShowUpDown = true;
             this.dateTimePickerTime.Size = new System.Drawing.Size(84, 22);
@@ -290,31 +325,85 @@
             // 
             // ButtonDodajKolejne
             // 
-            this.ButtonDodajKolejne.Location = new System.Drawing.Point(568, 532);
+            this.ButtonDodajKolejne.Location = new System.Drawing.Point(587, 566);
             this.ButtonDodajKolejne.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonDodajKolejne.Name = "ButtonDodajKolejne";
             this.ButtonDodajKolejne.Size = new System.Drawing.Size(183, 52);
             this.ButtonDodajKolejne.TabIndex = 19;
-            this.ButtonDodajKolejne.Text = "Dodaj kolejne zadanie";
+            this.ButtonDodajKolejne.Text = "Dodaj  kolejne zadanie";
             this.ButtonDodajKolejne.UseSelectable = true;
             this.ButtonDodajKolejne.Click += new System.EventHandler(this.ButtonDodajKolejne_Click);
             // 
             // CheckBoxTermin
             // 
             this.CheckBoxTermin.AutoSize = true;
-            this.CheckBoxTermin.Location = new System.Drawing.Point(147, 377);
+            this.CheckBoxTermin.Location = new System.Drawing.Point(226, 379);
             this.CheckBoxTermin.Name = "CheckBoxTermin";
             this.CheckBoxTermin.Size = new System.Drawing.Size(68, 17);
+            this.CheckBoxTermin.Style = MetroFramework.MetroColorStyle.Orange;
             this.CheckBoxTermin.TabIndex = 20;
             this.CheckBoxTermin.Text = "wybierz";
             this.CheckBoxTermin.UseSelectable = true;
             this.CheckBoxTermin.CheckedChanged += new System.EventHandler(this.CheckBoxTermin_CheckedChanged);
+            // 
+            // metroTile1
+            // 
+            this.metroTile1.ActiveControl = null;
+            this.metroTile1.Enabled = false;
+            this.metroTile1.Location = new System.Drawing.Point(339, 562);
+            this.metroTile1.Name = "metroTile1";
+            this.metroTile1.Size = new System.Drawing.Size(183, 23);
+            this.metroTile1.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTile1.TabIndex = 21;
+            this.metroTile1.Text = "metroTile1";
+            this.metroTile1.UseSelectable = true;
+            // 
+            // metroTile2
+            // 
+            this.metroTile2.ActiveControl = null;
+            this.metroTile2.Enabled = false;
+            this.metroTile2.Location = new System.Drawing.Point(587, 562);
+            this.metroTile2.Name = "metroTile2";
+            this.metroTile2.Size = new System.Drawing.Size(183, 23);
+            this.metroTile2.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTile2.TabIndex = 22;
+            this.metroTile2.Text = "metroTile2";
+            this.metroTile2.UseSelectable = true;
+            // 
+            // metroTile3
+            // 
+            this.metroTile3.ActiveControl = null;
+            this.metroTile3.Controls.Add(this.metroLabel1);
+            this.metroTile3.Controls.Add(this.metroLabel2);
+            this.metroTile3.Controls.Add(this.metroLabel3);
+            this.metroTile3.Controls.Add(this.metroLabel4);
+            this.metroTile3.Controls.Add(this.metroLabel5);
+            this.metroTile3.Enabled = false;
+            this.metroTile3.Location = new System.Drawing.Point(30, 91);
+            this.metroTile3.Name = "metroTile3";
+            this.metroTile3.Size = new System.Drawing.Size(189, 328);
+            this.metroTile3.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroTile3.TabIndex = 23;
+            this.metroTile3.UseSelectable = true;
+            // 
+            // metroTile4
+            // 
+            this.metroTile4.ActiveControl = null;
+            this.metroTile4.Controls.Add(this.metroLabel6);
+            this.metroTile4.Enabled = false;
+            this.metroTile4.Location = new System.Drawing.Point(724, 91);
+            this.metroTile4.Name = "metroTile4";
+            this.metroTile4.Size = new System.Drawing.Size(83, 328);
+            this.metroTile4.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroTile4.TabIndex = 24;
+            this.metroTile4.UseSelectable = true;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 716);
+            this.Controls.Add(this.metroTile4);
             this.Controls.Add(this.CheckBoxTermin);
             this.Controls.Add(this.ButtonDodajKolejne);
             this.Controls.Add(this.dateTimePickerTime);
@@ -327,17 +416,19 @@
             this.Controls.Add(this.TextBoxTytulZadania);
             this.Controls.Add(this.TextBoxOpisZadania);
             this.Controls.Add(this.ComboBoxPriorytet);
-            this.Controls.Add(this.metroLabel6);
-            this.Controls.Add(this.metroLabel5);
-            this.Controls.Add(this.metroLabel4);
-            this.Controls.Add(this.metroLabel3);
-            this.Controls.Add(this.metroLabel2);
-            this.Controls.Add(this.metroLabel1);
+            this.Controls.Add(this.metroTile1);
+            this.Controls.Add(this.metroTile2);
+            this.Controls.Add(this.metroTile3);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
             this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
+            this.Style = MetroFramework.MetroColorStyle.Orange;
             this.Text = "Nowe zadanie";
             this.Load += new System.EventHandler(this.Form2_Load);
+            this.metroTile3.ResumeLayout(false);
+            this.metroTile3.PerformLayout();
+            this.metroTile4.ResumeLayout(false);
+            this.metroTile4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,5 +454,9 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerTime;
         private MetroFramework.Controls.MetroButton ButtonDodajKolejne;
         private MetroFramework.Controls.MetroCheckBox CheckBoxTermin;
+        private MetroFramework.Controls.MetroTile metroTile1;
+        private MetroFramework.Controls.MetroTile metroTile2;
+        private MetroFramework.Controls.MetroTile metroTile3;
+        private MetroFramework.Controls.MetroTile metroTile4;
     }
 }
