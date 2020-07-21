@@ -208,6 +208,7 @@ namespace WindowsFormsApp1
                             form1.Filtrowanie(form1.ComboBoxWykonawcy.Text, form1.ComboBoxStatus.Text);
                             form1.Sortowanie();
                             form1.Display_first_task_details();
+                            form1.ZadaniaNaDzis();
                             dodano = true;
 
                         }

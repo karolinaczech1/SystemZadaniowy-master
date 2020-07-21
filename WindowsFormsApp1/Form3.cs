@@ -170,8 +170,8 @@ namespace WindowsFormsApp1
                 //odswiezenie details
 
                 form1.Display_specific_task_details(id);
-
-                MessageBox.Show("Zapisano zmiany.");
+                form1.ZadaniaNaDzis();
+               // MessageBox.Show("Zapisano zmiany.");
                 this.Close();
             }
         }

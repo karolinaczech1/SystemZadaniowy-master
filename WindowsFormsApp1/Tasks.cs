@@ -8,6 +8,8 @@ using System.Data;
 using System.IO;
 using System.Drawing;
 using System.Net.Mail;
+using MetroFramework.Controls;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -65,6 +67,26 @@ namespace WindowsFormsApp1
         {
             this.id_rodzaju = id;
             this.rodzaj = rodzaj;
+        }
+    }
+
+    public class Today
+    {
+        public Panel panel { get; set; }
+        public MetroTile tile { get; set; }
+        public MetroCheckBox checkbox { get; set; }
+        public MetroLabel label { get; set; }
+        public Tasks task { get; set;}
+
+        public Today(Panel panel, MetroTile tile, MetroCheckBox checkbox, MetroLabel label, Tasks task)
+        {
+            this.panel = panel;
+            this.tile = tile;
+            this.checkbox = checkbox;
+            this.label = label;
+            this.task = task;
+
+         
         }
     }
     

@@ -52,7 +52,8 @@ namespace WindowsFormsApp1
             {
                 path = fbd.SelectedPath;
                 ButtonLokalizacja.Text = path;
-
+                CheckBoxZapiszLokalizacje.Checked = false;
+                CheckBoxZapiszLokalizacje.Text = "zapisz jako miejsce docelowe";
             }
             else MessageBox.Show("Nie wybrano miejsca zapisu pliku.");
         }
