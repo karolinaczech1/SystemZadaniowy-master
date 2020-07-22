@@ -89,5 +89,32 @@ namespace WindowsFormsApp1
          
         }
     }
+
+    public class Backup
+    {
+        public int id_ustawien { get; set; }
+        public string lokalizacja { get; set; }
+        public int czestotliwosc { get; set; }
+        public string wykonawca { get; set; }
+
+        public Backup(int id, string lokalizacja, int czestotliwosc, string wykonawca)
+        {
+            this.id_ustawien = id;
+            this.lokalizacja = lokalizacja;
+            this.czestotliwosc = czestotliwosc;
+            this.wykonawca = wykonawca;
+        }
+    }
+
+    public class DatyUruchomieniaProgramu
+    {
+        public int id_daty { get; set; }
+        public string data { get; set; }
+        public DatyUruchomieniaProgramu(int id, string data)
+        {
+            this.id_daty = id;
+            this.data = data;
+        }
+    }
     
 }

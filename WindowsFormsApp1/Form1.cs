@@ -68,7 +68,7 @@ namespace WindowsFormsApp1
         public string zalogowany_user;
         public bool zalogowany = false;
         public string[] Dane = new string[5];
-        List<string> daty_uruchomien_programu = new List<string>();
+        List<DatyUruchomieniaProgramu> daty_uruchomien_programu = new List<DatyUruchomieniaProgramu>();
         public string[] IleDni_KoloryTerminow = new string[6];
         bool connected = false;
         bool uzytkownik_istnieje;
@@ -651,10 +651,13 @@ namespace WindowsFormsApp1
                         ZadaniaNaDzis();
                         if (Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin == null || Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin == string.Empty) Zadania[index].Termin = "BEZTERMINOWE";
                         else if (Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin != null && Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin != string.Empty) Zadania[index].Termin = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin;
-                        if (Convert.ToInt32(ile_czasu_do_konca_zadania(Znajdz_index_na_liscie_ograniczonej(id.ToString()), Zadania)) < 0)
+                        if (Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin != null && Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(id.ToString())].Termin != string.Empty)
                         {
-                            Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin = Convert.ToDateTime(Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin).ToShortDateString();
-                            Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin += "  ZADANIE PO TERMINIE";
+                            if (Convert.ToInt32(ile_czasu_do_konca_zadania(Znajdz_index_na_liscie(id.ToString()), Wszystkie_Zadania_Z_Bazy)) < 0)
+                            {
+                                Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin = Convert.ToDateTime(Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin).ToShortDateString();
+                                Zadania[Znajdz_index_na_liscie_ograniczonej(id.ToString())].Termin += "  ZADANIE PO TERMINIE";
+                            }
                         }
                     }
 
@@ -1032,34 +1035,42 @@ namespace WindowsFormsApp1
 
 
         /*------------------------------------------------ BACKUP BAZY DANYCH  ------------------------------------------------*/
-
+        List<Backup> BackupUstawienia = new List<Backup>();
         //MIEJSCE ZAPISU EKSPORTU BAZY
+        //zmiana na baze
         private void metroButtonDoceloweMiejsceeksportu_Click(object sender, EventArgs e)
         {
-            var fbd = new FolderBrowserDialog();
-            DialogResult result = fbd.ShowDialog();
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-            {          
-                string file = fbd.SelectedPath;
-                metroLabelMiejsceZapisuEksportu.Text = file;
-                string file_name = "backup-location.txt";
-                FileStream user;
-                if (File.Exists(file_name))
+            if (zalogowany == true)
+            {
+                var fbd = new FolderBrowserDialog();
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    File.WriteAllText(file_name, String.Empty);
-                    user = new FileStream(file_name, FileMode.Append, FileAccess.Write);                   
+                    string file = fbd.SelectedPath;
+                    string file2 = "";
+                    for(int i=0; i<file.Length; i++)
+                    {
+                        //file_tab[i] = file[i].ToString();
+                        if (file[i] == '\\') file2 += file[i].ToString() + "\\";
+                        else file2 += file[i].ToString();
+                    }
+
+                    metroLabelMiejsceZapisuEksportu.Text = file;
+                    int czestotliwosc = 7;
+                    if (metroTextBoxIleDni.Text != string.Empty) czestotliwosc = Convert.ToInt32(metroTextBoxIleDni.Text);
+
+                    if (BackupUstawienia.Count <= 0)
+                    {
+                        string komenda2 = "INSERT INTO `backup_ustawienia` (`lokalizacja`, `czestotliwosc`, `wykonawca`) VALUES ('" + file2 + "', '" + czestotliwosc + "', '" + zalogowany_user + "');";
+                        BazaDanych(komenda2, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                    }
+                    else
+                    {
+                        string komenda3 = "UPDATE `backup_ustawienia` SET `lokalizacja` = '"+file2+"', `czestotliwosc` = '"+czestotliwosc+"', `wykonawca` = '"+zalogowany_user+"' WHERE `backup_ustawienia`.`id_ustawien` = "+BackupUstawienia[0].id_ustawien+";";
+                        BazaDanych(komenda3, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                    }
                 }
-                else
-                {
-                    user = new FileStream(file_name, FileMode.CreateNew);
-                }
-                StreamWriter writer = new StreamWriter(user);
-                writer.WriteLine(file);
-                if(metroTextBoxIleDni.Text == string.Empty) writer.WriteLine(7);
-                else writer.WriteLine(metroTextBoxIleDni.Text);
-                writer.Close();
-                user.Close();
-            }
+            } else MessageBox.Show("Nie jesteś zalogowany!");
         }
 
         //wpisywanie tylko liczb do textboxa ustawiającego co ile dni ma być wykonywany backup bazy
@@ -1137,75 +1148,87 @@ namespace WindowsFormsApp1
 
 
         //automatyczne zapisywanie kopii zapasowej bazy danych
+        //zmiana na baze
         private void autosave()
         {
-            string file_name = "uruchomienia-programu.txt";
-            if (File.Exists(file_name))
+            
+            DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+            MySqlConnection con = connection.polaczenie();
+            con.Open();
+            MySqlCommand komenda = con.CreateCommand();
+            komenda.CommandText = "SELECT * FROM backup";
+            MySqlDataReader t = komenda.ExecuteReader();
+            daty_uruchomien_programu.Clear();
+            while(t.Read())
             {
-                bool czy_zawiera = false;
-                //sprawdzenie czy dzisiejsza data jest juz zapisana
-                FileStream odczyt = new FileStream(file_name, FileMode.Open, FileAccess.Read);
-                StreamReader reader = new StreamReader(odczyt);
-                daty_uruchomien_programu.Clear();
-                for (int i = 0; i < File.ReadAllLines(file_name).Length; i++)
+                daty_uruchomien_programu.Add(new DatyUruchomieniaProgramu(Convert.ToInt32(t["id_daty"]),t["data"].ToString()));
+            }
+            t.Close();
+            con.Close();
+ 
+            bool czy_zawiera = false;
+            //sprawdzenie czy dzisiejsza data jest juz zapisana
+            for(int i=0; i < daty_uruchomien_programu.Count; i++)
+            {
+                if (daty_uruchomien_programu[i].data == DateTime.UtcNow.ToLocalTime().ToShortDateString())
                 {
-                    daty_uruchomien_programu.Add(reader.ReadLine());
+                    czy_zawiera = true;
+                    break;
                 }
-                reader.Close();
-                odczyt.Close();
+            }
 
-                for (int i = 0; i < daty_uruchomien_programu.Count; i++)
+            //zapisywanie daty jeśli jeszcze nie była zapisana
+            //if (czy_zawiera == false)
+           // {
+                int nowe_id = 1;
+                if (daty_uruchomien_programu.Count > 0) nowe_id = daty_uruchomien_programu[daty_uruchomien_programu.Count - 1].id_daty + 1;
+                string data = DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd");
+                string komenda2 = "INSERT INTO `backup` (`id_daty`, `data`) VALUES (" + nowe_id + ", '" + data + "');";
+                BazaDanych(komenda2, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                daty_uruchomien_programu.Add(new DatyUruchomieniaProgramu(nowe_id, data));
+           // }
+            //sprawdzanie, czy upłynęło wystarczająco dni, żeby zrobić backup
+            
+                int czestotliwosc = Convert.ToInt32(metroTextBoxIleDni.Text);
+                if(daty_uruchomien_programu.Count >= czestotliwosc)
                 {
-                    if (daty_uruchomien_programu[i] == DateTime.UtcNow.ToLocalTime().ToShortDateString())
-                    {
-                        czy_zawiera = true;
-                        break;
-                    }
-                }
-                //zapisywanie daty do pliku jeśli jeszcze nie była zapisana
-                if (czy_zawiera == false)
-                {
-                    FileStream data = new FileStream(file_name, FileMode.Append, FileAccess.Write);
-                    StreamWriter writer = new StreamWriter(data);
-                    writer.WriteLine(DateTime.UtcNow.ToLocalTime().ToShortDateString());
-                    writer.Close();
-                    data.Close();
-                    daty_uruchomien_programu.Add(DateTime.UtcNow.ToLocalTime().ToShortDateString());
+                   if (BackupUstawienia.Count > 0)
+                   {
+                     eksport_bazy();
+                     for(int i=0; i<daty_uruchomien_programu.Count;i++)
+                     {
+                       string komenda3 = "DELETE FROM `backup` WHERE `backup`.`id_daty` = "+daty_uruchomien_programu[i].id_daty+"";
+                       BazaDanych(komenda3, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+                     }
+                     daty_uruchomien_programu.Clear();
+                   }
+                   else
+                   {       
+                    MessageBox.Show("Automatyczny backup bazy danych nie został wykonany, ponieważ nie wybrano miejsca zapisu. Wybierz miejsce zapisu w ustawieniach i wykonaj backup ręcznie.");
+                   }
                 }
 
+            int kolejny = (czestotliwosc - daty_uruchomien_programu.Count);
+            string info = "";
+            string ilosc_dni = "";
+            if(BackupUstawienia.Count > 0)
+            {
+                info += "Kolejna kopia bazy zostanie wykonana ";
+                if (kolejny == 1) ilosc_dni += "w kolejnym dniu.";
+                else if (kolejny == 0) ilosc_dni += "za " + czestotliwosc + " dni.";
+                else if (kolejny > 1) ilosc_dni += "za " + kolejny + " dni.";
             }
             else
             {
-                FileStream data = new FileStream(file_name, FileMode.CreateNew);
-                StreamWriter writer = new StreamWriter(data);
-                writer.WriteLine(DateTime.UtcNow.ToLocalTime().ToShortDateString());
-                writer.Close();
-                data.Close();
-                daty_uruchomien_programu.Add(DateTime.UtcNow.ToLocalTime().ToShortDateString());
-            }
-
-            int co_ile_dni;
-            if (metroTextBoxIleDni.Text == string.Empty) co_ile_dni = 7;
-            else co_ile_dni = Convert.ToInt32(metroTextBoxIleDni.Text);
-            if (daty_uruchomien_programu.Count >= co_ile_dni)
-            {
-                if (metroLabelMiejsceZapisuEksportu.Text != "nie wybrano")
-                {
-                    eksport_bazy();
-                }
-                else
-                {
-                    MessageBox.Show("Automatyczny backup bazy danych nie został wykonany, ponieważ nie wybrano miejsca zapisu. Wybierz miejsce zapisu w ustawieniach i wykonaj backup ręcznie.");
-                }
-                FileStream daty;
-                File.WriteAllText(file_name, String.Empty);
-                daty = new FileStream(file_name, FileMode.Append, FileAccess.Write);
-                StreamWriter writer = new StreamWriter(daty);
-                writer.Close();
-                daty.Close();
-                daty_uruchomien_programu.Clear();
-            }
-
+                info += "Kolejna kopia bazy danych powinna zostać wykonana ";
+                if (kolejny == 1) ilosc_dni += ilosc_dni += "w kolejnym dniu.";
+                else if (kolejny == 0) ilosc_dni += "dzis"; //"za " + czestotliwosc + " dni.";
+                else if (kolejny > 1) ilosc_dni += "za " + kolejny + " dni.";
+                else if (kolejny < 0) ilosc_dni += (kolejny * (-1)) + " dni temu.";
+                else if (kolejny == -1) info += "1 dzień temu.";
+            }           
+            metroLabelKolejnyBacku.Text = info + ilosc_dni;
+       
         }
 
 
@@ -1465,21 +1488,35 @@ namespace WindowsFormsApp1
         //odczyt miejsca zapisu backupu
         private void odczyt_miejsca_zapisu_backupu()
         {
-            if (File.Exists("backup-location.txt"))
+            //sprawdzenie, czy ustawienia są już zapisane
+            DbConnection connection = new DbConnection(Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
+            MySqlConnection con = connection.polaczenie();
+            con.Open();
+            MySqlCommand komenda1 = con.CreateCommand();
+            komenda1.CommandText = "SELECT * FROM backup_ustawienia";
+            MySqlDataReader r = komenda1.ExecuteReader();
+            BackupUstawienia.Clear();
+            while (r.Read())
             {
-                string[] backup_settings = new string[2];
-                FileStream odczyt = new FileStream("backup-location.txt", FileMode.Open, FileAccess.Read);
-                StreamReader reader = new StreamReader(odczyt);
-                for(int i=0; i< File.ReadAllLines("backup-location.txt").Length; i++)
-                {
-                    backup_settings[i] = reader.ReadLine();
-                }
-                reader.Close();
-                odczyt.Close();
-                metroTextBoxIleDni.Text = backup_settings[1];
-                if (backup_settings[0] != string.Empty) metroLabelMiejsceZapisuEksportu.Text = backup_settings[0];
-                else metroLabelMiejsceZapisuEksportu.Text = "nie wybrano";
+                int id_ustawien = Convert.ToInt32(r["id_ustawien"]);
+                string lokalizacja = r["lokalizacja"].ToString();
+                int czestotliwosc = Convert.ToInt32(r["czestotliwosc"]);
+                string wykonawca = r["wykonawca"].ToString();
+                BackupUstawienia.Add(new Backup(id_ustawien, lokalizacja, czestotliwosc, wykonawca));
+            }
+            r.Close(); 
+            con.Close();
 
+            if (BackupUstawienia.Count > 0)
+            {
+                metroTextBoxIleDni.Text = BackupUstawienia[0].czestotliwosc.ToString();
+                if (BackupUstawienia[0].lokalizacja != string.Empty) metroLabelMiejsceZapisuEksportu.Text = BackupUstawienia[0].lokalizacja;
+                else metroLabelMiejsceZapisuEksportu.Text = "nie wybrano";
+            }
+            else
+            {
+                metroTextBoxIleDni.Text = "7";
+                metroLabelMiejsceZapisuEksportu.Text = "nie wybrano";
             }
         }
 
@@ -2861,7 +2898,7 @@ namespace WindowsFormsApp1
             {
                 lista[i].Termin = "ZAKOŃCZONE";
             }
-            else if (Convert.ToInt32(ile_czasu_do_konca_zadania(i, lista)) < 0)
+            else if (Convert.ToInt32(ile_czasu_do_konca_zadania(Znajdz_index_na_liscie(lista[i].Id_zadania.ToString()), Wszystkie_Zadania_Z_Bazy)) < 0)
             {    //if(ile_czasu_do_konca_zadania(i, Wszystkie_Zadania_Z_Bazy) != string.Empty && Convert.ToInt32(ile_czasu_do_konca_zadania(i, Wszystkie_Zadania_Z_Bazy)) < 0)
 
                 lista[i].Termin = Convert.ToDateTime(lista[i].Termin).ToShortDateString();
