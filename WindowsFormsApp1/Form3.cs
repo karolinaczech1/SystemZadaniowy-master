@@ -71,6 +71,9 @@ namespace WindowsFormsApp1
                 TextBoxDataWykonania.Text = null;
                 CheckBoxEdytujStatus.Text = "niewykonane";
             }
+
+            SendKeys.SendWait("{TAB}");  //do tabulacji (żeby wciśnięcie 'tab' nie powodowało zaznaczenia wszystkich elementów w comoboxach)    
+
         }
 
         List<Types> Rodzaje = new List<Types>();
@@ -266,7 +269,35 @@ namespace WindowsFormsApp1
         }
 
 
-        
 
+
+        /* -------------------------------- ZAZNACZANIE CHECKBOXÓW ENTEREM -------------------------------- */
+
+        private void CheckBoxEdytujStatus_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (CheckBoxEdytujStatus.Checked == true) CheckBoxEdytujStatus.Checked = false;
+                else CheckBoxEdytujStatus                       .Checked = true;
+            }
+        }
+
+        private void CheckBoxInnyRodzaj_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (CheckBoxInnyRodzaj.Checked == true) CheckBoxInnyRodzaj.Checked = false;
+                else CheckBoxInnyRodzaj.Checked = true;
+            }
+        }
+
+        private void CheckBoxTermin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (CheckBoxTermin.Checked == true) CheckBoxTermin.Checked = false;
+                else CheckBoxTermin     .Checked = true;
+            }
+        }
     }
 }

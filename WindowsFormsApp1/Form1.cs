@@ -46,21 +46,27 @@ namespace WindowsFormsApp1
             ComboBoxKolumnaSzukania.SelectedIndex = 2;   //domyślne wyszukiwanie w kolumnie 2, czyli zadanie
            
             Zaladuj_ponownie();
-
+                        
             if(zalogowany == true)
             {
                ZadaniaNaDzis();
-            }
+            }   
+
+            this.ActiveControl = metroGrid1;
+            this.metroGrid1.Focus();    
+            SendKeys.SendWait("{TAB}");  //do tabulacji (żeby wciśnięcie 'tab' nie powodowało zaznaczenia wszystkich elementów w comoboxach)
+                
+                
             
 
-        }
-
+        }           
+                                                                
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-
-        
+                    
+                    
         
 
         /*  ############################## ZMIENNE, LISTY, TABLICE ############################## */
@@ -688,16 +694,17 @@ namespace WindowsFormsApp1
         // ustawienia zaznaczania
         private void metroGrid1_SelectionChanged(object sender, EventArgs e)
         {
-
-            this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.metroGrid1.MultiSelect = false;
-            if (Wszystkie_Zadania_Z_Bazy.Count > 0)
-            {
-                metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
-                string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
-                Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
-                
-            }
+            if(metroTabControl2.SelectedTab == metroTabPage3)
+            {                                                    
+                this.metroGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                this.metroGrid1.MultiSelect = false;
+                if (Wszystkie_Zadania_Z_Bazy.Count > 0)
+                {
+                    metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[6].Style.SelectionBackColor = kolor(Znajdz_index_na_liscie(metroGrid1.Rows[metroGrid1.CurrentRow.Index].Cells[0].Value.ToString()))[0];   //pozostawienie koloru terminu mimo zaznaczenia
+                    string id = metroGrid1[0, metroGrid1.CurrentRow.Index].Value.ToString();  //id zadania w aktalnie zaznaczonym wierszu
+                    Load_Task_Details(Znajdz_index_na_liscie(id));  //wyświetlenie szczegolow zaznaczonego zadania
+                }
+            }   
 
         }
 
@@ -706,9 +713,9 @@ namespace WindowsFormsApp1
         //wyświetlanie szczegółów po kliknięciu na zadanie w tabeli
         private void metroGrid1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
+            //SendKeys.Send("{TAB}");
             if (e.RowIndex != -1)
-            {
+            {   
 
                 metroGrid1.ClearSelection(); //po kliknieciu na wiersz nastąpi wyczyszczenie wszyskich zaznaczeń 
                 metroGrid1.Rows[e.RowIndex].Selected = true; //zaznaczenie kliknietego wiersza
@@ -716,20 +723,29 @@ namespace WindowsFormsApp1
                 //ComboBoxDetailsWykonawcy.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1[0, e.RowIndex].Value.ToString())].Wykonawca;
                 ComboBoxDetailsZmienPriorytet.Text = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(metroGrid1[0, e.RowIndex].Value.ToString())].Priorytet.ToString();
                 metroGrid1.FirstDisplayedScrollingRowIndex = pozycja_scrollbaru;
-               
+
                 //klikanie w zadanie w trakcie wyszukiwania
-                if (TextBoxSzukanaFraza.Text != string.Empty) 
+                if (TextBoxSzukanaFraza.Text != string.Empty)
                 {
                     Wyszukiwanie();
                     metroGrid1.Rows[metroGrid1.CurrentRow.Index].Selected = true;
                     Display_specific_task_details(Convert.ToInt32(metroGrid1[0, e.RowIndex].Value));
-                 
+
                 }
-                
+    
+
+            }   
+
+        }
+        //do klikania w wiersze datagrid (zeby znikneła ramka, która sie pojawia przez kliknie tab)     
+        private void metroGrid1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Tab)
+            {
+                e.Handled = true;
             }
 
         }
-
 
 
         /*------------------------------------------------ ZMIANY FILTRÓW, ZAKRESU DAT, SORTOWANIA  ------------------------------------------------*/
@@ -847,14 +863,16 @@ namespace WindowsFormsApp1
                      
                         if (Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin != string.Empty && Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin != null)
                         {
-                            string term = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin;
+                            string term1 = Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin;
+                            string term = Convert.ToDateTime(term1).ToString("yyyy-MM-dd H:mm:ss");
+                            
                             zapytanie2 += "INSERT INTO `usuniete` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin`, `status`, `data_wykonania`, `dodane_przez`, `data_usuniecia`, `usuniete_przez`) " +
                                  "VALUES (" + db_id + ", " + prio + ", '" + zad + "', '" + ro + "', '" + wyk + "', '" + data_dod + "', '" + term + "', " + status + ", '" + dat_wyk + "', '" + dod_przez + "', '" + dat_usuniecia + "', '" + zalogowany_user + "');";
                         }
                         else if (Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin == string.Empty || Wszystkie_Zadania_Z_Bazy[Znajdz_index_na_liscie(db_id.ToString())].Termin == null)
                         {
-                            zapytanie2 += "INSERT INTO `usuniete` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `termin`, `status`, `data_wykonania`, `dodane_przez`, `data_usuniecia`, `usuniete_przez`) " +
-                                     "VALUES (" + db_id + ", " + prio + ", '" + zad + "', '" + ro + "', '" + wyk + "', '" + data_dod + "', '" + null + "', " + status + ", '" + dat_wyk + "', '" + dod_przez + "', '" + dat_usuniecia + "', '" + zalogowany_user + "');";
+                            zapytanie2 += "INSERT INTO `usuniete` (`id_zadania`, `priorytet`, `zadanie`, `rodzaj`, `wykonawca`, `data_dodania`, `status`, `data_wykonania`, `dodane_przez`, `data_usuniecia`, `usuniete_przez`) " +
+                                     "VALUES (" + db_id + ", " + prio + ", '" + zad + "', '" + ro + "', '" + wyk + "', '" + data_dod + "',  '" + status + "', '" + dat_wyk + "', '" + dod_przez + "', '" + dat_usuniecia + "', '" + zalogowany_user + "');";
                         }
                         BazaDanych(zapytanie2, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
 
@@ -927,7 +945,15 @@ namespace WindowsFormsApp1
                     StreamWriter writer = new StreamWriter(usuniete);
 
                     writer.WriteLine("Pobrano " + DateTime.UtcNow.ToLocalTime());
-                    writer.WriteLine("Zakres dat: " + data_usuniecia_od.ToShortDateString() + " - " + data_usuniecia_do.ToShortDateString());
+                    if(CheckBoxUsunieteWszystkie.Checked == false)
+                    {
+                        writer.WriteLine("Zakres dat: " + data_usuniecia_od.ToShortDateString() + " - " + data_usuniecia_do.ToShortDateString());
+                    }
+                    else
+                    {
+                        writer.WriteLine("Zakres dat:  wszystkie" );
+                    }
+                    
                     writer.WriteLine(" ");
                     while (r.Read())
                     {
@@ -1030,7 +1056,7 @@ namespace WindowsFormsApp1
         /*------------------------------------------------ ODŚWIEŻANIE  ------------------------------------------------*/
         private void metroButton2_Click(object sender, EventArgs e)
         {
-            refresh();
+            refresh();  
         }
 
 
@@ -1170,23 +1196,25 @@ namespace WindowsFormsApp1
             //sprawdzenie czy dzisiejsza data jest juz zapisana
             for(int i=0; i < daty_uruchomien_programu.Count; i++)
             {
-                if (daty_uruchomien_programu[i].data == DateTime.UtcNow.ToLocalTime().ToShortDateString())
+               //MessageBox.Show(Convert.ToDateTime(daty_uruchomien_programu[i].data).ToShortDateString() + "  ---   " + DateTime.UtcNow.ToLocalTime().ToShortDateString());
+                if (Convert.ToDateTime(daty_uruchomien_programu[i].data).ToShortDateString() == DateTime.UtcNow.ToLocalTime().ToShortDateString())
                 {
                     czy_zawiera = true;
                     break;
                 }
             }
 
+            //MessageBox.Show(czy_zawiera.ToString());
             //zapisywanie daty jeśli jeszcze nie była zapisana
-            //if (czy_zawiera == false)
-           // {
+            if (czy_zawiera == false)
+            {
                 int nowe_id = 1;
                 if (daty_uruchomien_programu.Count > 0) nowe_id = daty_uruchomien_programu[daty_uruchomien_programu.Count - 1].id_daty + 1;
                 string data = DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd");
                 string komenda2 = "INSERT INTO `backup` (`id_daty`, `data`) VALUES (" + nowe_id + ", '" + data + "');";
                 BazaDanych(komenda2, Dane[0], Dane[1], Dane[2], Dane[3], Dane[4]);
                 daty_uruchomien_programu.Add(new DatyUruchomieniaProgramu(nowe_id, data));
-           // }
+            }
             //sprawdzanie, czy upłynęło wystarczająco dni, żeby zrobić backup
             
                 int czestotliwosc = Convert.ToInt32(metroTextBoxIleDni.Text);
@@ -1711,20 +1739,38 @@ namespace WindowsFormsApp1
                 TextBoxDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
                 TextBoxDetailsDataDod.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
 
+                LabelDetailsPriorytet.Text = Wszystkie_Zadania_Z_Bazy[index].Priorytet.ToString();
+                LabelDetailsDodanePrzez.Text = Wszystkie_Zadania_Z_Bazy[index].Dodane_przez;
+                LabelDetailsDataDodania.Text = Wszystkie_Zadania_Z_Bazy[index].Data_dodania.ToString();
+                LabelDetailsWykonawca.Text = Wszystkie_Zadania_Z_Bazy[index].Wykonawca;
+                LabelDetailsRodzaj.Text = Wszystkie_Zadania_Z_Bazy[index].Rodzaj;   
+                if(Wszystkie_Zadania_Z_Bazy[index].Status == true)
+                {
+                    metroLabel14.Show();
+                    LabelDetailsDataZakonczenia.Show();
+                    LabelDetailsDataZakonczenia.Text = Wszystkie_Zadania_Z_Bazy[index].Data_wykonania.ToString();
+                }
+                else
+                {
+                    metroLabel14.Hide();
+                    LabelDetailsDataZakonczenia.Hide();
+                }
+                
+
 
                 //W zależności od tego, czy zadanie ma termin wykonania
                 if (Wszystkie_Zadania_Z_Bazy[index].Termin != null && Wszystkie_Zadania_Z_Bazy[index].Termin != string.Empty)
                 {
                     TextBoxDetailsTerm.Show();
                     TextBoxDetailsTerm.Text = Wszystkie_Zadania_Z_Bazy[index].Termin.ToString();
-                    groupBoxDetailsTerm.BackColor = kolor(index)[0];
+                    panelDetailsTerm.BackColor = kolor(index)[0];
                     TextBoxDetailsTerm.BackColor = kolor(index)[1];
                 }
                 else if (Wszystkie_Zadania_Z_Bazy[index].Termin == null || Wszystkie_Zadania_Z_Bazy[index].Termin == string.Empty)
                 {
                     //TextBoxDetailsTerm.Hide();
                     TextBoxDetailsTerm.Text = "brak";
-                    groupBoxDetailsTerm.BackColor = kolor(index)[0];
+                    panelDetailsTerm.BackColor = kolor(index)[0];   
                 }
 
                 //W zależności od stanuzadania
@@ -1844,8 +1890,9 @@ namespace WindowsFormsApp1
                     string term = termin.ToShortDateString();
                     //string term = termin.ToString("yyyy-MM-dd H:mm:ss");
                     string dzis = DateTime.UtcNow.ToLocalTime().ToShortDateString();
-                   // string dzis = DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd H:mm:ss");
+                    // string dzis = DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd H:mm:ss");
                     TimeSpan roznica = Convert.ToDateTime(term) - Convert.ToDateTime(dzis);
+                    //TimeSpan roznica = termin - DateTime.UtcNow.ToLocalTime();
                     return roznica.Days.ToString();
                 }
                 else if (lista[index].Termin == null || lista[index].Termin == string.Empty)
@@ -2642,6 +2689,7 @@ namespace WindowsFormsApp1
             Sortowanie();
             //odświeżenie listy użytkowników
             ShowUsers();
+                
 
         }
 
@@ -2674,6 +2722,28 @@ namespace WindowsFormsApp1
 
         /*------------------------------------------------ GENEROWANIE PDF ---------------------------------------------------*/
 
+
+        //posortowanie listy zadań wykonanych według daty zakończenia
+        public List<Tasks> Sort(List<Tasks> lista)
+        {
+            List<Tasks> objListOrder = lista.OrderBy(order => Convert.ToDateTime(order.Data_wykonania)).ToList();
+            return objListOrder;
+            
+            
+            //for(int i=0; i<lista.Count; i++)  
+            //{
+            //    for(int j=1; j<lista.Count; j++)
+            //    {
+            //        if(Convert.ToDateTime(lista[i].Data_wykonania) > Convert.ToDateTime(lista[j].Data_wykonania))
+            //        {
+            //            Tasks temp = lista[i];
+            //            lista[i] = lista[j];
+            //            lista[j] = temp;
+            //        }
+            //    }
+            //}
+
+        }
       
         public void generujPDF_ps(string htmlMain, DateTime dod, DateTime ddo, string path, bool czy_owtorzyc)
         {
@@ -2795,33 +2865,33 @@ namespace WindowsFormsApp1
             }
 
             //stworzenie wierszy tabeli do html:
+
+
             
-
-
             string tabela_wykonane = "";
             string tabela_niewykonane = "";
 
-                for (int i = 0; i < Wykonane.Count(); i++)
+                for (int i = 0; i < Sort(Wykonane).Count(); i++)
                 {
-                    string data_dodania = Wykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
+                    string data_dodania = Sort(Wykonane)[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
                     string termin = "".ToString();
                     string data_wykonania = "".ToString();
                     for (int j = 0; j <= 15; j++)
                     {
-                        if (Wykonane[i].Termin != null && Wykonane[i].Termin != string.Empty) termin += Wykonane[i].Termin[j];
-                        data_wykonania += Wykonane[i].Data_wykonania[j];
+                        if (Sort(Wykonane)[i].Termin != null && Sort(Wykonane)[i].Termin != string.Empty) termin += Sort(Wykonane)[i].Termin[j];
+                        data_wykonania += Sort(Wykonane)[i].Data_wykonania[j];
                     }
 
                     string wiersz = "";
-                    if (wykonawca == "wszyscy") wiersz = "<tr> <td> " + Wykonane[i].Id_zadania + " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + Wykonane[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr>";
-                    else wiersz = "<tr> <td> " + Wykonane[i].Id_zadania + " </td><td> " + Wykonane[i].Priorytet + "</td><td> " + Wykonane[i].Zadanie + "</td><td> " + Wykonane[i].Rodzaj + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Wykonane[i].Dodane_przez + "</td>    </tr>";
+                    if (wykonawca == "wszyscy") wiersz = "<tr> <td> " + Sort(Wykonane)[i].Id_zadania + " </td><td> " + Sort(Wykonane)[i].Priorytet + "</td><td> " + Sort(Wykonane)[i].Zadanie + "</td><td> " + Sort(Wykonane)[i].Rodzaj + "</td><td> " + Sort(Wykonane)[i].Wykonawca + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Sort(Wykonane)[i].Dodane_przez + "</td>    </tr>";
+                    else wiersz = "<tr> <td> " + Sort(Wykonane)[i].Id_zadania + " </td><td> " + Sort(Wykonane)[i].Priorytet + "</td><td> " + Sort(Wykonane)[i].Zadanie + "</td><td> " + Sort(Wykonane)[i].Rodzaj + "</td><td> " + data_dodania + "</td><td> " + termin + "</td><td> " + data_wykonania + "</td><td> " + Sort(Wykonane)      [i].Dodane_przez + "</td>    </tr>";
                     tabela_wykonane += wiersz;
                      
                 }
             
             
                 for (int i = 0; i < Niewykonane.Count(); i++)
-                {
+                {   
                     string data_dodania = Niewykonane[i].Data_dodania.ToString("dd.MM.yyyy HH':'mm ");
                     string termin = "".ToString();
                     for (int j = 0; j <= 15; j++)
@@ -2873,6 +2943,7 @@ namespace WindowsFormsApp1
         private void ButtonGenerujPDF_Click(object sender, EventArgs e)
         {
 
+
             //otworzyc nowy form
            Form4 GenerujPDF = new Form4(this);
            GenerujPDF.ShowDialog();
@@ -2898,7 +2969,7 @@ namespace WindowsFormsApp1
             {
                 lista[i].Termin = "ZAKOŃCZONE";
             }
-            else if (Convert.ToInt32(ile_czasu_do_konca_zadania(Znajdz_index_na_liscie(lista[i].Id_zadania.ToString()), Wszystkie_Zadania_Z_Bazy)) < 0)
+            else if ((lista[i].Termin != null && lista[i].Termin != string.Empty) && Convert.ToInt32(ile_czasu_do_konca_zadania(Znajdz_index_na_liscie(lista[i].Id_zadania.ToString()), Wszystkie_Zadania_Z_Bazy)) < 0)
             {    //if(ile_czasu_do_konca_zadania(i, Wszystkie_Zadania_Z_Bazy) != string.Empty && Convert.ToInt32(ile_czasu_do_konca_zadania(i, Wszystkie_Zadania_Z_Bazy)) < 0)
 
                 lista[i].Termin = Convert.ToDateTime(lista[i].Termin).ToShortDateString();
@@ -3070,7 +3141,7 @@ namespace WindowsFormsApp1
                                 MessageBox.Show("Wystąpił błąd podczas łączenia z bazą.");
 
                             }
-                        };
+                        };  
                         
                     }
                 }
@@ -3084,6 +3155,13 @@ namespace WindowsFormsApp1
         }
 
         
+
+
+
+
+
+
+
 
 
 

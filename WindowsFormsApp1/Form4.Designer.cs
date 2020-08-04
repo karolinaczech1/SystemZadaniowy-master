@@ -110,6 +110,7 @@
             this.ComboBoxWykonawcy.Location = new System.Drawing.Point(75, 240);
             this.ComboBoxWykonawcy.Name = "ComboBoxWykonawcy";
             this.ComboBoxWykonawcy.Size = new System.Drawing.Size(182, 30);
+            this.ComboBoxWykonawcy.Style = MetroFramework.MetroColorStyle.Orange;
             this.ComboBoxWykonawcy.TabIndex = 6;
             this.ComboBoxWykonawcy.UseSelectable = true;
             // 

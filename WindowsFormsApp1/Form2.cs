@@ -29,6 +29,8 @@ namespace WindowsFormsApp1
             ComboBoxWykonawca.SelectedItem = form1.zalogowany_user;
             ComboBoxRodzajZadania.SelectedItem = "opisy";
 
+            SendKeys.SendWait("{TAB}");  //do tabulacji (żeby wciśnięcie 'tab' nie powodowało zaznaczenia wszystkich elementów w comoboxach)
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -274,6 +276,26 @@ namespace WindowsFormsApp1
             this.form3 = form;
         }
 
-        
+
+
+        /* -------------------------------- ZAZNACZANIE CHECKBOXÓW ENTEREM -------------------------------- */
+
+        private void CheckBoxTermin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyData == Keys.Enter)
+            {
+                if (CheckBoxTermin.Checked == true) CheckBoxTermin.Checked = false;
+                else CheckBoxTermin.Checked = true; 
+            }
+        }
+
+        private void CheckBoxInnyRodzaj_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (CheckBoxInnyRodzaj.Checked == true) CheckBoxInnyRodzaj.Checked = false;
+                else CheckBoxInnyRodzaj .Checked = true;
+            }
+        }
     }
 }

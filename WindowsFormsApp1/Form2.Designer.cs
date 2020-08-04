@@ -162,7 +162,9 @@
             this.ComboBoxPriorytet.Margin = new System.Windows.Forms.Padding(4);
             this.ComboBoxPriorytet.Name = "ComboBoxPriorytet";
             this.ComboBoxPriorytet.Size = new System.Drawing.Size(160, 30);
-            this.ComboBoxPriorytet.TabIndex = 6;
+            this.ComboBoxPriorytet.Style = MetroFramework.MetroColorStyle.Orange;
+            this.ComboBoxPriorytet.TabIndex = 0;
+            this.ComboBoxPriorytet.TabStop = false;
             this.ComboBoxPriorytet.UseSelectable = true;
             // 
             // TextBoxOpisZadania
@@ -180,6 +182,8 @@
             this.TextBoxOpisZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.TextBoxOpisZadania.CustomButton.UseSelectable = true;
             this.TextBoxOpisZadania.CustomButton.Visible = false;
+            this.TextBoxOpisZadania.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.TextBoxOpisZadania.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.TextBoxOpisZadania.Lines = new string[0];
             this.TextBoxOpisZadania.Location = new System.Drawing.Point(814, 90);
             this.TextBoxOpisZadania.Margin = new System.Windows.Forms.Padding(4);
@@ -193,6 +197,7 @@
             this.TextBoxOpisZadania.SelectionStart = 0;
             this.TextBoxOpisZadania.ShortcutsEnabled = true;
             this.TextBoxOpisZadania.Size = new System.Drawing.Size(300, 329);
+            this.TextBoxOpisZadania.Style = MetroFramework.MetroColorStyle.Orange;
             this.TextBoxOpisZadania.TabIndex = 7;
             this.TextBoxOpisZadania.UseSelectable = true;
             this.TextBoxOpisZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -204,29 +209,32 @@
             // 
             // 
             this.TextBoxTytulZadania.CustomButton.Image = null;
-            this.TextBoxTytulZadania.CustomButton.Location = new System.Drawing.Point(444, 2);
+            this.TextBoxTytulZadania.CustomButton.Location = new System.Drawing.Point(402, 2);
             this.TextBoxTytulZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxTytulZadania.CustomButton.Name = "";
-            this.TextBoxTytulZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
+            this.TextBoxTytulZadania.CustomButton.Size = new System.Drawing.Size(73, 73);
             this.TextBoxTytulZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.TextBoxTytulZadania.CustomButton.TabIndex = 1;
             this.TextBoxTytulZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.TextBoxTytulZadania.CustomButton.UseSelectable = true;
             this.TextBoxTytulZadania.CustomButton.Visible = false;
+            this.TextBoxTytulZadania.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.TextBoxTytulZadania.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.TextBoxTytulZadania.Lines = new string[0];
-            this.TextBoxTytulZadania.Location = new System.Drawing.Point(226, 173);
+            this.TextBoxTytulZadania.Location = new System.Drawing.Point(226, 151);
             this.TextBoxTytulZadania.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxTytulZadania.MaxLength = 32767;
             this.TextBoxTytulZadania.Multiline = true;
             this.TextBoxTytulZadania.Name = "TextBoxTytulZadania";
             this.TextBoxTytulZadania.PasswordChar = '\0';
-            this.TextBoxTytulZadania.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TextBoxTytulZadania.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.TextBoxTytulZadania.SelectedText = "";
             this.TextBoxTytulZadania.SelectionLength = 0;
             this.TextBoxTytulZadania.SelectionStart = 0;
             this.TextBoxTytulZadania.ShortcutsEnabled = true;
-            this.TextBoxTytulZadania.Size = new System.Drawing.Size(478, 36);
-            this.TextBoxTytulZadania.TabIndex = 8;
+            this.TextBoxTytulZadania.Size = new System.Drawing.Size(478, 78);
+            this.TextBoxTytulZadania.Style = MetroFramework.MetroColorStyle.Orange;
+            this.TextBoxTytulZadania.TabIndex = 1;
             this.TextBoxTytulZadania.UseSelectable = true;
             this.TextBoxTytulZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.TextBoxTytulZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -237,17 +245,19 @@
             // 
             // 
             this.TextBoxEdytujRodzajZadania.CustomButton.Image = null;
-            this.TextBoxEdytujRodzajZadania.CustomButton.Location = new System.Drawing.Point(149, 2);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Location = new System.Drawing.Point(155, 2);
             this.TextBoxEdytujRodzajZadania.CustomButton.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxEdytujRodzajZadania.CustomButton.Name = "";
-            this.TextBoxEdytujRodzajZadania.CustomButton.Size = new System.Drawing.Size(31, 31);
+            this.TextBoxEdytujRodzajZadania.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.TextBoxEdytujRodzajZadania.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.TextBoxEdytujRodzajZadania.CustomButton.TabIndex = 1;
             this.TextBoxEdytujRodzajZadania.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.TextBoxEdytujRodzajZadania.CustomButton.UseSelectable = true;
             this.TextBoxEdytujRodzajZadania.CustomButton.Visible = false;
+            this.TextBoxEdytujRodzajZadania.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.TextBoxEdytujRodzajZadania.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.TextBoxEdytujRodzajZadania.Lines = new string[0];
-            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(416, 248);
+            this.TextBoxEdytujRodzajZadania.Location = new System.Drawing.Point(489, 254);
             this.TextBoxEdytujRodzajZadania.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxEdytujRodzajZadania.MaxLength = 32767;
             this.TextBoxEdytujRodzajZadania.Name = "TextBoxEdytujRodzajZadania";
@@ -257,8 +267,8 @@
             this.TextBoxEdytujRodzajZadania.SelectionLength = 0;
             this.TextBoxEdytujRodzajZadania.SelectionStart = 0;
             this.TextBoxEdytujRodzajZadania.ShortcutsEnabled = true;
-            this.TextBoxEdytujRodzajZadania.Size = new System.Drawing.Size(183, 36);
-            this.TextBoxEdytujRodzajZadania.TabIndex = 9;
+            this.TextBoxEdytujRodzajZadania.Size = new System.Drawing.Size(183, 30);
+            this.TextBoxEdytujRodzajZadania.TabIndex = 3;
             this.TextBoxEdytujRodzajZadania.UseSelectable = true;
             this.TextBoxEdytujRodzajZadania.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.TextBoxEdytujRodzajZadania.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -269,30 +279,35 @@
             this.ButtonDodajZadanie.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonDodajZadanie.Name = "ButtonDodajZadanie";
             this.ButtonDodajZadanie.Size = new System.Drawing.Size(183, 52);
-            this.ButtonDodajZadanie.TabIndex = 12;
+            this.ButtonDodajZadanie.TabIndex = 9;
             this.ButtonDodajZadanie.Text = "Dodaj zadanie i zamknij";
             this.ButtonDodajZadanie.UseSelectable = true;
             this.ButtonDodajZadanie.Click += new System.EventHandler(this.ButtonDodajZadanie_Click);
             // 
             // ComboBoxRodzajZadania
             // 
+            this.ComboBoxRodzajZadania.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.ComboBoxRodzajZadania.FormattingEnabled = true;
             this.ComboBoxRodzajZadania.ItemHeight = 24;
-            this.ComboBoxRodzajZadania.Location = new System.Drawing.Point(226, 248);
+            this.ComboBoxRodzajZadania.Location = new System.Drawing.Point(226, 254);
             this.ComboBoxRodzajZadania.Name = "ComboBoxRodzajZadania";
             this.ComboBoxRodzajZadania.Size = new System.Drawing.Size(160, 30);
-            this.ComboBoxRodzajZadania.TabIndex = 14;
+            this.ComboBoxRodzajZadania.Style = MetroFramework.MetroColorStyle.Orange;
+            this.ComboBoxRodzajZadania.TabIndex = 0;
+            this.ComboBoxRodzajZadania.TabStop = false;
             this.ComboBoxRodzajZadania.UseSelectable = true;
             // 
             // CheckBoxInnyRodzaj
             // 
             this.CheckBoxInnyRodzaj.AutoSize = true;
-            this.CheckBoxInnyRodzaj.Location = new System.Drawing.Point(416, 224);
+            this.CheckBoxInnyRodzaj.Location = new System.Drawing.Point(410, 267);
             this.CheckBoxInnyRodzaj.Name = "CheckBoxInnyRodzaj";
             this.CheckBoxInnyRodzaj.Size = new System.Drawing.Size(50, 17);
-            this.CheckBoxInnyRodzaj.TabIndex = 15;
+            this.CheckBoxInnyRodzaj.Style = MetroFramework.MetroColorStyle.Orange;
+            this.CheckBoxInnyRodzaj.TabIndex = 2;
             this.CheckBoxInnyRodzaj.Text = "inny:";
             this.CheckBoxInnyRodzaj.UseSelectable = true;
+            this.CheckBoxInnyRodzaj.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CheckBoxInnyRodzaj_KeyDown);
             // 
             // ComboBoxWykonawca
             // 
@@ -301,26 +316,30 @@
             this.ComboBoxWykonawca.Location = new System.Drawing.Point(226, 309);
             this.ComboBoxWykonawca.Name = "ComboBoxWykonawca";
             this.ComboBoxWykonawca.Size = new System.Drawing.Size(160, 30);
-            this.ComboBoxWykonawca.TabIndex = 16;
+            this.ComboBoxWykonawca.Style = MetroFramework.MetroColorStyle.Orange;
+            this.ComboBoxWykonawca.TabIndex = 0;
+            this.ComboBoxWykonawca.TabStop = false;
             this.ComboBoxWykonawca.UseSelectable = true;
             // 
             // dateTimePickerData
             // 
+            this.dateTimePickerData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dateTimePickerData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerData.Location = new System.Drawing.Point(339, 379);
+            this.dateTimePickerData.Location = new System.Drawing.Point(378, 375);
             this.dateTimePickerData.Name = "dateTimePickerData";
-            this.dateTimePickerData.Size = new System.Drawing.Size(121, 22);
-            this.dateTimePickerData.TabIndex = 17;
+            this.dateTimePickerData.Size = new System.Drawing.Size(121, 24);
+            this.dateTimePickerData.TabIndex = 5;
             this.dateTimePickerData.Visible = false;
             // 
             // dateTimePickerTime
             // 
+            this.dateTimePickerTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dateTimePickerTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerTime.Location = new System.Drawing.Point(488, 379);
+            this.dateTimePickerTime.Location = new System.Drawing.Point(514, 375);
             this.dateTimePickerTime.Name = "dateTimePickerTime";
             this.dateTimePickerTime.ShowUpDown = true;
-            this.dateTimePickerTime.Size = new System.Drawing.Size(84, 22);
-            this.dateTimePickerTime.TabIndex = 18;
+            this.dateTimePickerTime.Size = new System.Drawing.Size(84, 24);
+            this.dateTimePickerTime.TabIndex = 6;
             this.dateTimePickerTime.Visible = false;
             // 
             // ButtonDodajKolejne
@@ -329,7 +348,7 @@
             this.ButtonDodajKolejne.Margin = new System.Windows.Forms.Padding(4);
             this.ButtonDodajKolejne.Name = "ButtonDodajKolejne";
             this.ButtonDodajKolejne.Size = new System.Drawing.Size(183, 52);
-            this.ButtonDodajKolejne.TabIndex = 19;
+            this.ButtonDodajKolejne.TabIndex = 8;
             this.ButtonDodajKolejne.Text = "Dodaj  kolejne zadanie";
             this.ButtonDodajKolejne.UseSelectable = true;
             this.ButtonDodajKolejne.Click += new System.EventHandler(this.ButtonDodajKolejne_Click);
@@ -337,14 +356,17 @@
             // CheckBoxTermin
             // 
             this.CheckBoxTermin.AutoSize = true;
-            this.CheckBoxTermin.Location = new System.Drawing.Point(226, 379);
+            this.CheckBoxTermin.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.CheckBoxTermin.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.CheckBoxTermin.Location = new System.Drawing.Point(226, 374);
             this.CheckBoxTermin.Name = "CheckBoxTermin";
-            this.CheckBoxTermin.Size = new System.Drawing.Size(68, 17);
+            this.CheckBoxTermin.Size = new System.Drawing.Size(91, 25);
             this.CheckBoxTermin.Style = MetroFramework.MetroColorStyle.Orange;
-            this.CheckBoxTermin.TabIndex = 20;
+            this.CheckBoxTermin.TabIndex = 4;
             this.CheckBoxTermin.Text = "wybierz";
             this.CheckBoxTermin.UseSelectable = true;
             this.CheckBoxTermin.CheckedChanged += new System.EventHandler(this.CheckBoxTermin_CheckedChanged);
+            this.CheckBoxTermin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CheckBoxTermin_KeyDown);
             // 
             // metroTile1
             // 
