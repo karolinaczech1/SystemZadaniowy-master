@@ -34,6 +34,9 @@ using ImageMagick;
 using System.Buffers.Text;
 using System.Web.UI;
 using System.Runtime.InteropServices.ComTypes;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using Type = System.Type;
 
 namespace WindowsFormsApp1
 {
@@ -734,7 +737,7 @@ namespace WindowsFormsApp1
                 }
     
 
-            }   
+            }                                                                                                                           
 
         }
         //do klikania w wiersze datagrid (zeby znikneła ramka, która sie pojawia przez kliknie tab)     
@@ -2722,27 +2725,108 @@ namespace WindowsFormsApp1
 
         /*------------------------------------------------ GENEROWANIE PDF ---------------------------------------------------*/
 
+        //EXCEL
+        public void ConvertToExcel(string filename)
+        {
+            //konwersja datagrid do tablicy dwuwymiarowej
+            string[,] arr2d = new string[metroGrid1.Rows.Count, metroGrid1.Columns.Count];
+            for(int x=0; x<Wszystkie_Zadania_Z_Bazy.Count; x++) //wiersze
+            {
+                for(int i=0; i<10; i++) //kolumny
+                {
+                    if (i == 0) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Id_zadania.ToString();
+                    else if (i == 1) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Priorytet.ToString();
+                    else if (i == 2) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Zadanie.ToString();
+                    else if (i == 3) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Rodzaj.ToString();
+                    else if (i == 4) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Wykonawca.ToString();
+                    else if (i == 5) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Data_dodania.ToString();
+                    else if (i == 6)
+                    {
+                        if (Wszystkie_Zadania_Z_Bazy[x].Termin != null && Wszystkie_Zadania_Z_Bazy[x].Termin != string.Empty)    arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Termin.ToString();
+                        else if (Wszystkie_Zadania_Z_Bazy[x].Termin == null || Wszystkie_Zadania_Z_Bazy[x].Termin == string.Empty) arr2d[x, i] = "bezterminowe";
+                    }
+                    else if (i == 7)
+                    {
+                        if (Wszystkie_Zadania_Z_Bazy[x].Status == true) arr2d[x, i] = "wykonane";
+                        else arr2d[x, i] = "niewykonane";
+                    }
+                    else if (i == 8)
+                    {
+                        if (Wszystkie_Zadania_Z_Bazy[x].Data_wykonania != null && Wszystkie_Zadania_Z_Bazy[x].Data_wykonania != string.Empty) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Data_wykonania.ToString();
+                        else if (Wszystkie_Zadania_Z_Bazy[x].Data_wykonania == null || Wszystkie_Zadania_Z_Bazy[x].Data_wykonania == string.Empty) arr2d[x, i] = "";
+                    }
+                    else if(i==9) arr2d[x, i] = Wszystkie_Zadania_Z_Bazy[x].Dodane_przez.ToString();
+                }
+            }
+
+            Excel.Application xlApp;
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;    
+            object misValue = System.Reflection.Missing.Value;
+            Excel.Range rangeToHoldHyperlink;
+            Excel.Range CellInstance;
+            xlApp = new Excel.Application();
+            xlWorkBook = xlApp.Workbooks.Add(misValue);              
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            xlApp.DisplayAlerts = false;
+            //Dummy initialisation to prevent errors.
+            rangeToHoldHyperlink = xlWorkSheet.get_Range("A1", Type.Missing);
+            CellInstance = xlWorkSheet.get_Range("A1", Type.Missing);
+
+            //column headers
+            for (int i = 0; i < metroGrid1.Columns.Count; i++)
+            {
+                xlWorkSheet.Cells[1 , i+1] = metroGrid1.Columns[i].HeaderText;   
+            }
+
+            //rows
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < Wszystkie_Zadania_Z_Bazy.Count; j++)
+                {
+                    xlWorkSheet.Cells[j + 2, i + 1] = arr2d[j, i];
+                }
+            }
+
+            //zapisanie
+            xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlWorkBook.Close();
+
+        }
+
+        private void ButtonGenerujCSV_Click(object sender, EventArgs e)
+        {
+            var fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+               
+                var sb = new StringBuilder();
+
+                var headers = metroGrid1.Columns.Cast<DataGridViewColumn>();
+                sb.AppendLine(string.Join(",", headers.Select(column => "\"" + column.HeaderText + "\"").ToArray()));
+
+                foreach (DataGridViewRow row in metroGrid1.Rows)
+                {
+                    var cells = row.Cells.Cast<DataGridViewCell>();
+                    sb.AppendLine(string.Join(",", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
+                }
+
+
+                File.WriteAllText(fbd.SelectedPath + "\\raport- "+DateTime.UtcNow.ToLocalTime().ToString("dd-MM-yyyy    ")+".csv", sb.ToString());
+
+            }
+            else MessageBox.Show("Nie wybrano miejsca zapisu pliku.");
+            
+        }
+        
 
         //posortowanie listy zadań wykonanych według daty zakończenia
         public List<Tasks> Sort(List<Tasks> lista)
         {
             List<Tasks> objListOrder = lista.OrderBy(order => Convert.ToDateTime(order.Data_wykonania)).ToList();
             return objListOrder;
-            
-            
-            //for(int i=0; i<lista.Count; i++)  
-            //{
-            //    for(int j=1; j<lista.Count; j++)
-            //    {
-            //        if(Convert.ToDateTime(lista[i].Data_wykonania) > Convert.ToDateTime(lista[j].Data_wykonania))
-            //        {
-            //            Tasks temp = lista[i];
-            //            lista[i] = lista[j];
-            //            lista[j] = temp;
-            //        }
-            //    }
-            //}
-
         }
       
         public void generujPDF_ps(string htmlMain, DateTime dod, DateTime ddo, string path, bool czy_owtorzyc)
@@ -3155,6 +3239,10 @@ namespace WindowsFormsApp1
         }
 
         
+
+
+
+
 
 
 
